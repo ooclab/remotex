@@ -54,6 +54,7 @@
 - RESTful HTTP , swagger doc
 - kong(api gateway)
 - vuejs
+- docker, ci/cd
 
 ## 团队协作
 
