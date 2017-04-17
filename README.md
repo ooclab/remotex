@@ -51,6 +51,7 @@
 
 - scrapy
 - elasticsearch
+- RESTful HTTP , swagger doc
 - vuejs
 
 ## 团队协作
