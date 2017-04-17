@@ -44,3 +44,9 @@
 - 微信: lijian_gnu
 - QQ: 314859638
 - 邮件: lijian.gnu@gmail.com / lijian@ooclab.com
+
+## 参考资料
+
+- [一早一晚](http://yizaoyiwan.com/)
+- [众包](https://zh.wikipedia.org/wiki/%E4%BC%97%E5%8C%85)
+- [外包](https://zh.wikipedia.org/wiki/%E5%A4%96%E5%88%A4)
