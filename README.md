@@ -45,6 +45,14 @@
 - QQ: 314859638
 - 邮件: lijian.gnu@gmail.com / lijian@ooclab.com
 
+## 技术堆栈
+
+目前了解，技术点暂时列一下：
+
+- scrapy
+- elasticsearch
+- vuejs
+
 ## 参考资料
 
 - [一早一晚](http://yizaoyiwan.com/)
