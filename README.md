@@ -2,8 +2,8 @@
 
 远程工作空间
 
-- [贡献者](contributors)
-- [idea](idea)
+- [贡献者](contributors.md)
+- [idea](idea.md)
 
 ## 倡议
 
