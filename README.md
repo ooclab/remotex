@@ -52,6 +52,7 @@
 - scrapy
 - elasticsearch
 - RESTful HTTP , swagger doc
+- kong(api gateway)
 - vuejs
 
 ## 团队协作
