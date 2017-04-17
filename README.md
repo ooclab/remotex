@@ -53,6 +53,11 @@
 - elasticsearch
 - vuejs
 
+## 团队协作
+
+- github
+- slack
+
 ## 参考资料
 
 - [一早一晚](http://yizaoyiwan.com/)
