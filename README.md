@@ -62,7 +62,7 @@
 ## 团队协作
 
 - github
-- slack
+- slack [invite link](http://t.cn/RXxTqF0)
 
 ## 参考资料
 
