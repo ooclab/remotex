@@ -1,5 +1,7 @@
 # remotex
 
+官网： [https://remotex.ooclab.org](https://remotex.ooclab.org)
+
 远程工作空间
 
 - [贡献者](contributors.md)
@@ -45,3 +47,33 @@
 - 微信: lijian_gnu
 - QQ: 314859638
 - 邮件: lijian.gnu@gmail.com / lijian@ooclab.com
+
+## 技术堆栈
+
+目前了解，技术点暂时列一下：
+
+- scrapy
+- elasticsearch
+- RESTful HTTP , swagger doc
+- kong(api gateway)
+- vuejs
+- docker, ci/cd
+
+## 团队协作
+
+- github
+- slack
+
+## 参考资料
+
+- [一早一晚](http://yizaoyiwan.com/)
+- [众包](https://zh.wikipedia.org/wiki/%E4%BC%97%E5%8C%85)
+- [外包](https://zh.wikipedia.org/wiki/%E5%A4%96%E5%88%A4)
+- 《大教堂和集市》
+- 《失控》
+- 《重来1》《重来2》
+
+## 推荐/建议/相似
+
+- https://remoteok.io/
+- yuancheng.work
