@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>[可远程办公] 饥人谷运营部招聘 设计实习生 &#8211; 远程.work</title>
+
+	<!-- General META -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!-- Semantic META -->
+	<meta name="description" content="职位描述学历：美院学生优先坐标：杭州时间：每周3天以上，弹性较强薪资福利：1.基本工资70元/天，奖金（根据需求量、需求难度、个人表现等）2.能力强，表现优异者可远程工作&nbsp; &nbsp;工作职责：1，负责饥人谷网站视觉设计、线上线下活动相关设计；2，与品牌相关的系列设计，如logo、公仔、礼品等；3，用设计美化完善工作各个细节，如办公环境的美化等。&nbsp;任职要求：1，热爱设计，热情">
+	<meta name="keywords" content="设计远程工作招聘">
+	<meta name="author" content="热前端团队">
+
+	<!-- Fav Icon -->
+	<link rel="dns-prefetch" href="//hm.baidu.com">
+	<link rel="dns-prefetch" href="//reqianduan.qiniudn.com">
+	<link rel="dns-prefetch" href="//fonts.useso.com">
+	<link rel="dns-prefetch" href="//a.disquscdn.com">
+	<link rel="dns-prefetch" href="//cdn.bootcss.com">
+	<link rel="dns-prefetch" href="//www.reqianduan.com">
+	<link rel="apple-touch-icon" href="http://yuancheng.work/wp-content/themes/yuancheng/img/apple-touch-icon.png">
+	<link rel="icon" href="http://yuancheng.work/wp-content/themes/yuancheng/img/favicon.ico">
+
+	<!--Application CSS Files-->
+	<link rel="stylesheet" href="http://yuancheng.work/wp-content/themes/yuancheng/css/base.min.css">
+	<link rel="stylesheet" href="http://yuancheng.work/wp-content/themes/yuancheng/style.css?ver=0.3.0">
+
+	<!-- HTML5 Shim -->
+    <!--[if lt IE 9]>
+    	<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    	<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="single single-post postid-56 single-format-standard comment-open">
+
+	<header class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+					<span class="sr-only">远程.work</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://yuancheng.work/" title="远程.work-远程工作招聘网站">远程.work</a>
+			</div>
+			<nav class="collapse navbar-collapse" id="navbar-collapse-1">
+				<ul class="nav navbar-nav col-sm-5 hidden-xs">
+					<form method="get" action="http://yuancheng.work/" role="search">
+						<div class="input-group input-group-transparent">
+							<span class="input-group-addon"> <i class="fa fa-search"></i></span>
+							<input type="text" name="s" class="form-control" placeholder="搜索远程工作"  autocomplete="off" spellcheck="false" autocorrect="false">
+						</div>
+					</form>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+	                
+	                <li><a href="http://yuancheng.work/signup" rel="nofollow">注册</a></li>
+	                <li><a href="http://yuancheng.work/signin" rel="nofollow">登录</a></li>
+
+	                	            </ul>
+		</nav>
+	</div>
+	</header>
+
+<div class="content">
+    <div class="job-viewer">
+        <div class="job-viewer-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="job-viewer-close" href="#"><i class="fa fa-arrow-left fa-lg"></i>&nbsp;&nbsp;返回</a>
+                    </div>
+                    <div class="col-md-8 col-lg-9">
+                        <h4 class="job-name">[可远程办公] 饥人谷运营部招聘 设计实习生</h4>
+                    </div>
+                    <div class="col-md-2 col-lg-1 hidden-sm hidden-xs text-right">
+                        <span class="job-created">6个月前</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-viewer-body">
+            <div class="container">
+                <div class="row">
+                    <div class="side col-md-2" style="display:block!important;border:none;">
+                        <div class="job-actions text-center">
+                            <a class="share" href='#modal-share' data-toggle="modal" title="分享" rel="nofollow">
+                                <i class="fa fa-share-alt"></i>
+                            </a>
+                            <a href='http://yuancheng.work/signin?redirect=http%3A%2F%2Fyuancheng.work%2F56.html' class=' bookmarks' data-action='bookmarks.add' data-id='56' data-symbol='0' title='添加到收藏' rel='nofollow'><i class="fa fa-star"></i></a>                                                    </div>
+                                                <div class="job-apply">
+                            <a class="btn btn-success btn-block btn-sm" href="http://www.lagou.com/jobs/1240348.html" target="_blank" rel="nofollow"><i class="fa fa-internet"></i> 在线申请</a>
+                        </div>
+                                            </div>
+                    <div class="main col-md-10" style="padding:0 15px;">
+                        <div class="job-detail">
+                            <p>职位描述</p>
+<p>学历：美院学生优先</p>
+<p>坐标：杭州</p>
+<p>时间：每周3天以上，弹性较强</p>
+<p>薪资福利：</p>
+<p>1.基本工资70元/天，奖金（根据需求量、需求难度、个人表现等）</p>
+<p>2.能力强，表现优异者可远程工作</p>
+<p>&nbsp; &nbsp;</p>
+<p>工作职责：</p>
+<p>1，负责饥人谷网站视觉设计、线上线下活动相关设计；</p>
+<p>2，与品牌相关的系列设计，如logo、公仔、礼品等；</p>
+<p>3，用设计美化完善工作各个细节，如办公环境的美化等。</p>
+<p>&nbsp;</p>
+<p>任职要求：</p>
+<p>1，热爱设计，热情有创造力，思维活跃，能推陈出新，用灵感来打造有品位的工作。</p>
+<p>1，善于沟通、合作，有较强的责任心，上进心，执行力强。<br />2，有美感，能熟练使用Photoshop等设计工具，如会视频制作者优先考虑。</p>
+<p>4，有丰富的创作经验，面试需携带作品（不限形式）。</p>
+<p>公司位于美丽的钱塘江岸，交通便捷，环境优美舒适，附近有各种娱乐配套，工作之余大家一起聊天，吃零食，组织活动，到江边散步。</p>
+<p>公司在14年11月成立，经过一年多的发展，已经取得了不错的成果。目前创始人从阿里离职，团队还在不断完善中，急需各行各业有想法，有能力，踏实靠谱的牛人加入我们，并肩作战。在饥人谷可能没有最好的待遇，但是会有最大的施展空间，多劳必定多得，表现出色会有期权股权奖励。</p>
+<p>&nbsp;</p>
+<p>公司简介：&nbsp;</p>
+<p>饥人谷教育科技有限公司是由百度、阿里巴巴、腾讯资深工程师联合创立，主要提供互联网前端技能在线培训，企业互联网技能内部培训。课程内容紧贴互联网公司日常工作实践，拥有最强大的BAT讲师团，所有讲师均为一线互联网公司专业经验极其丰富的在职工程师，教授互联网职位所需的最新，最实用的工作技能，更包括学习方法、思考方式、互联网公司的工程师文化，同时提供一条龙的就业指导服务。</p>
+                            <br>
+                            <h5>
+                                联系时请告知来自 <a href="http://yuancheng.work/"><b>远程.work</b></a>
+                            </h5>
+                        </div>
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+	<div class="footer">
+		<div class="container">
+			
+<div class="footer-links">
+	<a href="http://yuancheng.work/remote-frontend-jobs" class="">
+	    前端远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-python-jobs" class="">
+	    Python远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-php-jobs" class="">
+	    PHP远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-android-jobs" class="">
+	    Android远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-ios-jobs" class="">
+	    iOS远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-ruby-jobs" class="">
+	    Ruby远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-java-jobs" class="">
+	    Java远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-design-jobs" class="">
+	    设计远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-operation-jobs" class="">
+	    运营远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-nodejs-jobs" class="">
+	    Node.js远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-fullstack-jobs" class="">
+	    全栈远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-product-jobs" class="">
+	    产品远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-other-jobs" class="">
+	    其他远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-marketing-jobs" class="">
+	    市场远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-devops-jobs" class="">
+	    运维远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-csharp-jobs" class="">
+	    C#远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-testing-jobs" class="">
+	    测试远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-architecture-jobs" class="">
+	    架构远程工作招聘	</a>
+	<a href="http://yuancheng.work/remote-c-jobs" class="">
+	    C++远程工作招聘	</a>
+</div>			
+<div class="footer-inner">
+	<p><a class="btn btn-success btn-block btn-sm" href="http://yuancheng.work/create"><i class="fa fa-publish"></i>&nbsp;发布远程工作&nbsp;¥399</a></p>
+	<p class="text-muted">远程.work-远程工作招聘网站</p>
+	<p class="text-muted">©2016 <a href="http://yuancheng.work/">远程.work</a></p>
+</div>		</div>
+    </div>
+
+    
+<div class="modal fade" id="modal-share">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">分享</h4>
+			</div>
+			<div class="modal-body">
+				<div class="share-links">
+					<a target='_blank' rel='nofollow' href='http://service.weibo.com/share/share.php?appkey=1153047828&url=http://yuancheng.work/56.html&title=[可远程办公] 饥人谷运营部招聘 设计实习生' title='分享到新浪微博'><i class='fa fa-weibo'></i>&nbsp;&nbsp;分享到新浪微博</a>
+					<a target='_blank' rel='nofollow' href='http://connect.qq.com/widget/shareqq/index.html?url=http://yuancheng.work/56.html&title=[可远程办公] 饥人谷运营部招聘 设计实习生&desc=职位描述 学历：美院学生优先 坐标：杭州 时间：每周3天以上，弹性较强 薪资福利： 1.基本工资70元/天，奖 [&amp;hellip;]' title='分享到腾讯QQ'><i class='fa fa-qq'></i>&nbsp;&nbsp;分享到QQ</a>
+					<a target='_blank' rel='nofollow' href='https://www.facebook.com/sharer/sharer.php?u=http://yuancheng.work/56.html' title='分享到facebook'><i class='fa fa-facebook'></i>&nbsp;&nbsp;分享到facebook</a>
+					<a target='_blank' rel='nofollow' href='https://twitter.com/intent/tweet?text=[可远程办公] 饥人谷运营部招聘 设计实习生&url=http://yuancheng.work/56.html' title='分享到twitter'><i class='fa fa-twitter'></i>&nbsp;&nbsp;分享到twitter</a>
+					<a target='_blank' rel='nofollow' href='https://plus.google.com/share?url=http://yuancheng.work/56.html' title='分享到Google+'><i class='fa fa-google-plus'></i>&nbsp;&nbsp;分享到Google+</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+		window.reqianduan = {
+			home    : 'http://yuancheng.work',
+		    uri     : 'http://yuancheng.work/wp-content/themes/yuancheng',
+		    version : '0.3.0'
+		};
+	</script>
+	<script src="http://yuancheng.work/wp-content/themes/yuancheng/js/loader.min.js?ver=0.3.0"></script>
+
+	<!-- baidu -->
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?5af34ac7c0993f027ccd840c290bb29c";
+		  var s = document.getElementsByTagName("script")[0];
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	<!-- getsitecontrol -->
+	<script>
+	  (function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
+	    t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
+	  })(window, document, '_gscq','script','//widgets.getsitecontrol.com/17601/script.js');
+	</script>
+
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"7cb0991391","applicationID":"31914303","transactionName":"YVxSYEpVVkFRBkQMWVgWcVdMXVdcHxZZC1FaXA==","queueTime":2,"applicationTime":111,"atts":"TRtRFgJPRU8=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
