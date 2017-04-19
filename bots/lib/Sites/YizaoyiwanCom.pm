@@ -1,14 +1,14 @@
-package Sites::YuanchenWork;
+package Sites::YizaoyiwanCom;
 use utf8;
 use Mojo::Base 'Sites';
 use Agent;
 use Common qw/clean_text str2date Dumper is_utf8 encode decode/;
 
 has max_page_number   => 99;
-has uniq_prefix       => 'yuanchen_work';
+has uniq_prefix       => 'yizaoyiwan_com';
 has start_page_number => 1;
 has ua                => sub { Agent->new };
-has url               => 'http://yuancheng.work/page/1';
+has url               => 'http://yizaoyiwan.com/categories/employer';
 
 sub go {
     my $self      = shift;
@@ -24,22 +24,27 @@ sub go {
         return \@items unless $tx->success;
         my $dom = $tx->res->dom;
 
-        $dom->find('li[class="list-group-item "]')->each(
+        $dom->find('li[class="discussion list-group-item"]')->each(
             sub {
                 my $e    = shift;
                 my $item = {};
-                $item->{title} = clean_text( $e->find('h4')->first->text );
-                $item->{url}   = $e->find('a[class="list-group-item-body"]')->first->attr('href');
-                $e->find('a[class^="label"]')->each(
-                    sub {
-                        my $e = shift;
-                        push @{ $item->{tags} }, clean_text( $e->all_text );
-                    }
-                );
 
-                $item->{date_str} = $e->find('span[class="date"]')->first->text;
-                $item->{date}     = str2date( $item->{date_str} );
-                ( $item->{uniq_id} ) = $item->{url} =~ /(\d+)\.html/;
+                my $title = $e->find('div[class="media-heading"] > a')->first;
+                if ($title) {
+                    $item->{title} = clean_text( $title->text );
+                    $item->{url}   = $title->attr('href');
+                    if ( $item->{url} ) {
+                        my $url = Mojo::URL->new( $item->{url} );
+                        unless ( $url->is_abs ) {
+                            $item->{url} = $url->to_abs( Mojo::URL->new( $self->url ) )->to_string;
+                        }
+                    }
+                }
+
+                $item->{date}     = $e->find('time[class="timeago"]')->first->attr('datetime');
+                $item->{date_str} = $item->{date};
+
+                ( $item->{uniq_id} ) = $item->{url} =~ /(\d+)$/;
                 $item->{uniq_id} = sprintf '%s_%s', $self->uniq_prefix, $item->{uniq_id};
 
                 $item = $self->parse_content($item);
@@ -63,8 +68,10 @@ sub parse_content {
 
     my $content_dom = $self->ua->get_cache_url( $item->{url} );
 
-    $item->{content} = clean_text( $content_dom->find('div[class="job-detail"]')->first->all_text );
-    #$item->{content} = decode( 'utf8', $item->{content} ) if is_utf8( $item->{content } );
+    $item->{content} = clean_text( $content_dom->find('div[class="post-content"]')->first->all_text );
+    $item->{reads}   = clean_text( $content_dom->find('div[class="media-meta text-muted"]')->first->all_text );
+
+    ( $item->{reads} ) = $item->{reads} =~ /(\d+)\s*次阅读/;
 
     return $item;
 }
@@ -73,7 +80,7 @@ sub parse_next_url {
     my $self = shift;
     my $dom  = shift;
 
-    my $url = $dom->find('li[class="next-page"] > a')->first;
+    my $url = $dom->find('a[rel="next"]')->first;
     return unless $url;
     return $url->attr('href');
 }

@@ -5,7 +5,7 @@ use Carp qw/carp croak/;
 use Data::Dumper qw/Dumper/;
 use Digest::MD5 qw/md5_hex/;
 
-use Encode 'find_encoding';
+use Encode qw/find_encoding encode decode is_utf8/;
 use Exporter 'import';
 use Time::HiRes ();
 use DateTime;
@@ -19,7 +19,7 @@ use JSON qw/to_json from_json/;
 
 use constant MONOTONIC => eval { !!Time::HiRes::clock_gettime( Time::HiRes::CLOCK_MONOTONIC() ) };
 
-our @EXPORT_OK = ( qw/crap croak/, qw/Dumper/, qw/md5_hex/, qw/find_encoding/, qw/url_escape url_unescape/, qw/to_json from_json/, qw/slurp_file url2file url2path clean_text/, qw/str2date/ );
+our @EXPORT_OK = ( qw/crap croak/, qw/Dumper/, qw/md5_hex/, qw/find_encoding encode decode is_utf8/, qw/url_escape url_unescape/, qw/to_json from_json/, qw/slurp_file url2file url2path clean_text/, qw/str2date/, qw/config/ );
 
 #our @EXPORT = @EXPORT_OK;
 
@@ -84,7 +84,7 @@ sub slurp_file {
     my $file = shift;
     return unless -e $file;
 
-    my $mf = Mojo::File->new( $file );
+    my $mf = Mojo::File->new( $file ); #, '<:encoding(UTF-8)' );
     return $mf ->slurp;
 }
 
@@ -99,7 +99,7 @@ sub config {
 }
 
 sub root {
-    state $root_path = path(__FILE__)->absolute->parent;
+    state $root_path = path(__FILE__)->absolute->parent->parent;
     return path( $root_path, @_ );
 }
 
