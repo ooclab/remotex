@@ -4,7 +4,7 @@
 
 远程工作空间
 
-- [架构设计](design/remotex-arch.md)
+- [架构设计](docs/design/remotex-arch.md)
 - [贡献者](contributors.md)
 - [idea](idea.md)
 - [mvp](mvp.md)
