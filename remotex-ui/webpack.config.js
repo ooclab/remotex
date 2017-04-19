@@ -14,7 +14,9 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          // vue-loader options go here
+          loaders: {
+          }
+          // other vue-loader options go here
         }
       },
       {
@@ -24,29 +26,28 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'vue-style-loader!css-loader'
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
+        test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
-        query: {
+        options: {
           name: '[name].[ext]?[hash]'
         }
-      }
+      },
     ]
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue'
+      'vue$': 'vue/dist/vue.esm.js'
     }
   },
   devServer: {
     historyApiFallback: true,
     noInfo: true
+  },
+  performance: {
+    hints: false
   },
   devtool: '#eval-source-map'
 }
@@ -61,6 +62,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       compress: {
         warnings: false
       }
