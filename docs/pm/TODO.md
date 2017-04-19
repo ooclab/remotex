@@ -23,8 +23,9 @@
 
 @mccheung 暂时负责协调
 
-- [ ] 一早一晚 @mccheung
-- [ ] 码市
+- [√] 一早一晚 @mccheung
+- [√] 码市  @mccheung
+- [√] 远程.work  @mccheung
 - [ ] 实现网
 - [ ] V2EX
 - [ ] V2MM
