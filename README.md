@@ -5,6 +5,7 @@
 远程工作空间
 
 - [架构设计](docs/design/remotex-arch.md)
+- [项目管理](docs/pm/TODO.md)
 - [贡献者](contributors.md)
 - [idea](idea.md)
 - [mvp](mvp.md)
