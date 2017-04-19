@@ -14,7 +14,6 @@ use Path::Tiny qw/path/;
 
 use Mojo::File;
 
-
 use JSON qw/to_json from_json/;
 
 use constant MONOTONIC => eval { !!Time::HiRes::clock_gettime( Time::HiRes::CLOCK_MONOTONIC() ) };
@@ -48,34 +47,34 @@ sub clean_text {
 sub str2date {
     my $date = shift;
     return unless $date;
-    my ( $day ) = $date =~ /(\d+)/;
+    my ($day) = $date =~ /(\d+)/;
     return unless $day;
 
     $day *= 30 if $day =~ /月前/;
-    $day *= 30 * 12  if $day =~ /年前/;
+    $day *= 30 * 12 if $day =~ /年前/;
 
-    return now()->subtract( days => $day )->strftime( '%Y-%m-%d' );
+    return now()->subtract( days => $day )->strftime('%Y-%m-%d') if $date =~ /前/;
+    return $day;
 }
 
 sub now {
     return DateTime->now( time_zone => 'Asia/Shanghai' );
 }
 
-
 sub url2path {
     my $url = shift;
     return unless $url;
 
-    my $url_md5 = md5_hex( $url );
-    
-    my $dir = join( '/', (map { substr $url_md5, 0, $_ } qw/2 4 6 8/ ) );
+    my $url_md5 = md5_hex($url);
+
+    my $dir = join( '/', ( map { substr $url_md5, 0, $_ } qw/2 4 6 8/ ) );
     my $cache_path = config()->{cache_path} || 'caches';
     return sprintf '%s/%s/%s/%s', root(), $cache_path, $dir, $url_md5;
 }
 
 sub url2file {
-    my $url = shift;
-    my $path = url2path( $url );
+    my $url  = shift;
+    my $path = url2path($url);
     return unless $path;
     return sprintf '%s/orig.html', $path;
 }
@@ -84,18 +83,18 @@ sub slurp_file {
     my $file = shift;
     return unless -e $file;
 
-    my $mf = Mojo::File->new( $file ); #, '<:encoding(UTF-8)' );
-    return $mf ->slurp;
+    my $mf = Mojo::File->new($file);    #, '<:encoding(UTF-8)' );
+    return $mf->slurp;
 }
 
 sub config {
-   state $config;
-   return $config if $config;
-    
-   my $conf = sprintf '%s/%s/%s', root(), 'conf', 'main.yaml';
-   return {} unless -e $conf;
-   $config = LoadFile( $conf );
-   return $config;
+    state $config;
+    return $config if $config;
+
+    my $conf = sprintf '%s/%s/%s', root(), 'conf', 'main.yaml';
+    return {} unless -e $conf;
+    $config = LoadFile($conf);
+    return $config;
 }
 
 sub root {
