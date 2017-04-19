@@ -33,8 +33,23 @@ remotex 项目数据爬虫,  使用perl( 5.24.0 ).
 相关方法可以放到 crontab 里
 
 
-## TOTO
+## TODO
 - 建立数据库表
 - 返回数据存数据库
+
+## Bots List
+- <del>[远程.work](http://yuancheng.work/)</del> [√]
+- <del>[一早一晚](http://yizaoyiwan.com/categories/employer)</del>   [√]
+- <del>[SegmentFault 招聘](http://yizaoyiwan.com/categories/employer)</del>( 无数据 )
+- <del>[码市](https://mart.coding.net/)</del> [√]
+- [大鲲](https://pro.lagou.com/)
+- [英选](https://www.linktion.cn/)
+- [程序员客栈](https://www.proginn.com/)
+- [厘米脚印](http://www.limijiaoyin.com/)
+- [实现网](http://shixian.com/)
+- [小圆桌](http://xiaoyuanzhuo.com/)
+- [自由人](http://www.freemancn.com/)
+- [有轻功](http://www.youqinggong.com/)
+- [云沃客](https://www.clouderwork.com/)
 
 
