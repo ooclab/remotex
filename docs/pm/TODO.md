@@ -21,11 +21,11 @@
 
 ## 数据挖掘
 
-@mccheung 暂时负责协调
+@p9s 暂时负责协调
 
-- [x] 一早一晚 @mccheung
-- [x] 码市  @mccheung
-- [x] 远程.work  @mccheung
+- [x] 一早一晚 @p9s
+- [x] 码市  @p9s
+- [x] 远程.work  @p9s
 - [ ] 实现网
 - [ ] V2EX
 - [ ] V2MM
