@@ -17,7 +17,7 @@ class JobItem(scrapy.Item):
     
     # http://coding.net =>  coding_net_123  其中 123 是每个 item 的 id 
     uniq_id = scrapy.Field()
-   
+    
     # 计算之后的发布日期
     date = scrapy.Field()
 
