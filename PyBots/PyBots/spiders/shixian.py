@@ -67,8 +67,6 @@ class ShixianSpider(scrapy.Spider):
             tags.append(tag)
         item['tags'] = tags
         return item
-<<<<<<< HEAD
-=======
 
     def str2date(self, date_str):
         if re.search('\d+',date_str):
@@ -87,4 +85,3 @@ class ShixianSpider(scrapy.Spider):
             ts = time.time()
        
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts))
->>>>>>> 568f4fa70816c9dddfa24a1743c5c0f0adc158bf
