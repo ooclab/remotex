@@ -13,7 +13,8 @@
 @gwind 暂时负责协调
 
 - [ ] Kong API Gateway @gwind
-
+- [ ] 创建数据库
+ 
 ### 微服务
 
 - [ ] User (用户及认证) @gwind
@@ -26,6 +27,6 @@
 - [x] 一早一晚 @p9s
 - [x] 码市  @p9s
 - [x] 远程.work  @p9s
-- [ ] 实现网
-- [ ] V2EX
+- [x] 实现网 @xsren
+- [ ] V2EX  @p9s
 - [ ] V2MM
