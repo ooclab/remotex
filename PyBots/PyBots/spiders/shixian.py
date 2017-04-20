@@ -1,4 +1,4 @@
-#coding:utf8
+# -*- coding: utf-8 -*-
 import scrapy
 from PyBots.items import JobItem
 
@@ -52,7 +52,7 @@ class ShixianSpider(scrapy.Spider):
         item = JobItem()
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
         item['url'] = response.url
-        item['uniq_id'] = response.url.split('/')[-1]
+        item['uniq_id'] = '{}_{}'.format( 'shixian_com', response.url.split('/')[-1] )
         item['date_str'] = response.xpath('//small[@class="time"]/text()').extract_first().strip()
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])
         item['reads'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])

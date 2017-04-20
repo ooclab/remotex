@@ -10,7 +10,6 @@ import scrapy
 
 class JobItem(scrapy.Item):
     # define the fields for your item here like:
-<<<<<<< HEAD
     # name = scrapy.Field()
     
     title = scrapy.Field()
