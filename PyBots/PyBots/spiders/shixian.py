@@ -2,7 +2,7 @@
 import scrapy
 from PyBots.items import JobItem
 import re
-import time
+from datetime import datetime, timedelta
 
 class ShixianSpider(scrapy.Spider):
     name = "shixian"
@@ -71,17 +71,18 @@ class ShixianSpider(scrapy.Spider):
     def str2date(self, date_str):
         if re.search('\d+',date_str):
             num = int(re.search('\d+',date_str).group())
+        now = datetime.now()
         if u'分钟' in date_str:
-            ts = time.time() - num*60
+            dt = now - timedelta(minutes=num)
         elif u'小时' in date_str:
-            ts = time.time() - num*60*60
+            dt = now - timedelta(hours=num)
         elif u'天' in date_str:
-            ts = time.time() - num*60*60*24
+            dt = now - timedelta(days=num)
         elif u'月' in date_str:
-            ts = time.time() - num*60*60*24*30
+            dt = now - timedelta(days=num*30)
         elif u'年' in date_str:
-            ts = time.time() - num*60*60*24*30*12
+            dt = now - timedelta(days=num*365)
         else:
-            ts = time.time()
+            dt = now
        
-        return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts))
+        return dt.isoformat('T') + 'Z'
