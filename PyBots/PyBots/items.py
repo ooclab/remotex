@@ -8,8 +8,9 @@
 import scrapy
 
 
-class PybotsItem(scrapy.Item):
+class JobItem(scrapy.Item):
     # define the fields for your item here like:
+<<<<<<< HEAD
     # name = scrapy.Field()
     
     title = scrapy.Field()
@@ -22,7 +23,7 @@ class PybotsItem(scrapy.Item):
     date = scrapy.Field()
 
     # 3 天之前, 之类的
-    date_str = scrapy.Field()
+    date_str = scrapy.Field(serializer=str)
     
     # 价格 
     price = scrapy.Field()

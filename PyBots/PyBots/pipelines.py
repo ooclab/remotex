@@ -7,5 +7,11 @@
 
 
 class PybotsPipeline(object):
+    
+    def __init__(self):
+        pass
+
     def process_item(self, item, spider):
+        print item
+        # 此处以后可以添加插入数据库的操作
         return item
