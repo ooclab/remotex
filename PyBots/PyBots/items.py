@@ -13,7 +13,7 @@ class JobItem(scrapy.Item):
     title = scrapy.Field()
     url = scrapy.Field()
     uniq_id = scrapy.Field()
-    date = scrapy.Field()# 实现网没有
+    date = scrapy.Field()
     date_str = scrapy.Field(serializer=str)
     price = scrapy.Field()
     reads = scrapy.Field()

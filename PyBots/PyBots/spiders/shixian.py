@@ -1,6 +1,8 @@
 #coding:utf8
 import scrapy
 from PyBots.items import JobItem
+import re
+import time
 
 class ShixianSpider(scrapy.Spider):
     name = "shixian"
@@ -26,7 +28,6 @@ class ShixianSpider(scrapy.Spider):
 
     def parse(self, response):
         if 'jobs'in response.url:
-            self.parse_detail(response)
             item = self.parse_detail(response)
             yield item
         else:
@@ -50,10 +51,12 @@ class ShixianSpider(scrapy.Spider):
 
     def parse_detail(self, response):
         item = JobItem()
+        #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布 
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
         item['url'] = response.url
         item['uniq_id'] = response.url.split('/')[-1]
         item['date_str'] = response.xpath('//small[@class="time"]/text()').extract_first().strip()
+        item['date'] = self.str2date(item['date_str'])
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])
         item['reads'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
         item['content'] = ''.join(response.xpath('//div[@class="content"]/p/text()').extract()).strip()
@@ -64,3 +67,21 @@ class ShixianSpider(scrapy.Spider):
             tags.append(tag)
         item['tags'] = tags
         return item
+
+    def str2date(self, date_str):
+        if re.search('\d+',date_str):
+            num = int(re.search('\d+',date_str).group())
+        if u'分钟' in date_str:
+            ts = time.time() - num*60
+        elif u'小时' in date_str:
+            ts = time.time() - num*60*60
+        elif u'天' in date_str:
+            ts = time.time() - num*60*60*24
+        elif u'月' in date_str:
+            ts = time.time() - num*60*60*24*30
+        elif u'年' in date_str:
+            ts = time.time() - num*60*60*24*30*12
+        else:
+            ts = time.time()
+       
+        return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts))
