@@ -17,8 +17,8 @@ class ShixianSpider(scrapy.Spider):
     def start_requests(self):
         cities = ['beijing','shanghai','shenzhen','hangzhou','guangzhou','chengdu','nanjing','xian','hubei','xiamen','shandong','suzhou','zhengzhou','fuzhou','changsha','chongqing','tianjin','ningbo','remote','qita']
         jobs = ['ios','android','ui','frontend','backend','pm','operator','tester','full_stack','others']
-        cities = ['beijing']
-        jobs = ['ios']
+        # cities = ['beijing']
+        # jobs = ['ios']
         for city in cities:
             for job in jobs:
                 url = 'https://shixian.com/job/%s?filter=last&territory=%s'%(city,job)
