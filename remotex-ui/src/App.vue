@@ -1,12 +1,31 @@
 <template>
   <div id="app">
-    <mu-appbar title="Remotex - 自由汇聚于此"></mu-appbar>
-    <div style="">
+
+    <!-- part 1 顶部 -->
+    <mu-appbar title="Remotex - 自由汇聚于此">
+
+      <!-- Slack icon -->   
+      <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ">
+        <img src="./assets/Slack.png" />
+      </mu-icon-button>
+
+      <!-- GitHub icon -->
+      <mu-icon-button slot="right" href="https://github.com/ooclab/remotex">
+        <img style="width:24px; height:24px;" src="./assets/GitHub.png" />
+      </mu-icon-button>
+    </mu-appbar>
+
+    <!-- part 2 搜索栏 -->
+    <div>
       <mu-text-field style="width:60%;" hintText="输入关键词"/>
       <mu-flat-button label="搜索" class="demo-flat-button" icon="search" primary/>
     </div>
+
+    <!-- part 3 类目栏 -->
     <div>
       <mu-raised-button style="width:40%; margin: 5px 5px 5px 0;" @click="openBottomSheet1" label="平台" icon="assignment_turned_in"/>
+
+      <!-- 平台 -->
       <mu-bottom-sheet :open="bottomSheet1" @close="closeBottomSheet1">
         <mu-list @itemClick="closeBottomSheet1" style="height:200px">
           <mu-sub-header>
@@ -17,6 +36,8 @@
           <mu-list-item title="远程工作"/>
         </mu-list>
       </mu-bottom-sheet>
+
+      <!-- 角色 -->
       <mu-raised-button style="width:40%; margin: 5px 0 5px 5px;" @click="openBottomSheet2" label="角色" icon="build"/>
       <mu-bottom-sheet :open="bottomSheet2" @close="closeBottomSheet2">
         <mu-list @itemClick="closeBottomSheet2" style="height:240px">
@@ -34,6 +55,8 @@
           <mu-list-item title="运营"/>
         </mu-list>
       </mu-bottom-sheet>
+
+      <!-- 工作 -->
       <mu-raised-button style="width:40%; margin: 5px 5px 5px 0;" @click="openBottomSheet3" label="工作" icon="devices"/>
       <mu-bottom-sheet :open="bottomSheet3" @close="closeBottomSheet3">
         <mu-list @itemClick="closeBottomSheet3" style="height:240px">
@@ -47,6 +70,8 @@
           <mu-list-item title="咨询"/>
         </mu-list>
       </mu-bottom-sheet>
+
+      <!-- 城市 -->
       <mu-raised-button style="width:40%; margin: 5px 0 5px 5px;" @click="openBottomSheet4" label="城市" icon="location_city"/>
       <mu-bottom-sheet :open="bottomSheet4" @close="closeBottomSheet4">
         <mu-list @itemClick="closeBottomSheet4" style="height:240px">
@@ -68,6 +93,8 @@
         </mu-list>
       </mu-bottom-sheet>
     </div>
+
+    <!-- part 4 排序栏 -->
     <div>
       <mu-tabs style="background:#424242;">
         <mu-tab style="color: #616161;" value="tab1" title="热门机会"/>
@@ -75,10 +102,16 @@
         <mu-tab style="color: #BDBDBD;" value="tab3" title="高薪报酬"/>
       </mu-tabs>
     </div>
+
+    <!-- part 5 列表栏 -->
     <div >
       <mu-list>
           <mu-list-item>
+
+            <!-- 循环体 -->
             <li v-for="item in list" class="page-infinite-listitem">
+
+              <!-- 卡片 -->
               <mu-card style="margin: 10px 0 10px 0;">
                 <mu-card-title :title="item.title" :subTitle="item.source"/>
                 <mu-card-text>
@@ -103,7 +136,6 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       bottomSheet1: false,
       bottomSheet2: false,
       bottomSheet3: false,
