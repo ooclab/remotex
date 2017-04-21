@@ -2,16 +2,16 @@
   <div id="app">
 
     <!-- part 1 顶部 -->
-    <mu-appbar title="Remotex - 自由汇聚于此">
+    <mu-appbar title="RemoteX - 自由汇聚于此">
 
       <!-- Slack icon -->   
       <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ">
-        <img src="./assets/Slack.png" />
+        <img style="width:24px; height:24px;" src="./assets/Slack_White.png" />
       </mu-icon-button>
 
       <!-- GitHub icon -->
       <mu-icon-button slot="right" href="https://github.com/ooclab/remotex">
-        <img style="width:24px; height:24px;" src="./assets/GitHub.png" />
+        <img style="width:24px; height:24px;" src="./assets/GitHub_White.png" />
       </mu-icon-button>
     </mu-appbar>
 
@@ -96,35 +96,33 @@
 
     <!-- part 4 排序栏 -->
     <div>
-      <mu-tabs style="background:#424242;">
+      <!--<mu-tabs style="background:#424242;">-->
+      <mu-tabs style="background:#ededed; margin-top: 10px;">
         <mu-tab style="color: #616161;" value="tab1" title="热门机会"/>
         <mu-tab style="color: #616161;" value="tab2" title="最新发布"/>
-        <mu-tab style="color: #BDBDBD;" value="tab3" title="高薪报酬"/>
+        <!--<mu-tab style="color: #BDBDBD;" value="tab3" title="高薪报酬"/>-->
+        <mu-tab style="color: #F5193E;" value="tab3" title="高薪报酬"/>
       </mu-tabs>
     </div>
 
     <!-- part 5 列表栏 -->
     <div >
       <mu-list>
-          <mu-list-item>
-
-            <!-- 循环体 -->
-            <li v-for="item in list" class="page-infinite-listitem">
-
-              <!-- 卡片 -->
-              <mu-card style="margin: 10px 0 10px 0;">
-                <mu-card-title :title="item.title" :subTitle="item.source"/>
-                <mu-card-text>
-                  {{ item.text }}
-                </mu-card-text>
-                <mu-card-actions style="display: flex;">
-                  <p style="width: 33%">已发布 <b>{{ item.release }}</b> 天</p>
-                  <p style="width: 33%">浏览 <b>{{ item.views }}</b> 次</p>
-                  <p style="width: 33%">将于 <b>{{ item.expire }}</b> 天后过期</p>
-                </mu-card-actions>
-              </mu-card>
-            </li>
-          </mu-list-item>
+        <!-- 循环体 -->
+        <template v-for="item in list" class="page-infinite-listitem">
+          <!-- 卡片 -->
+          <mu-card style="margin: 10px 0 10px 0;">
+            <mu-card-title :title="item.title" :subTitle="item.source"/>
+            <mu-card-text>
+              {{ item.text }}
+            </mu-card-text>
+            <mu-card-actions style="display: flex;">
+              <p style="width: 33%">已发布 <b>{{ item.release }}</b> 天</p>
+              <p style="width: 33%">浏览 <b>{{ item.views }}</b> 次</p>
+              <p style="width: 33%">将于 <b>{{ item.expire }}</b> 天后过期</p>
+            </mu-card-actions>
+          </mu-card>
+        </template>
       </mu-list>
     </div>
     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
