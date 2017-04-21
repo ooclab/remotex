@@ -5,8 +5,8 @@ from .spider import views as spider_views
 
 handlers = [
     # public api
-    url(r'/jobx/article', public_views.ArticleHandler),
+    url(r'/jobx/job', public_views.JobHandler),
 
     # spider api
-    url(r'/spider/jobx/article', spider_views.ArticleHandler),
+    url(r'/spider/jobx/job', spider_views.JobHandler),
 ]
