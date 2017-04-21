@@ -1,6 +1,6 @@
 # remotex
 
-[![slack_logo](docs/imgs/slack_log.png)](http://t.cn/RXxTqF0)
+[![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
 
 官网： [https://remotex.ooclab.org](https://remotex.ooclab.org)
 
