@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- part 1 顶部 -->
-    <mu-appbar title="RemoteX - 快乐工作 认真生活">
+    <mu-appbar title="RemoteX 快乐工作 认真生活">
 
       <!-- Slack icon -->   
       <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ">
@@ -112,20 +112,37 @@
         <template v-for="item in list" class="page-infinite-listitem">
           <!-- 卡片 -->
           <mu-card style="margin: 10px 0 10px 0;">
-            <mu-card-title :title="item.title" :subTitle="item.source"/>
+            <mu-card-title :title="item.title" :subTitle="item.url"/>
+            <mu-card-actions v-if="item.categories" style="display: flex;">
+              <template v-for="category in item.categories">
+                <mu-chip class="demo-chip" style="margin-left: 5px;">
+                  {{ category.name }}
+                </mu-chip>
+              </template>
+            </mu-card-actions>
             <mu-card-text>
-              {{ item.text }}
+              {{ item.body }}
             </mu-card-text>
             <mu-card-actions style="display: flex;">
-              <p style="width: 33%">已发布 <b>{{ item.release }}</b> 天</p>
-              <p style="width: 33%">浏览 <b>{{ item.views }}</b> 次</p>
-              <p style="width: 33%">将于 <b>{{ item.expire }}</b> 天后过期</p>
+              <p>报酬&nbsp;<b>{{ item.price }}</b>&nbsp;元</p>
+            </mu-card-actions>
+            <mu-card-actions style="display: flex;">
+
+            <!-- 暂无用户注册及评论功能
+              <mu-flat-button :label="item.vote_up" class="demo-flat-button" icon="thumb_up"/>
+              <mu-flat-button :label="item.vote_down" class="demo-flat-button" icon="thumb_down"/>
+            -->
+
+              <p style="width: 33%">已发布&nbsp;<b>{{ item.release_date }}</b>&nbsp;天</p>
+              <p style="width: 33%">浏览&nbsp;<b>{{ item.view_count }}</b>&nbsp;次</p>
+              <p style="width: 33%">将于&nbsp;<b>{{ item.expire_date }}</b>&nbsp;天后过期</p>
             </mu-card-actions>
           </mu-card>
         </template>
       </mu-list>
     </div>
     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+    <p>总数 {{ total }}</p>
   </div>
 </template>
 
@@ -144,71 +161,74 @@ export default {
       {
         title: '「数码荔枝 lizhi.io」前端工程师',
         price: '7 ~ 10 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
+        body: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
         release: 12,
-        views: 155,
+        view_count: 155,
         expire: 8
       },
       {
         title: '薪传文化招福利向漫画主笔',
         price: '7 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
+        body: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
         release: 2,
-        views: 52,
+        view_count: 52,
         expire: 18
       },
       {
         title: 'Java /前端工程师招聘',
         price: '15 ~ 20 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
+        body: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
         release: 10,
-        views: 35,
+        view_count: 35,
         expire: 10
       },
       {
         title: '「数码荔枝 lizhi.io」前端工程师',
         price: '7 ~ 10 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
+        body: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
         release: 12,
-        views: 155,
+        view_count: 155,
         expire: 8
       },
       {
         title: '薪传文化招福利向漫画主笔',
         price: '7 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
+        body: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
         release: 2,
-        views: 52,
+        view_count: 52,
         expire: 18
       },
       {
         title: 'Java /前端工程师招聘',
         price: '15 ~ 20 K',
-        source: 'yuancheng.work',
+        url: 'yuancheng.work',
         tags: ['前端'],
-        text: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
+        body: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
         release: 10,
-        views: 35,
+        view_count: 35,
         expire: 10
       }],
       num: 10,
       loading: false,
-      scroller: null
+      scroller: null,
+      total: 0
     }
   },
   beforeMount() {
     Vue.http.get('https://remotex.ooclab.org/api/jobx/job').then(response => {
-      console.log(response)
+      console.log(response.data.data)
+      this.list = response.data.data
+      this.total = response.data.total
     }, response => {
       console.log('error')
     })
