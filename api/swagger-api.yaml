@@ -11,7 +11,7 @@ host: virtserver.swaggerhub.com
 basePath: /ooclab/remotex/1
 schemes:
  - https
- 
+
 tags:
 - name: jobx-public-api
   description: Jobx模块的公共访问接口
@@ -42,7 +42,7 @@ paths:
                 $ref: '#/definitions/JobListResponseData'
         default:
           $ref: '#/responses/DefaultErrorResponse'
-  
+
   /jobx/job/{ID}:
 
     get:
@@ -58,7 +58,7 @@ paths:
             $ref: '#/definitions/JobViewPublic'
         default:
           $ref: '#/responses/DefaultErrorResponse'
-            
+
   /spider/jobx/job:
     post:
       tags:
@@ -67,6 +67,7 @@ paths:
       description: spider 调用该接口上传一个Job数据
       parameters:
         - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/spiderJobCreateBody'
       responses:
         200:
           description: Success
@@ -91,7 +92,7 @@ definitions:
         type: string
       sort_direction:
         type: string
-  
+
   isimpleBase:
     type: object
     properties:
@@ -102,12 +103,12 @@ definitions:
         type: string
       summary:
         type: string
-  
+
   isimpleBaseArray:
     type: array
     items:
       $ref: '#/definitions/isimpleBase'
-  
+
   platformSimpleModel:
     type: object
     description: 来源平台
@@ -122,7 +123,7 @@ definitions:
       home_url:
         type: string
         description: 平台首页
-  
+
   JobViewPublic:
     type: object
     required:
@@ -268,10 +269,67 @@ parameters:
     type: string
     description: basic-auth 验证
     required: true
-    
+
   ID:
     name: ID
     in: path
     type: string
     description: 该对象的ID
     required: true
+
+  spiderJobCreateBody:
+    name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - title
+        - body
+        - url
+        - checksum
+        - platform
+      properties:
+        platform:
+          type: string
+          description: 来源平台
+        title:
+          type: string
+          description: 标题/主题
+        body:
+          type: string
+          description: 详细描述
+        url:
+          type: string
+          description: 来源网址
+        checksum:
+          type: string
+          description: 唯一校验值(spider自己生成,自己检查此对象是否存在)
+        price:
+          type: integer
+          format: int
+          description: 价格(RMB)
+        city:
+          type: string
+          description: 城市
+        categories:
+          type: array
+          items:
+            type: string
+            description: 类别
+        roles:
+          type: array
+          items:
+            type: string
+            description: 角色
+        skills:
+          type: array
+          items:
+            type: string
+            description: 技能
+        release_date:
+          type: string
+          description: 发布日期(RFC3339 UTC字符串)
+        expire_date:
+          type: string
+          description: 失效日期(RFC3339 UTC字符串)
