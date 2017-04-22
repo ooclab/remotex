@@ -1,0 +1,26 @@
+version: '2'
+services:
+    api-jobx:
+        image: ooclab/eva
+        tty: true
+        environment:
+            PYTHONIOENCODING: utf-8
+            PYTHONPATH: /work
+            NOSE_NOCAPTURE: 1
+        #dns: 223.5.5.5
+        ports:
+            - "127.0.0.1:3001:3000"
+        links:
+            - db
+        volumes:
+            - "./jobx:/work"
+        #entrypoint: python /work/server.py
+
+    db:
+        image: postgres
+        environment:
+            POSTGRES_DB: remotex
+            POSTGRES_USER: remotex
+            POSTGRES_PASSWORD: remotex
+        volumes:
+            - "/data/product/remotex/db:/var/lib/postgresql/data"
