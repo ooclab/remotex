@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- part 1 顶部 -->
-    <mu-appbar title="RemoteX - 自由汇聚于此">
+    <mu-appbar title="RemoteX - 快乐工作 认真生活">
 
       <!-- Slack icon -->   
       <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ">
@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'app',
   data () {
@@ -203,6 +205,13 @@ export default {
       loading: false,
       scroller: null
     }
+  },
+  beforeMount() {
+    Vue.http.get('https://remotex.ooclab.org/api/jobx/job').then(response => {
+      console.log(response)
+    }, response => {
+      console.log('error')
+    })
   },
   mounted () {
     this.scroller = this.$el
