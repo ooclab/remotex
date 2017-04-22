@@ -238,7 +238,30 @@ class JobxJob(ORMBase):
             self.vote_down += vote
 
     @property
-    def ipublic(self):
+    def ilist_public(self):
+        return {
+            'id': self.id,
+            'platform': self.platform.isimple,
+            'title': self.title,
+            'url': self.url,
+            'checksum': self.checksum,
+            'price': self.price,
+            'city': self.city,
+            'categories': [x.isimple for x in self.categories],
+            'roles': [x.isimple for x in self.roles],
+            'skills': [x.isimple for x in self.skills],
+            'status': self.status,
+            'view_count': self.view_count,
+            'vote_up': self.vote_up,
+            'vote_down': self.vote_down,
+            'release_date': rfc3339_string(self.release_date),
+            'expire_date': rfc3339_string(self.expire_date),
+            'created': rfc3339_string(self.created),
+            'updated': rfc3339_string(self.updated),
+        }
+
+    @property
+    def iview_public(self):
         return {
             'id': self.id,
             'platform': self.platform.isimple,
