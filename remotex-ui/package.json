@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "muse-ui": "^2.0.2",
-    "vue": "^2.2.1"
+    "vue": "^2.2.1",
+    "vue-resource": "^1.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
