@@ -4,16 +4,52 @@
     <!-- part 1 顶部 -->
     <mu-appbar title="RemoteX 快乐工作 认真生活">
 
-      <!-- Slack icon -->   
-      <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ">
+      <!-- 右侧抽屉按钮 -->
+      <mu-icon-button slot="right" icon="more_vert" @click="toggleDrawer(true)"/>
+      
+      <!-- Slack icon 
+      <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ" target="_blank">
         <img style="width:24px; height:24px;" src="./assets/Slack_White.png" />
-      </mu-icon-button>
+      </mu-icon-button>--> 
 
-      <!-- GitHub icon -->
-      <mu-icon-button slot="right" href="https://github.com/ooclab/remotex">
+      <!-- GitHub icon 
+      <mu-icon-button slot="right" href="https://github.com/ooclab/remotex" target="_blank">
         <img style="width:24px; height:24px;" src="./assets/GitHub_White.png" />
-      </mu-icon-button>
+      </mu-icon-button>-->
     </mu-appbar>
+
+    <!-- part 1.1 抽屉 -->
+    <mu-drawer right :open="openDrawer" :docked="docked" @close="toggleDrawer()">
+      <mu-list @close="docked ? '' : toggleDrawer()">
+
+        <!-- GitHub -->
+        <mu-list-item title="GitHub" href="https://github.com/ooclab/remotex" target="_blank">
+          <img style="width:24px; height:24px; position:absolute;left:15px;top:10px;" src="./assets/GitHub.png"/>
+        </mu-list-item>
+
+        <!-- Slack -->
+        <mu-list-item title="Slack" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ" target="_blank">
+          <img style="width:24px; height:24px; position:absolute;left:15px;top:10px;" src="./assets/Slack.png"/>
+        </mu-list-item>
+        <mu-divider/>
+
+        <!-- 关于 -->
+        <mu-list-item title="About" href="https://github.com/ooclab/remotex" target="_blank">
+          <mu-icon value="info" style="position:absolute;left:15px;top:10px;" />
+        </mu-list-item>
+
+        <!-- 联系 -->
+        <mu-list-item title="Contact" href="https://github.com/ooclab/remotex" target="_blank">
+          <mu-icon value="mail" style="position:absolute;left:15px;top:10px;"/>
+        </mu-list-item>
+        <mu-divider/>
+
+        <!-- 关闭 -->
+        <mu-list-item @click.native="openDrawer = false" title="Close">
+          <mu-icon value="close" style="position:absolute;left:15px;top:10px;"/>
+        </mu-list-item>
+      </mu-list>
+    </mu-drawer>
 
     <!-- part 2 搜索栏 -->
     <div>
@@ -108,11 +144,17 @@
     <!-- part 5 列表栏 -->
     <div >
       <mu-list>
+
         <!-- 循环体 -->
         <template v-for="item in list" class="page-infinite-listitem">
+
           <!-- 卡片 -->
           <mu-card style="margin: 10px 0 10px 0;">
+
+            <!-- 标题 / 来源 -->
             <mu-card-title :title="item.title" :subTitle="item.url"/>
+
+            <!-- tags -->
             <mu-card-actions v-if="item.categories" style="display: flex;">
               <template v-for="category in item.categories">
                 <mu-chip class="demo-chip" style="margin-left: 5px;">
@@ -120,12 +162,18 @@
                 </mu-chip>
               </template>
             </mu-card-actions>
+
+            <!-- 正文 -->
             <mu-card-text>
               {{ item.body }}
             </mu-card-text>
+
+            <!-- 价格 -->
             <mu-card-actions style="display: flex;">
               <p>报酬&nbsp;<b>{{ item.price }}</b>&nbsp;元</p>
             </mu-card-actions>
+
+            <!-- 其他 -->
             <mu-card-actions style="display: flex;">
 
             <!-- 暂无用户注册及评论功能
@@ -142,6 +190,8 @@
       </mu-list>
     </div>
     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+
+    <!-- 底部 -->
     <p>总数 {{ total }}</p>
   </div>
 </template>
@@ -157,71 +207,13 @@ export default {
       bottomSheet2: false,
       bottomSheet3: false,
       bottomSheet4: false,
-      list: [
-      {
-        title: '「数码荔枝 lizhi.io」前端工程师',
-        price: '7 ~ 10 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
-        release: 12,
-        view_count: 155,
-        expire: 8
-      },
-      {
-        title: '薪传文化招福利向漫画主笔',
-        price: '7 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
-        release: 2,
-        view_count: 52,
-        expire: 18
-      },
-      {
-        title: 'Java /前端工程师招聘',
-        price: '15 ~ 20 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
-        release: 10,
-        view_count: 35,
-        expire: 10
-      },
-      {
-        title: '「数码荔枝 lizhi.io」前端工程师',
-        price: '7 ~ 10 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '岗位职责： 根据已有的平面设计图和原型，负责开发 PC 端 /移动端网站页面，类似： https://www.lizhi.io/blog/ 致力于不断改善用户浏览、支付体验，追求细节； 在代码交付前，可进行完整的自测；',
-        release: 12,
-        view_count: 155,
-        expire: 8
-      },
-      {
-        title: '薪传文化招福利向漫画主笔',
-        price: '7 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '【岗位职责】根据分镜和剧本进行漫画线稿绘制能力要求，优秀的漫画绘画技巧和表现力，画工扎实，拥有鲜明独特的个人绘画风格更佳',
-        release: 2,
-        view_count: 52,
-        expire: 18
-      },
-      {
-        title: 'Java /前端工程师招聘',
-        price: '15 ~ 20 K',
-        url: 'yuancheng.work',
-        tags: ['前端'],
-        body: '我们团队有个项目正在进行中，现需要招募 2 个远程小伙伴。项目架构沿用之前的架构，是典型的微服务服架构，使用了 zookeeper, dubbo, spring 当后端技术，数据库采用： redis, MySQL ，一部分还使用 PHP 。第二期对部分系统会引入前后端分离的技术。使用 Angularjs 或 vue 。',
-        release: 10,
-        view_count: 35,
-        expire: 10
-      }],
-      num: 10,
-      loading: false,
-      scroller: null,
-      total: 0
+      list: [],
+      num: 10, // 每页显示个数
+      loading: false, // 加载中图标
+      scroller: null, // 页面上可滚动的元素
+      total: 0, // 列表数据总数
+      openDrawer: false, // 是否打开右侧抽屉
+      docked: true //是否遮罩页面
     }
   },
   beforeMount() {
@@ -261,6 +253,7 @@ export default {
     openBottomSheet4 () {
       this.bottomSheet4 = true
     },
+    // 加载列表数据
     loadMore () {
       this.loading = true
       setTimeout(() => {
@@ -270,6 +263,11 @@ export default {
         this.num += 10
         this.loading = false
       }, 2000)
+    },
+    // 打开、关闭抽屉
+    toggleDrawer (flag) {
+      this.openDrawer = !this.openDrawer
+      this.docked = !flag
     }
   }
 }
