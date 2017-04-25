@@ -8,7 +8,7 @@ has max_page_number   => 99;
 has uniq_prefix       => 'coding_net';
 has start_page_number => 1;
 has ua                => sub { Agent->new };
-has url               => 'https://mart.coding.net/api/reward/list?type=&status=&role_type_id=&page=2';
+has url               => 'https://mart.coding.net/api/reward/list?type=&status=&role_type_id=&page=1';
 
 sub go {
     my $self      = shift;
@@ -39,15 +39,19 @@ sub go {
             $item->{title} = $e->{title};
             $item->{url} = sprintf "https://mart.coding.net/project/%s", $e->{id};
 
-            $item->{uniq_id} = $self->build_uniq_id( $e->{id} );
-
-            $item->{date}     = $e->{roleTypes}->[0] ? $e->{roleTypes}->[0]->{created_at} : undef;
-            $item->{date_str} = $item->{date};
+            $item->{checksum} = $self->build_checksum( $e->{id} );
             $item->{price}    = $e->{formatPriceNoCurrency};
-            $item->{reads}    = $e->{applyCount};
-            $item->{cover}    = $e->{cover};
-            push @{ $item->{tags} }, 'Web网站' if $e->{type} == 0;
-            push @{ $item->{tags} }, '其它'    if $e->{type} == 4;
+            $item->{price} =~ s/,//g if $item->{price};
+
+            $item->{release_date}     = $e->{roleTypes}->[0] ? $e->{roleTypes}->[0]->{created_at} : undef;
+            
+            $item->{view_count} = $e->{applyCount};
+
+            if ( $e->{roleTypes} ) {
+                map { push @{$item->{role}}, $_->{name} || $_->{description} } @{$e->{roleTypes}};
+            }
+            push @{ $item->{categories} }, 'Web网站' if $e->{type} == 0;
+            push @{ $item->{categories} }, '其它'    if $e->{type} == 4;
 
             $item = $self->parse_content($item);
 
@@ -72,11 +76,12 @@ sub parse_content {
     $content_dom->find('div[class="content-group"]')->each(
         sub {
             my $e = shift;
-            $item->{content} .= $e->all_text;
+            $item->{body} .= $e->all_text;
         }
     );
 
-    $item->{content} = clean_text( $item->{content} );
+    $item->{body} = clean_text( $item->{body} );
+    $item->{status} = clean_text( $content_dom->find( 'span[class^="status"]')->first->all_text );
 
     return $item;
 }

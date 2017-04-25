@@ -1,0 +1,335 @@
+swagger: '2.0'
+info:
+  version: '1'
+  title: 'remotex api'
+  description: '这是 remotex 的 api 文档'
+  contact:
+    name: gwind
+    email: lijian.gnu@gmail.com
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /ooclab/remotex/1
+schemes:
+ - https
+
+tags:
+- name: jobx-public-api
+  description: Jobx模块的公共访问接口
+- name: jobx-spider-api
+  description: Jobx模块的spider访问接口
+
+paths:
+
+  /jobx/job:
+
+    get:
+      tags:
+        - jobx-public-api
+      summary: 获取job列表
+      description: 返回job列表
+      responses:
+        200:
+          description: 正确, 返回Job列表数据
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int
+              filter:
+                $ref: '#/definitions/Filter'
+              data:
+                $ref: '#/definitions/JobListResponseData'
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+  /jobx/job/{ID}:
+
+    get:
+      tags:
+        - jobx-public-api
+      summary: 获取指定Job的详情
+      parameters:
+        - $ref: '#/parameters/ID'
+      responses:
+        200:
+          description: 正确, 返回Job详情
+          schema:
+            $ref: '#/definitions/JobViewPublic'
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+  /spider/jobx/job:
+    post:
+      tags:
+        - jobx-spider-api
+      summary: 上传Job数据
+      description: spider 调用该接口上传一个Job数据
+      parameters:
+        - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/spiderJobCreateBody'
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int
+                description: 成功创建的 Job ID
+
+definitions:
+
+  Filter:
+    type: object
+    properties:
+      current_page:
+        type: integer
+      page_size:
+        type: integer
+      sort_by:
+        type: string
+      sort_direction:
+        type: string
+
+  isimpleBase:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int
+      name:
+        type: string
+      summary:
+        type: string
+
+  isimpleBaseArray:
+    type: array
+    items:
+      $ref: '#/definitions/isimpleBase'
+
+  platformSimpleModel:
+    type: object
+    description: 来源平台
+    properties:
+      id:
+        type: integer
+        format: int
+      name:
+        type: string
+      summary:
+        type: string
+      home_url:
+        type: string
+        description: 平台首页
+
+  JobViewPublic:
+    type: object
+    required:
+      - title
+      - platform
+      - url
+      - checksum
+    properties:
+        platform:
+          $ref: '#/definitions/platformSimpleModel'
+        title:
+          type: string
+        body:
+          type: string
+        body_markup:
+          type: integer
+          format: int
+        url:
+          type: string
+          description: 来源地址
+        checksum:
+          type: string
+          description: 校验值(前端无用,爬虫用来检查唯一性)
+        city:
+          type: string
+          description: 城市
+        price:
+          type: integer
+          format: int
+          description: 价格(单位RMB, 如果有)
+        status:
+          type: string
+          description: 状态(暂时无用,将后台整数指翻译为字符串含义)
+        release_date:
+          type: string
+          description: 发布时间(RFC3339 UTC时间字符串)
+        expire_date:
+          type: string
+          description: 过期时间(RFC3339 UTC时间字符串)
+        created:
+          type: string
+          description: 创建时间,即入库时间(RFC3339 UTC时间字符串)
+        updated:
+          type: string
+          description: 更新时间(RFC3339 UTC时间字符串)
+        view_count:
+          type: string
+          description: 查看数
+        vote_up:
+          type: integer
+          format: int
+          description: 支持数
+        vote_down:
+          type: integer
+          format: int
+          description: 反对数
+        categories:
+          $ref: '#/definitions/isimpleBaseArray'
+        roles:
+          $ref: '#/definitions/isimpleBaseArray'
+        skills:
+          $ref: '#/definitions/isimpleBaseArray'
+
+  JobListResponseData:
+    type: array
+    items:
+      required:
+        - title
+        - platform
+        - url
+        - checksum
+      properties:
+        platform:
+          $ref: '#/definitions/platformSimpleModel'
+        title:
+          type: string
+        url:
+          type: string
+          description: 来源地址
+        checksum:
+          type: string
+          description: 校验值(前端无用,爬虫用来检查唯一性)
+        city:
+          type: string
+          description: 城市
+        price:
+          type: integer
+          format: int
+          description: 价格(单位RMB, 如果有)
+        status:
+          type: string
+          description: 状态(暂时无用,将后台整数指翻译为字符串含义)
+        release_date:
+          type: string
+          description: 发布时间(RFC3339 UTC时间字符串)
+        expire_date:
+          type: string
+          description: 过期时间(RFC3339 UTC时间字符串)
+        created:
+          type: string
+          description: 创建时间,即入库时间(RFC3339 UTC时间字符串)
+        updated:
+          type: string
+          description: 更新时间(RFC3339 UTC时间字符串)
+        view_count:
+          type: string
+          description: 查看数
+        vote_up:
+          type: integer
+          format: int
+          description: 支持数
+        vote_down:
+          type: integer
+          format: int
+          description: 反对数
+        categories:
+          $ref: '#/definitions/isimpleBaseArray'
+        roles:
+          $ref: '#/definitions/isimpleBaseArray'
+        skills:
+          $ref: '#/definitions/isimpleBaseArray'
+
+
+responses:
+
+  DefaultErrorResponse:
+    description: 返回错误信息
+    schema:
+      type: "object"
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: 错误字符串
+
+
+parameters:
+
+  Authorization:
+    name: Authorization
+    in: header
+    type: string
+    description: basic-auth 验证
+    required: true
+
+  ID:
+    name: ID
+    in: path
+    type: string
+    description: 该对象的ID
+    required: true
+
+  spiderJobCreateBody:
+    name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - title
+        - body
+        - url
+        - checksum
+        - platform
+      properties:
+        platform:
+          type: string
+          description: 来源平台
+        title:
+          type: string
+          description: 标题/主题
+        body:
+          type: string
+          description: 详细描述
+        url:
+          type: string
+          description: 来源网址
+        checksum:
+          type: string
+          description: 唯一校验值(spider自己生成,自己检查此对象是否存在)
+        price:
+          type: integer
+          format: int
+          description: 价格(RMB)
+        city:
+          type: string
+          description: 城市
+        categories:
+          type: array
+          items:
+            type: string
+            description: 类别
+        roles:
+          type: array
+          items:
+            type: string
+            description: 角色
+        skills:
+          type: array
+          items:
+            type: string
+            description: 技能
+        release_date:
+          type: string
+          description: 发布日期(RFC3339 UTC字符串)
+        expire_date:
+          type: string
+          description: 失效日期(RFC3339 UTC字符串)

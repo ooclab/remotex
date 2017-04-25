@@ -1,4 +1,4 @@
-#coding:utf8
+# -*- coding: utf-8 -*-
 import scrapy
 from PyBots.items import JobItem
 import re
@@ -54,7 +54,7 @@ class ShixianSpider(scrapy.Spider):
         #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布 
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
         item['url'] = response.url
-        item['uniq_id'] = response.url.split('/')[-1]
+        item['uniq_id'] = '{}_{}'.format( 'shixian_com', response.url.split('/')[-1] )
         item['date_str'] = response.xpath('//small[@class="time"]/text()').extract_first().strip()
         item['date'] = self.str2date(item['date_str'])
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])

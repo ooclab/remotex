@@ -1,18 +1,34 @@
 package Sites;
 
 use Mojo::Base -base;
-use Common qw/to_json/;
+use Common qw/to_json Dumper/;
+use Agent;
+
+has url_base => 'https://remotex.ooclab.org';
+has ua => sub { Agent->new };
 
 sub output {
-    my $self = shift;
-    my $item = shift || {};
+    my $self    = shift;
+    my $item    = shift || {};
+    my $api_url = '/api/spider/jobx/job';
 
-    say to_json( $item );
+    my $url = Mojo::URL->new($api_url)->base( Mojo::URL->new( $self->url_base ) )->to_abs;
+
+    my $headers = {
+        'Content-Type' => 'application/json',
+        Authorization  => 'Basic dXNlcjE6NDVhYTczNmYxZjY2ZTUxMWEyOWIwYzJi',
+    };
+
+    my $json = $self->ua->post( $url => $headers => json => $item )->res->dom;
+
+    if ( $json->{errmsg} ) {
+        say "Fail:  " . $json->{errmsg} . to_json( $item );
+    }
 }
 
-sub build_uniq_id {
+sub build_checksum {
     my $self = shift;
-    my $id = shift;
+    my $id   = shift;
     return sprintf '%s_%s', $self->uniq_prefix, $id;
 }
 
