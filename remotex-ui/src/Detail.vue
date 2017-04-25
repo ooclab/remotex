@@ -5,7 +5,7 @@
 
     <!-- loading -->
     <div v-if="detailLoading" style="display: -webkit-box; -webkit-box-pack:center; -webkit-box-align:center; height:200px;">
-      <mu-circular-progress :size="100" :strokeWidth="5"/>
+      <mu-circular-progress :size="40" :strokeWidth="5"/>
     </div>
 
     <!-- 详情 -->
