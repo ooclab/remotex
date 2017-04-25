@@ -2,15 +2,16 @@
 Remotex 使用scrapy spider爬取信息。scrapy（https://scrapy.org）一个基于Python的高效爬虫框架。
 
 ## 目录结构及注意文件说明
-PyBots/
-    scrapy.cfg          # 配置文件
-    PyBots/             # 项目代码目录
-        __init__.py
-        items.py          # 爬取内容数据结构定义
-        pipelines.py      # 数据爬取后处理程序，负责调用存储API
-        settings.py       # 项目设置文件
-        spiders/          # 爬虫文件目录，每个网站提供一个文件
+
+    PyBots/
+        scrapy.cfg          # 配置文件
+        PyBots/             # 项目代码目录
             __init__.py
+            items.py          # 爬取内容数据结构定义
+            pipelines.py      # 数据爬取后处理程序，负责调用存储API
+            settings.py       # 项目设置文件
+            spiders/          # 爬虫文件目录，每个网站提供一个文件
+                __init__.py
 
 ##开发指南
 Spider 主要方法说明
