@@ -142,8 +142,8 @@
       <div>
         <!--<mu-tabs style="background:#424242;">-->
         <mu-tabs style="background:#ededed; margin-top: 10px;">
-          <mu-tab :style="sortTab1Style" value="tab1" title="热门机会" @click="sortItemClick('view_count')"/>
-          <mu-tab :style="sortTab2Style" value="tab2" title="最新发布" @click="sortItemClick('release_date')"/>
+          <mu-tab :style="sortTab1Style" value="tab1" title="最新发布" @click="sortItemClick('release_date')"/>
+          <mu-tab :style="sortTab2Style" value="tab2" title="热门机会" @click="sortItemClick('view_count')"/>
           <mu-tab :style="sortTab3Style" value="tab3" title="高薪报酬" @click="sortItemClick('price')"/>
         </mu-tabs>
       </div>
@@ -239,7 +239,7 @@ export default {
       roleTitle: '角色',
       workTitle: '工作',
       cityTitle: '城市',
-      sort: '&sb=view_count&sd=desc', // 排序条件
+      sort: '&sb=release_date&sd=desc', // 排序条件
       // 排序按钮样式
       sortActive: '',
       sortDeactive: '',
@@ -247,14 +247,15 @@ export default {
       sortTab2Style: '',
       sortTab3Style: '',
       keywords: '', // 搜索框内的关键词
-      pageNum: 1,
-      endPage: false,
+      pageNum: 1, // 当前页码
+      pageSize: 10, // 每页数据数量
+      endPage: false, // 最后一页
       showDetail: false,
       url: '' // 组装搜索的 URL
     }
   },
   beforeMount() {
-    Vue.http.get('https://remotex.ooclab.org/api/jobx/job?sb=view_count&sd=desc').then(response => {
+    Vue.http.get(this.url).then(response => {
       this.list = response.data.data
       this.total = response.data.total
     }, response => {
@@ -277,7 +278,7 @@ export default {
     this.sortTab1Style = this.sortActive
     this.sortTab2Style = this.sortDeactive
     this.sortTab3Style = this.sortDeactive
-    this.url = 'https://remotex.ooclab.org/api/jobx/job?sb=view_count&sd=desc'
+    this.url = 'https://remotex.ooclab.org/api/jobx/job?sb=release_date&sd=desc&lm=' + this.pageSize
   },
   methods: {
     closeBottomSheet1 () {
@@ -315,7 +316,9 @@ export default {
             if (response.data.data.length == 0){
               this.endPage = true
             } else {
-              this.list.push(response.data.data)
+              for (let i = 0; i < response.data.data.length; i++) {
+                this.list.push(response.data.data[i])
+              }
               this.endPage = false
             }
             this.total = response.data.total
@@ -339,7 +342,7 @@ export default {
       this.loading = true
       this.pageNum = 1
       this.endPage = false
-      this.url = 'https://remotex.ooclab.org/api/jobx/job?' + this.platformItem + this.roleItem + this.workItem + this.cityItem + this.sort + this.keywords
+      this.url = 'https://remotex.ooclab.org/api/jobx/job?' + this.platformItem + this.roleItem + this.workItem + this.cityItem + this.sort + this.keywords + '&lm=' + this.pageSize
       Vue.http.get(this.url).then(response => {
         console.log(response)
         this.list = response.data.data
@@ -384,9 +387,9 @@ export default {
       this.sortTab1Style = this.sortDeactive
       this.sortTab2Style = this.sortDeactive
       this.sortTab3Style = this.sortDeactive
-      if (sb == 'view_count'){
+      if (sb == 'release_date'){
         this.sortTab1Style = this.sortActive
-      } else if (sb == 'release_date'){
+      } else if (sb == 'view_count'){
         this.sortTab2Style = this.sortActive
       } else if (sb == 'price'){
         this.sortTab3Style = this.sortActive
