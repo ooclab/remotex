@@ -31,4 +31,6 @@ class SingleJobHandler(APIRequestHandler):
         job = self.db.query(JobxJob).get(ID)
         if not job:
             return self.fail("can-not-find")
+        job.view_count += 1
+        self.db.commit()
         self.success(**job.iview_public)
