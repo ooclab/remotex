@@ -16,33 +16,34 @@ PyBots/
 Spider 主要方法说明
 import scrapy
 
-示例spider如下，
-class QuotesSpider(scrapy.Spider):
-    name = "quotes"#名称，运行spider也使用这个名称
-    allowed_domains = ["abc.com"]#允许爬取域名
-    start_urls = [
-        "http://abc.com/"#起始url
-    ]
+示例spider如下
 
-    def parse(self, response):#运行spider的主方法
-        # 回调处理子页面示例
-        for href in response.css('.author + a::attr(href)').extract():
-            yield scrapy.Request(response.urljoin(href),
-                                 callback=self.parse_author)
+    class QuotesSpider(scrapy.Spider):
+        name = "quotes"#名称，运行spider也使用这个名称
+        allowed_domains = ["abc.com"]#允许爬取域名
+        start_urls = [
+            "http://abc.com/"#起始url
+        ]
 
-    def parse_author(self, response):
-        def extract_with_css(query):
-            return response.css(query).extract_first().strip()
-        yield {
-            'name': extract_with_css('h3.author-title::text'),
-            'birthdate': extract_with_css('.author-born-date::text'),
-            'bio': extract_with_css('.author-description::text'),
-        }
+        def parse(self, response):#运行spider的主方法
+            # 回调处理子页面示例
+            for href in response.css('.author + a::attr(href)').extract():
+                yield scrapy.Request(response.urljoin(href),
+                                     callback=self.parse_author)
+
+        def parse_author(self, response):
+            def extract_with_css(query):
+                return response.css(query).extract_first().strip()
+            yield {
+                'name': extract_with_css('h3.author-title::text'),
+                'birthdate': extract_with_css('.author-born-date::text'),
+                'bio': extract_with_css('.author-description::text'),
+            }
 
 ## 手动允许spider方法
 scrapy crawl #爬虫名称#
 
-##运行部署
+## 运行部署
 - 生产环境使用scrapyd运行spider，方便管理。可以配置权限和检查spider运行日志
 - 使用scrapyd-client发布spider，每次发布自动生成版本，方便管理和调度
 参考http://blog.wiseturtles.com/posts/scrapyd.html
