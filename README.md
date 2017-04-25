@@ -2,7 +2,8 @@
 
 [![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
 
-官网： [https://remotex.ooclab.org](https://remotex.ooclab.org)
+- 项目首页: [https://remotex.ooclab.org](https://remotex.ooclab.org)
+- 项目管理: [https://wp.ooclab.org/projects/remotex](https://wp.ooclab.org/projects/remotex)
 
 远程工作空间
 
