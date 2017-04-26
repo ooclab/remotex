@@ -13,7 +13,7 @@ from app.jobx.settings import MARKUP_CHOICES
 
 class JobNewForm(Form):
 
-    platform = StringField("Platform")
+    platform = StringField("Platform", [validators.Length(min=2, max=128)])
 
     title = StringField("Title")
     body = TextField("Body")
