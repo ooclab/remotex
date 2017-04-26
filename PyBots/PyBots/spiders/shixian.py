@@ -19,8 +19,8 @@ class ShixianSpider(scrapy.Spider):
     def start_requests(self):
         cities = ['beijing','shanghai','shenzhen','hangzhou','guangzhou','chengdu','nanjing','xian','hubei','xiamen','shandong','suzhou','zhengzhou','fuzhou','changsha','chongqing','tianjin','ningbo','remote','qita']
         jobs = ['ios','android','ui','frontend','backend','pm','operator','tester','full_stack','others']
-        # cities = ['beijing']
-        # jobs = ['ios']
+        cities = ['beijing']
+        jobs = ['frontend']
         for city in cities:
             for job in jobs:
                 url = 'https://shixian.com/job/%s?filter=last&territory=%s'%(city,job)
@@ -52,23 +52,37 @@ class ShixianSpider(scrapy.Spider):
     def parse_detail(self, response):
         item = JobItem()
         #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布 
+        # item['platform'] = {'id':1024,
+        #                     'name':u'实现网',
+        #                     'summary':'',
+        #                     'home_url':'https://shixian.com/',
+        #                     'body':'',
+        #                     'body_markup':1,}
+        item['platform'] = u'实现网'
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
         item['url'] = response.url
-        item['uniq_id'] = '{}_{}'.format( 'shixian_com', response.url.split('/')[-1] )
-        item['date_str'] = response.xpath('//small[@class="time"]/text()').extract_first().strip()
-        item['date'] = self.str2date(item['date_str'])
+        item['body'] = ''.join(response.xpath('//div[@class="content"]/p/text()').extract()).strip()
+        item['checksum'] = '{}_{}'.format( 'shixian_com', response.url.split('/')[-1] )
+        item['city'] = response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()').extract_first().strip()
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])
-        item['reads'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
-        item['content'] = ''.join(response.xpath('//div[@class="content"]/p/text()').extract()).strip()
-        item['company'] = ''.join(response.xpath('//section[@class="company"]//text()').extract()).strip()
-        tags = []
-        for n in response.xpath('//section[@class="info clearfix"]/dl/dd'):
-            tag = ''.join(n.xpath('./text()').extract()).strip() + ''.join(n.xpath('./span/text()').extract()).strip()
-            tags.append(tag)
-        item['tags'] = tags
+        release_date = response.xpath('//small[@class="time"]/text()').extract_first().strip()
+        item['release_date'] = self.str2date(release_date)
+        expire_date = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[3].extract().strip()
+        item['expire_date'] = self.str2date(expire_date)
+        # item['created'] = datetime.now().isoformat('T') + 'Z'
+        # item['updated'] = datetime.now().isoformat('T') + 'Z'
+        item['view_count'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
+        item['categories'] = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[0].extract().strip().split('/')
+        item['roles'] = [response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()')[1].extract().strip()]
+        item['skills'] = response.xpath('//section[@class="skill-tags clearfix"]/dl/dd/text()').extract()
         return item
 
     def str2date(self, date_str):
+        if re.search('\d{4}-\d{2}-\d{2}',date_str):
+            _d = re.search('\d{4}-\d{2}-\d{2}',date_str).group()
+            dt = datetime.strptime(_d, '%Y-%m-%d')
+            return dt.isoformat('T') + 'Z'
+
         if re.search('\d+',date_str):
             num = int(re.search('\d+',date_str).group())
         now = datetime.now()

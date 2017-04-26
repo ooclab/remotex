@@ -12,33 +12,51 @@ class JobItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     
+    # 来源平台
+    platform = scrapy.Field() 
+
     title = scrapy.Field()
     url = scrapy.Field()
-    
-    # http://coding.net =>  coding_net_123  其中 123 是每个 item 的 id 
-    uniq_id = scrapy.Field()
-    
-    # 计算之后的发布日期
-    date = scrapy.Field()
+    body = scrapy.Field()
 
-    # 3 天之前, 之类的
-    date_str = scrapy.Field(serializer=str)
-    
+    # http://coding.net =>  coding_net_123  其中 123 是每个 item 的 id 
+    checksum = scrapy.Field()
+
+    city = scrapy.Field() 
+
     # 价格 
     price = scrapy.Field()
-   
-    # 阅读数, 报名数之类
-    reads = scrapy.Field()
-    
-    # 项目图片
-    cover = scrapy.Field()
 
-    # 语言, 时间限制等 , 数组
-    tags = scrapy.Field()
+    # 状态，暂时无用
+    status = scrapy.Field()
 
-    # 项目的详细说明 
-    content = scrapy.Field()
+    # 发布时间
+    release_date = scrapy.Field(serializer=str)
 
-    # 项目发布人或公司简介
-    company = scrapy.Field()
+    # 过期时间
+    expire_date = scrapy.Field(serializer=str)
+
+    # 创建时间
+    created = scrapy.Field(serializer=str)
+
+    # 更新时间
+    updated = scrapy.Field(serializer=str)
+
+    # 查看数
+    view_count = scrapy.Field()
+
+    # 支持数
+    vote_up = scrapy.Field()
+
+    # 反对数
+    vote_down = scrapy.Field()
+
+    # 兼职类型 list
+    categories =scrapy.Field()
+
+    # 兼职岗位 list
+    roles = scrapy.Field()
+
+    # 兼职技术 list
+    skills = scrapy.Field()
 
