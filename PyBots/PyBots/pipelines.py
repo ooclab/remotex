@@ -18,8 +18,5 @@ class PybotsPipeline(object):
         self.url = 'https://remotex.ooclab.org/api/spider/jobx/job'
 
     def process_item(self, item, spider):
-        print item
-        import pdb
-        pdb.set_trace()
-        res = requests.post(self.url, headers=self.headers, data=dict(item))
+        res = requests.post(self.url, headers=self.headers, json=dict(item))
         print res

@@ -52,12 +52,6 @@ class ShixianSpider(scrapy.Spider):
     def parse_detail(self, response):
         item = JobItem()
         #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布 
-        # item['platform'] = {'id':1024,
-        #                     'name':u'实现网',
-        #                     'summary':'',
-        #                     'home_url':'https://shixian.com/',
-        #                     'body':'',
-        #                     'body_markup':1,}
         item['platform'] = u'实现网'
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
         item['url'] = response.url
@@ -69,8 +63,6 @@ class ShixianSpider(scrapy.Spider):
         item['release_date'] = self.str2date(release_date)
         expire_date = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[3].extract().strip()
         item['expire_date'] = self.str2date(expire_date)
-        # item['created'] = datetime.now().isoformat('T') + 'Z'
-        # item['updated'] = datetime.now().isoformat('T') + 'Z'
         item['view_count'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
         item['categories'] = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[0].extract().strip().split('/')
         item['roles'] = [response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()')[1].extract().strip()]
