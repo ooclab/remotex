@@ -35,6 +35,7 @@ sub go {
         foreach my $e ( @{ $dom->{data}->{list} } ) {
 
             my $item = {};
+            $item->{platform} = '码市';
 
             $item->{title} = $e->{title};
             $item->{url} = sprintf "https://mart.coding.net/project/%s", $e->{id};
@@ -44,6 +45,8 @@ sub go {
             $item->{price} =~ s/,//g if $item->{price};
 
             $item->{release_date}     = $e->{roleTypes}->[0] ? $e->{roleTypes}->[0]->{created_at} : undef;
+            if ( $item->{release_date } ) {
+            }
             
             $item->{view_count} = $e->{applyCount};
 

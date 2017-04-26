@@ -28,6 +28,7 @@ sub go {
             sub {
                 my $e    = shift;
                 my $item = {};
+                $item->{platform} = '一早一晚';
 
                 my $title = $e->find('div[class="media-heading"] > a')->first;
                 if ($title) {
@@ -41,11 +42,11 @@ sub go {
                     }
                 }
 
-                $item->{date}     = $e->find('time[class="timeago"]')->first->attr('datetime');
+                $item->{release_date}     = $e->find('time[class="timeago"]')->first->attr('datetime');
                 $item->{date_str} = $item->{date};
 
-                ( $item->{uniq_id} ) = $item->{url} =~ /(\d+)$/;
-                $item->{uniq_id} = sprintf '%s_%s', $self->uniq_prefix, $item->{uniq_id};
+                ( $item->{checksum} ) = $item->{url} =~ /(\d+)$/;
+                $item->{checksum} = sprintf '%s_%s', $self->uniq_prefix, $item->{checksum};
 
                 $item = $self->parse_content($item);
 
@@ -69,9 +70,9 @@ sub parse_content {
     my $content_dom = $self->ua->get_cache_url( $item->{url} );
 
     $item->{content} = clean_text( $content_dom->find('div[class="post-content"]')->first->all_text );
-    $item->{reads}   = clean_text( $content_dom->find('div[class="media-meta text-muted"]')->first->all_text );
+    $item->{view_count}   = clean_text( $content_dom->find('div[class="media-meta text-muted"]')->first->all_text );
 
-    ( $item->{reads} ) = $item->{reads} =~ /(\d+)\s*次阅读/;
+    ( $item->{view_count} ) = $item->{view_count} =~ /(\d+)\s*次阅读/;
 
     return $item;
 }
