@@ -47,3 +47,10 @@ class JobNewForm(Form):
     # TODO: 校验 UTC string
     release_date = StringField(_("Release Date"))
     expire_date = StringField(_("Expire Date"))
+
+
+class JobEditForm(JobNewForm):
+    '''更新Job
+
+    TODO: 设置必要属性检查
+    '''
