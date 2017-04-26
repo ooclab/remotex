@@ -141,10 +141,10 @@
       <!-- part 4 排序栏 -->
       <div>
         <!--<mu-tabs style="background:#424242;">-->
-        <mu-tabs style="background:#ededed; margin-top: 10px;">
-          <mu-tab :style="sortTab1Style" value="tab1" title="最新发布" @click="sortItemClick('release_date')"/>
-          <mu-tab :style="sortTab2Style" value="tab2" title="热门机会" @click="sortItemClick('view_count')"/>
-          <mu-tab :style="sortTab3Style" value="tab3" title="高薪报酬" @click="sortItemClick('price')"/>
+        <mu-tabs id="tabs" :value="activeTab" @change="sortItemClick">
+          <mu-tab :id="sortTab1Style" value="release_date" title="最新发布"/>
+          <mu-tab :id="sortTab2Style" value="view_count" title="热门机会"/>
+          <mu-tab :id="sortTab3Style" value="price" title="高薪报酬"/>
         </mu-tabs>
       </div>
 
@@ -156,7 +156,7 @@
           <template v-for="item in list" class="page-infinite-listitem">
 
             <!-- 卡片 -->
-            <mu-card style="margin: 10px 0 10px 0;">
+            <mu-card style="margin: 10px 20px 10px 20px;">
               
 
               <!-- 标题 / 来源 -->
@@ -239,6 +239,7 @@ export default {
       roleTitle: '角色',
       workTitle: '工作',
       cityTitle: '城市',
+      activeTab: 'release_date',
       sort: '&sb=release_date&sd=desc', // 排序条件
       // 排序按钮样式
       sortActive: '',
@@ -273,8 +274,8 @@ export default {
       this.showDetail = true
     }
 
-    this.sortActive = 'color: #F5193E'
-    this.sortDeactive = 'color: #616161'
+    this.sortActive = 'sort-active'
+    this.sortDeactive = 'sort-deactive'
     this.sortTab1Style = this.sortActive
     this.sortTab2Style = this.sortDeactive
     this.sortTab3Style = this.sortDeactive
@@ -383,6 +384,7 @@ export default {
     },
     // 点击排序按钮
     sortItemClick (sb) {
+      this.activeTab = sb
       this.sort = '&sb=' + sb + '&sd=desc'
       this.sortTab1Style = this.sortDeactive
       this.sortTab2Style = this.sortDeactive
@@ -422,6 +424,8 @@ export default {
 <style>
 html, body {
   height: 100%;
+  width: 100%;
+  
 }
 
 #app {
@@ -430,10 +434,28 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 100%;
   height: 100%;
   overflow: auto;
+  text-align:center;
   -webkit-overflow-scrolling: touch;
+}
+
+#home {
+  max-width: 736px;
+  margin:0 auto;
+}
+
+#tabs {
+  background: #ededed;
+  margin-top: 10px;
+}
+
+#sort-deactive {
+  color: #616161;
+}
+
+#sort-active {
+  color: #F5193E;
 }
 
 .page-infinite-listitem {

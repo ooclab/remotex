@@ -12,7 +12,7 @@
     <template v-else class="">
 
       <!-- 卡片 -->
-      <mu-card style="margin: 10px 0 10px 0;">
+      <mu-card style="margin: 10px 20px 10px 20px;">
       
         <!-- 标题 / 来源 -->
         <mu-card-title :title="detail.title" :subTitle="detail.url"/>
