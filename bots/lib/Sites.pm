@@ -24,6 +24,7 @@ sub output {
     if ( $json->{errmsg} ) {
         say "Fail:  " . $json->{errmsg} . to_json( $item );
     }
+    #say to_json( $item );
 }
 
 sub build_checksum {

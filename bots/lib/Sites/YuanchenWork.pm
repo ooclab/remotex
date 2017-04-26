@@ -28,6 +28,7 @@ sub go {
             sub {
                 my $e    = shift;
                 my $item = {};
+                $item->{platform} = '远程';
                 $item->{title} = clean_text( $e->find('h4')->first->text );
                 $item->{url}   = $e->find('a[class="list-group-item-body"]')->first->attr('href');
                 $e->find('a[class^="label"]')->each(
@@ -38,9 +39,9 @@ sub go {
                 );
 
                 $item->{date_str} = $e->find('span[class="date"]')->first->text;
-                $item->{date}     = str2date( $item->{date_str} );
-                ( $item->{uniq_id} ) = $item->{url} =~ /(\d+)\.html/;
-                $item->{uniq_id} = sprintf '%s_%s', $self->uniq_prefix, $item->{uniq_id};
+                $item->{release_date}     = str2date( $item->{date_str} );
+                ( $item->{checksum} ) = $item->{url} =~ /(\d+)\.html/;
+                $item->{checksum} = sprintf '%s_%s', $self->uniq_prefix, $item->{checksum};
 
                 $item = $self->parse_content($item);
 
