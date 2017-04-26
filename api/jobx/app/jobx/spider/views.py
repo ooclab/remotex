@@ -23,11 +23,6 @@ class JobHandler(APIRequestHandler):
         if not form.validate():
             return self.fail(errors=form.errors)
 
-        # TODO: checksum 和 url 只需要留一个即可?
-        if self.db.query(JobxJob).filter_by(
-                checksum=form.checksum.data).count() > 0:
-            return self.fail("job-exist")
-
         platform = self.db.query(JobxPlatform).filter_by(
             name=form.platform.data).first()
         if not platform:
@@ -35,17 +30,29 @@ class JobHandler(APIRequestHandler):
             self.db.add(platform)
             self.db.commit()
 
-        job = JobxJob(
-            platform=platform,
-            title=form.title.data,
-            body=form.body.data,
-            body_markup=form.body_markup.data
-        )
-        job.url = form.url.data
-        job.checksum = form.checksum.data
-        job.price = form.price.data
-        job.city = form.city.data
+        # TODO: checksum 和 url 只需要留一个即可?
+        newJob = False  # TODO: drop this
+        job = self.db.query(JobxJob).filter_by(
+            checksum=form.checksum.data).first()
+        if not job:
+            newJob = True
+            # TODO: 新建Job与更新不一定,需要单独的 Form 验证
+            job = JobxJob(
+                platform=platform,
+                title=form.title.data,
+                body=form.body.data,
+                body_markup=form.body_markup.data
+            )
 
+        job.checksum = form.checksum.data
+        if not form.url.is_missing:
+            job.url = form.url.data
+        if not form.price.is_missing:
+            job.price = form.price.data
+        if not form.city.is_missing:
+            job.city = form.city.data
+
+        # TODO: many-to-many 关系更新是否一定删除了旧关系?
         if not form.categories.is_missing:
             categories = []
             for n in form.categories.data:
@@ -77,8 +84,13 @@ class JobHandler(APIRequestHandler):
             job.release_date = utc_rfc3339_parse(form.release_date.data)
         if not form.expire_date.is_missing:
             job.expire_date = utc_rfc3339_parse(form.release_date.data)
-        self.db.add(job)
+
+        if newJob:
+            self.db.add(job)
         self.db.commit()
 
-        d = {"job_id": job.id}
+        if newJob:
+            d = {"status": "created", "job_id": job.id}
+        else:
+            d = {"status": "updated", "job_id": job.id}
         self.success(**d)
