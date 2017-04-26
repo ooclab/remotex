@@ -39,7 +39,7 @@ Spider 主要方法说明，示例spider如下
                 'bio': extract_with_css('.author-description::text'),
             }
 
-## 手动允许spider方法
+## 手动运行spider方法
 scrapy crawl #爬虫名称#
 
 ## 运行部署
