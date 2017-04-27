@@ -3,3 +3,4 @@
 *.swo
 *.bak
 bots/caches/*
+*.pyc
