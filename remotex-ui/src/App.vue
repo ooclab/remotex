@@ -35,10 +35,15 @@
           <mu-list-item title="Slack" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ" target="_blank">
             <img style="width:24px; height:24px; position:absolute;left:15px;top:10px;" src="./assets/Slack.png"/>
           </mu-list-item>
+
+          <!-- Redmine -->
+          <mu-list-item title="Redmine" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
+            <mu-icon value="assignment" style="position:absolute;left:15px;top:10px;" />
+          </mu-list-item>
           <mu-divider/>
 
           <!-- 关于 -->
-          <mu-list-item title="About" href="https://github.com/ooclab/remotex" target="_blank">
+          <mu-list-item title="About" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
             <mu-icon value="info" style="position:absolute;left:15px;top:10px;" />
           </mu-list-item>
 
@@ -283,6 +288,9 @@ export default {
         if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
             response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
         }
+        if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
+            response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
+        }
       }
       this.list = response.data.data
       console.log(this.list)
@@ -332,6 +340,21 @@ export default {
           }
         }
 
+      }
+    },
+    outputdollars(number) {
+      if (number.length <= 3)
+          return (number == '' ? '0' : number);
+      else {
+          var mod = number.length % 3;
+          var output = (mod == 0 ? '' : (number.substring(0, mod)));
+          for (var i = 0; i < Math.floor(number.length / 3); i++) {
+              if ((mod == 0) && (i == 0))
+                  output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+              else
+                  output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+          }
+          return (output);
       }
     },
     closeBottomSheet1 () {
@@ -393,6 +416,9 @@ export default {
                 if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
                     response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
                 }
+                if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
+                    response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
+                }
                 this.list.push(response.data.data[i])
               }
               this.endPage = false
@@ -445,6 +471,9 @@ export default {
           }
           if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
               response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
+          }
+          if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
+              response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
           }
         }
         this.list = response.data.data
