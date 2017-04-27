@@ -3,6 +3,7 @@ use utf8;
 use Mojo::Base 'Sites';
 use Agent;
 use Common qw/clean_text str2date Dumper is_utf8 encode decode/;
+use Time::Piece;
 
 has max_page_number   => 99;
 has uniq_prefix       => 'yuanchen_work';
@@ -29,8 +30,8 @@ sub go {
                 my $e    = shift;
                 my $item = {};
                 $item->{platform} = '远程';
-                $item->{title} = clean_text( $e->find('h4')->first->text );
-                $item->{url}   = $e->find('a[class="list-group-item-body"]')->first->attr('href');
+                $item->{title}    = clean_text( $e->find('h4')->first->text );
+                $item->{url}      = $e->find('a[class="list-group-item-body"]')->first->attr('href');
                 $e->find('a[class^="label"]')->each(
                     sub {
                         my $e = shift;
@@ -38,8 +39,8 @@ sub go {
                     }
                 );
 
-                $item->{date_str} = $e->find('span[class="date"]')->first->text;
-                $item->{release_date}     = str2date( $item->{date_str} );
+                $item->{date_str}     = $e->find('span[class="date"]')->first->text;
+                $item->{release_date} = parse_date( str2date( $item->{date_str} ) );
                 ( $item->{checksum} ) = $item->{url} =~ /(\d+)\.html/;
                 $item->{checksum} = sprintf '%s_%s', $self->uniq_prefix, $item->{checksum};
 
@@ -56,6 +57,13 @@ sub go {
     return \@items;
 }
 
+sub parse_date {
+    my $str = shift;
+    return unless $str;
+    my $t = Time::Piece->strptime( $str, "%Y-%m-%d" );
+    return $t->strftime("%Y-%m-%dT%H:%M:%SZ");
+}
+
 sub parse_content {
     my $self = shift;
     my $item = shift;
@@ -65,6 +73,7 @@ sub parse_content {
     my $content_dom = $self->ua->get_cache_url( $item->{url} );
 
     $item->{content} = clean_text( $content_dom->find('div[class="job-detail"]')->first->all_text );
+
     #$item->{content} = decode( 'utf8', $item->{content} ) if is_utf8( $item->{content } );
 
     return $item;
