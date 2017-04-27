@@ -75,9 +75,9 @@
             <mu-sub-header>
               请选择平台
             </mu-sub-header>
-            <mu-list-item title="全部" @click="catagoryItemClick('platform', '0', '平台')"/>
-            <mu-list-item title="外包众包" @click="catagoryItemClick('platform', '1', '外包众包')"/>
-            <mu-list-item title="远程工作" @click="catagoryItemClick('platform', '2', '远程工作')"/>
+            <mu-list-item title="全部" @click="categoryItemClick('platform', '', '平台')"/>
+            <mu-list-item title="外包众包" @click="categoryItemClick('platform', '码市', '外包众包')"/>
+            <mu-list-item title="远程工作" @click="categoryItemClick('platform', '实现网', '远程工作')"/>
           </mu-list>
         </mu-bottom-sheet>
 
@@ -88,15 +88,15 @@
             <mu-sub-header>
               请选择角色
             </mu-sub-header>
-            <mu-list-item title="全部" @click="catagoryItemClick('role', '0', '角色')"/>
-            <mu-list-item title="项目管理" @click="catagoryItemClick('role', '1', '项目管理')""/>
-            <mu-list-item title="产品经理" @click="catagoryItemClick('role', '2', '产品经理')"/>
-            <mu-list-item title="设计" @click="catagoryItemClick('role', '3', '设计')"/>
-            <mu-list-item title="开发" @click="catagoryItemClick('role', '4', '开发')"/>
-            <mu-list-item title="测试" @click="catagoryItemClick('role', '5', '测试')"/>
-            <mu-list-item title="运维" @click="catagoryItemClick('role', '6', '运维')"/>
-            <mu-list-item title="市场" @click="catagoryItemClick('role', '7', '市场')"/>
-            <mu-list-item title="运营" @click="catagoryItemClick('role', '8', '运营')"/>
+            <mu-list-item title="全部" @click="categoryItemClick('role', '0', '角色')"/>
+            <mu-list-item title="项目管理" @click="categoryItemClick('role', '1', '项目管理')""/>
+            <mu-list-item title="产品经理" @click="categoryItemClick('role', '2', '产品经理')"/>
+            <mu-list-item title="设计" @click="categoryItemClick('role', '3', '设计')"/>
+            <mu-list-item title="开发" @click="categoryItemClick('role', '4', '开发')"/>
+            <mu-list-item title="测试" @click="categoryItemClick('role', '5', '测试')"/>
+            <mu-list-item title="运维" @click="categoryItemClick('role', '6', '运维')"/>
+            <mu-list-item title="市场" @click="categoryItemClick('role', '7', '市场')"/>
+            <mu-list-item title="运营" @click="categoryItemClick('role', '8', '运营')"/>
           </mu-list>
         </mu-bottom-sheet>
 
@@ -107,11 +107,11 @@
             <mu-sub-header>
               请选择工作
             </mu-sub-header>
-            <mu-list-item title="全部" @click="catagoryItemClick('work', '0', '工作')"/>
-            <mu-list-item title="Web 页面" @click="catagoryItemClick('work', '1', 'Web 页面')"/>
-            <mu-list-item title="App 移动应用" @click="catagoryItemClick('work', '2', 'App 移动应用')"/>
-            <mu-list-item title="微信开发" @click="catagoryItemClick('work', '3', '微信开发')"/>
-            <mu-list-item title="咨询" @click="catagoryItemClick('work', '4', '咨询')"/>
+            <mu-list-item title="全部" @click="categoryItemClick('work', '0', '工作')"/>
+            <mu-list-item title="Web 页面" @click="categoryItemClick('work', '1', 'Web 页面')"/>
+            <mu-list-item title="App 移动应用" @click="categoryItemClick('work', '2', 'App 移动应用')"/>
+            <mu-list-item title="微信开发" @click="categoryItemClick('work', '3', '微信开发')"/>
+            <mu-list-item title="咨询" @click="categoryItemClick('work', '4', '咨询')"/>
           </mu-list>
         </mu-bottom-sheet>
 
@@ -122,18 +122,18 @@
             <mu-sub-header>
               请选择城市
             </mu-sub-header>
-            <mu-list-item title="全部" @click="catagoryItemClick('city', '0', '城市')"/>
-            <mu-list-item title="北京" @click="catagoryItemClick('city', '1', '北京')"/>
-            <mu-list-item title="上海" @click="catagoryItemClick('city', '2', '上海')"/>
-            <mu-list-item title="广州" @click="catagoryItemClick('city', '3', '广州')"/>
-            <mu-list-item title="深圳" @click="catagoryItemClick('city', '4', '深圳')"/>
-            <mu-list-item title="杭州" @click="catagoryItemClick('city', '5', '杭州')"/>
-            <mu-list-item title="成都" @click="catagoryItemClick('city', '6', '成都')"/>
-            <mu-list-item title="武汉" @click="catagoryItemClick('city', '7', '武汉')"/>
-            <mu-list-item title="南京" @click="catagoryItemClick('city', '8', '南京')"/>
-            <mu-list-item title="西安" @click="catagoryItemClick('city', '9', '西安')"/>
-            <mu-list-item title="厦门" @click="catagoryItemClick('city', '10', '厦门')"/>
-            <mu-list-item title="其他" @click="catagoryItemClick('city', '11', '其他')"/>
+            <mu-list-item title="全部" @click="categoryItemClick('city', '', '城市')"/>
+            <mu-list-item title="北京" @click="categoryItemClick('city', '北京', '北京')"/>
+            <mu-list-item title="上海" @click="categoryItemClick('city', 'shanghai', '上海')"/>
+            <mu-list-item title="广州" @click="categoryItemClick('city', '3', '广州')"/>
+            <mu-list-item title="深圳" @click="categoryItemClick('city', '4', '深圳')"/>
+            <mu-list-item title="杭州" @click="categoryItemClick('city', '5', '杭州')"/>
+            <mu-list-item title="成都" @click="categoryItemClick('city', '6', '成都')"/>
+            <mu-list-item title="武汉" @click="categoryItemClick('city', '7', '武汉')"/>
+            <mu-list-item title="南京" @click="categoryItemClick('city', '8', '南京')"/>
+            <mu-list-item title="西安" @click="categoryItemClick('city', '9', '西安')"/>
+            <mu-list-item title="厦门" @click="categoryItemClick('city', '10', '厦门')"/>
+            <mu-list-item title="其他" @click="categoryItemClick('city', '11', '其他')"/>
           </mu-list>
         </mu-bottom-sheet>
       </div>
@@ -156,19 +156,20 @@
           <template v-for="item in list" class="page-infinite-listitem">
 
             <!-- 卡片 -->
-            <mu-card style="margin: 10px 20px 10px 20px;">
+            <mu-card style="margin: 15px 20px 15px 20px; text-align: left;">
               
 
               <!-- 标题 / 来源 -->
-              <div @click="openDetailPopup(item.id)">
-                <mu-card-title :title="item.title" :subTitle="item.url"/>
-              </div>
+              <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank">
+                <!--<mu-card-title :title="item.title" :subTitle="item.url"/>-->
+                <mu-card-title :title="item.title" :subTitle="item.abstract"/>
+              </a>
 
               <!-- tags -->
               <mu-card-actions v-if="item.categories" style="display: flex;">
-                <template v-for="category in item.categories">
-                  <mu-chip class="demo-chip" style="margin-left: 5px;">
-                    {{ category.name }}
+                <template v-for="chip in item.chips">
+                  <mu-chip style="margin-left: 5px;">
+                    {{ chip.name }}
                   </mu-chip>
                 </template>
               </mu-card-actions>
@@ -179,14 +180,14 @@
               </mu-card-text>-->
 
               <!-- 价格 -->
-              <div @click="openDetailPopup(item.id)">
+              <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank">
                 <mu-card-actions style="display: flex;">
                   <p>报酬&nbsp;<b>{{ item.price }}</b>&nbsp;元</p>
                 </mu-card-actions>
-              </div>
+              </a>
 
               <!-- 其他 -->
-              <div @click="openDetailPopup(item.id)">
+              <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank">
                 <mu-card-actions style="display: flex;">
 
                 <!-- 暂无用户注册及评论功能
@@ -194,11 +195,11 @@
                   <mu-flat-button :label="item.vote_down" class="demo-flat-button" icon="thumb_down"/>
                 -->
 
-                  <p style="width: 33%">已发布&nbsp;<b>{{ item.release_date }}</b>&nbsp;天</p>
+                  <p style="width: 33%">&nbsp;<b>{{ item.releaseCN }}</b>&nbsp;前发布</p>
                   <p style="width: 33%">浏览&nbsp;<b>{{ item.view_count }}</b>&nbsp;次</p>
-                  <p style="width: 33%">将于&nbsp;<b>{{ item.expire_date }}</b>&nbsp;天后过期</p>
+                  <p style="width: 33%">将于&nbsp;<b>{{ item.expireCN }}</b>&nbsp;后过期</p>
                 </mu-card-actions>
-              </div>
+              </a>
             </mu-card>
           </template>
         </mu-list>
@@ -257,7 +258,34 @@ export default {
   },
   beforeMount() {
     Vue.http.get(this.url).then(response => {
+      for (let i = 0; i < response.data.data.length; i++) {
+        response.data.data[i].releaseCN = this.parseTime(response.data.data[i].release_date)
+        response.data.data[i].expireCN = this.parseTime(response.data.data[i].expire_date)
+        response.data.data[i].chips = []
+        if (typeof(response.data.data[i].categories) != "undefined") { 
+          for (let j = 0; j < response.data.data[i].categories.length; j++) {
+            response.data.data[i].chips.push(response.data.data[i].categories[j])
+          }
+        }
+        if (typeof(response.data.data[i].roles) != "undefined") { 
+          for (let j = 0; j < response.data.data[i].roles.length; j++) {
+            response.data.data[i].chips.push(response.data.data[i].roles[j])
+          }
+        }
+        if (typeof(response.data.data[i].skills) != "undefined") { 
+          for (let j = 0; j < response.data.data[i].skills.length; j++) {
+            response.data.data[i].chips.push(response.data.data[i].skills[j])
+          }
+        }
+        if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+            response.data.data[i].chips.push({name: response.data.data[i].city})
+        }
+        if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
+            response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
+        }
+      }
       this.list = response.data.data
+      console.log(this.list)
       this.total = response.data.total
     }, response => {
       // console.log('error')
@@ -268,7 +296,7 @@ export default {
   },
   created () {
     // 处理直接访问详情页的情况
-    console.log(this.$route)
+    // console.log(this.$route)
     if (this.$route.name == 'detail') {
       this.$router.push({ name: 'detail', params: { userId: this.$route.params.id }})
       this.showDetail = true
@@ -282,6 +310,30 @@ export default {
     this.url = 'https://remotex.ooclab.org/api/jobx/job?sb=release_date&sd=desc&lm=' + this.pageSize
   },
   methods: {
+    parseTime(date) {
+      var now = Date.now()
+      var duration = Math.abs(new Date(date) - now)
+      var nD = Math.floor(duration/(1000 * 60 * 60 * 24))
+      if (nD > 0) {
+        return nD + '天'
+      } else {
+        var nH  = Math.floor(duration/(1000 * 60 * 60))
+        if (nH > 0) {
+          return nH + '小时'
+        } else {
+          var nM = Math.floor(duration/(1000 * 60))
+          if (nM > 0) {
+            return nM + '分钟'
+          } else {
+            var nS = Math.floor(duration/(1000))
+            if (nS > 0) {
+              return nS + '秒'
+            }
+          }
+        }
+
+      }
+    },
     closeBottomSheet1 () {
       this.bottomSheet1 = false
     },
@@ -313,11 +365,34 @@ export default {
         this.pageNum = this.pageNum + 1
         setTimeout(() => {
           Vue.http.get(this.url + '&p=' + this.pageNum).then(response => {
-            console.log(response)
             if (response.data.data.length == 0){
               this.endPage = true
             } else {
               for (let i = 0; i < response.data.data.length; i++) {
+                response.data.data[i].releaseCN = this.parseTime(response.data.data[i].release_date)
+                response.data.data[i].expireCN = this.parseTime(response.data.data[i].expire_date)
+                response.data.data[i].chips = []
+                if (typeof(response.data.data[i].categories) != "undefined") { 
+                  for (let j = 0; j < response.data.data[i].categories.length; j++) {
+                    response.data.data[i].chips.push(response.data.data[i].categories[j])
+                  }
+                }
+                if (typeof(response.data.data[i].roles) != "undefined") { 
+                  for (let j = 0; j < response.data.data[i].roles.length; j++) {
+                    response.data.data[i].chips.push(response.data.data[i].roles[j])
+                  }
+                }
+                if (typeof(response.data.data[i].skills) != "undefined") { 
+                  for (let j = 0; j < response.data.data[i].skills.length; j++) {
+                    response.data.data[i].chips.push(response.data.data[i].skills[j])
+                  }
+                }
+                if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+                    response.data.data[i].chips.push({name: response.data.data[i].city})
+                }
+                if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
+                    response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
+                }
                 this.list.push(response.data.data[i])
               }
               this.endPage = false
@@ -345,7 +420,33 @@ export default {
       this.endPage = false
       this.url = 'https://remotex.ooclab.org/api/jobx/job?' + this.platformItem + this.roleItem + this.workItem + this.cityItem + this.sort + this.keywords + '&lm=' + this.pageSize
       Vue.http.get(this.url).then(response => {
-        console.log(response)
+        for (let i = 0; i < response.data.data.length; i++) {
+          console.log(response)
+          response.data.data[i].releaseCN = this.parseTime(response.data.data[i].release_date)
+          response.data.data[i].expireCN = this.parseTime(response.data.data[i].expire_date)
+          response.data.data[i].chips = []
+          if (typeof(response.data.data[i].categories) != "undefined") { 
+            for (let j = 0; j < response.data.data[i].categories.length; j++) {
+              response.data.data[i].chips.push(response.data.data[i].categories[j])
+            }
+          }
+          if (typeof(response.data.data[i].roles) != "undefined") { 
+            for (let j = 0; j < response.data.data[i].roles.length; j++) {
+              response.data.data[i].chips.push(response.data.data[i].roles[j])
+            }
+          }
+          if (typeof(response.data.data[i].skills) != "undefined") { 
+            for (let j = 0; j < response.data.data[i].skills.length; j++) {
+              response.data.data[i].chips.push(response.data.data[i].skills[j])
+            }
+          }
+          if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+              response.data.data[i].chips.push({name: response.data.data[i].city})
+          }
+          if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
+              response.data.data[i].abstract = response.data.data[i].abstract.substring(0, 50)
+          }
+        }
         this.list = response.data.data
         this.total = response.data.total
         this.loading = false
@@ -355,7 +456,7 @@ export default {
       })
     },
     // 点击类目按钮
-    catagoryItemClick (lk, lv, title) {
+    categoryItemClick (lk, lv, title) {
       if (lk == 'platform') {
           this.platformItem = ''
           this.platformTitle = title
@@ -409,8 +510,11 @@ export default {
     },
     // 打开详情页
     openDetailPopup (id) {
-      this.$router.push({ path: '/detail/' + id })
-      this.showDetail = true
+      // this.$router.push({ path: '/detail/' + id })
+      // this.showDetail = true
+      Vue.http.get('https://remotex.ooclab.org/api/jobx/job/' + id).then(response => {
+      }, response => {
+      })
     },
     // 关闭详情页
     closeDetailPopup(){
@@ -425,7 +529,6 @@ export default {
 html, body {
   height: 100%;
   width: 100%;
-  
 }
 
 #app {

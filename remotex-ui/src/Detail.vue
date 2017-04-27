@@ -4,7 +4,7 @@
     <!-- 详情页 -->
 
     <!-- loading -->
-    <div v-if="detailLoading" style="display: -webkit-box; -webkit-box-pack:center; -webkit-box-align:center; height:200px;">
+    <div v-if="detailLoading" style="display: -webkit-box; -webkit-box-pack:center; -webkit-box-align:center; height:200px; margin:0 auto;">
       <mu-circular-progress :size="40" :strokeWidth="5"/>
     </div>
 
@@ -97,10 +97,6 @@ export default {
 </script>
 
 <style>
-html, body {
-  height: 100%;
-}
-
 #detail {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -110,6 +106,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: auto;
+  text-align:center;
   -webkit-overflow-scrolling: touch;
 }
 
