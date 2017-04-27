@@ -35,10 +35,15 @@
           <mu-list-item title="Slack" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ" target="_blank">
             <img style="width:24px; height:24px; position:absolute;left:15px;top:10px;" src="./assets/Slack.png"/>
           </mu-list-item>
+
+          <!-- Redmine -->
+          <mu-list-item title="Redmine" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
+            <mu-icon value="assignment" style="position:absolute;left:15px;top:10px;" />
+          </mu-list-item>
           <mu-divider/>
 
           <!-- 关于 -->
-          <mu-list-item title="About" href="https://github.com/ooclab/remotex" target="_blank">
+          <mu-list-item title="About" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
             <mu-icon value="info" style="position:absolute;left:15px;top:10px;" />
           </mu-list-item>
 
