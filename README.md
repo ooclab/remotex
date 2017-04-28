@@ -1,19 +1,20 @@
-# remotex
+# RemoteX
 
-[![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
+RemoteX 缘起于 @gwind (好风) 在一早一晚上发表了 - [倡议：开发远程/众包/外包信息聚合平台，非盈利组织运作](http://yizaoyiwan.com/discussions/1258) . 然后被 @decadego (Jack) 同学迅速扩散到 v2mm & v2ex :
 
-- 项目首页: [https://remotex.ooclab.org](https://remotex.ooclab.org)
-- 项目管理: [https://wp.ooclab.org/projects/remotex](https://wp.ooclab.org/projects/remotex)
+- v2mm - [项目招募志愿者，远程工作空间 remotex](https://v2mm.tech/topic/591/%E9%A1%B9%E7%9B%AE%E6%8B%9B%E5%8B%9F%E5%BF%97%E6%84%BF%E8%80%85-%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4-remotex)
+- v2ex - [倡议：开发远程/众包/外包信息聚合平台，非盈利组织运作](https://www.v2ex.com/t/355577)
 
-远程工作空间
+然后 remotex 就开始了
 
-- [架构设计](docs/design/remotex-arch.md)
-- [项目管理](docs/pm/TODO.md)
-- [贡献者](contributors.md)
-- [idea](idea.md)
-- [mvp](mvp.md)
+加入协作 [![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
 
-## 倡议
+- [RemoteX 快乐工作 认真生活](https://remotex.ooclab.org)
+- [在线项目/进度详情](https://wp.ooclab.org/projects/remotex)
+
+------
+
+## 倡议原文
 
 发起时间： 2017年4月17日
 
@@ -49,36 +50,12 @@
 
 ### 联系
 
-- 微信: lijian_gnu
-- QQ: 314859638
-- 邮件: lijian.gnu@gmail.com / lijian@ooclab.com
-
-## 技术堆栈
-
-目前了解，技术点暂时列一下：
-
-- scrapy
-- elasticsearch
-- RESTful HTTP , swagger doc
-- kong(api gateway)
-- vuejs
-- docker, ci/cd
-
-## 团队协作
-
-- github
-- slack [invite link](http://t.cn/RXxTqF0)
+- 邮件: admin@ooclab.org / lijian.gnu@gmail.com
+- 微信: lijian_gnu (手动拉入微信群)
+- QQ群: remotex 633498747
 
 ## 参考资料
 
-- [一早一晚](http://yizaoyiwan.com/)
-- [众包](https://zh.wikipedia.org/wiki/%E4%BC%97%E5%8C%85)
-- [外包](https://zh.wikipedia.org/wiki/%E5%A4%96%E5%88%A4)
 - 《大教堂和集市》
 - 《失控》
 - 《重来1》《重来2》
-
-## 推荐/建议/相似
-
-- https://remoteok.io/
-- yuancheng.work
