@@ -9,7 +9,9 @@
       <mu-appbar title="RemoteX 快乐工作 认真生活">
 
         <!-- 右侧抽屉按钮 -->
-        <mu-icon-button slot="right" icon="more_vert" @click="toggleDrawer(true)"/>
+        <mu-icon-button slot="right" @click="toggleDrawer(true)">
+          <img style="width:24px; height:24px;" src="./assets/more.png" />
+        </mu-icon-button>
         
         <!-- Slack icon 
         <mu-icon-button slot="right" href="https://remotex.slack.com/shared_invite/MTcwMDMxOTA4MjA5LTE0OTI1MTM1NTctMjY5MjhmMGZmMQ" target="_blank">
@@ -38,24 +40,24 @@
 
           <!-- Redmine -->
           <mu-list-item title="Redmine" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
-            <mu-icon value="assignment" style="position:absolute;left:15px;top:10px;" />
+            <img style="width:20px; height:20px; position:absolute;left:17px;top:12px;" src="./assets/assignment.png"/>
           </mu-list-item>
           <mu-divider/>
 
           <!-- 关于 -->
           <mu-list-item title="About" href="https://wp.ooclab.org/boards/1/topics/1" target="_blank">
-            <mu-icon value="info" style="position:absolute;left:15px;top:10px;" />
+            <img style="width:20px; height:20px; position:absolute;left:17px;top:12px;" src="./assets/info.png"/>
           </mu-list-item>
 
           <!-- 联系 -->
           <mu-list-item title="Contact" href="https://github.com/ooclab/remotex" target="_blank">
-            <mu-icon value="mail" style="position:absolute;left:15px;top:10px;"/>
+            <img style="width:20px; height:16px; position:absolute;left:17px;top:14px;" src="./assets/mail.png"/>
           </mu-list-item>
           <mu-divider/>
 
           <!-- 关闭 -->
           <mu-list-item @click.native="openDrawer = false" title="Close">
-            <mu-icon value="close" style="position:absolute;left:15px;top:10px;"/>
+            <img style="width:16px; height:16px; position:absolute;left:19px;top:15px;" src="./assets/close.png"/>
           </mu-list-item>
         </mu-list>
       </mu-drawer>
@@ -67,7 +69,9 @@
         <mu-text-field style="width:60%;" label="请输入关键词" labelFloat @change="textChanged"/>
 
         <!-- 搜索按钮 -->
-        <mu-flat-button label="搜索" class="demo-flat-button" icon="search" primary @click="search"/>
+        <mu-flat-button label="搜索" class="demo-flat-button" primary @click="search">
+          <img style="width:18px; height:18px; margin-left:10px;" src="./assets/search.png" />
+        </mu-flat-button>
       </div>
 
       <!-- part 3 类目栏 -->
@@ -456,6 +460,7 @@ export default {
     toggleDrawer (flag) {
       this.openDrawer = !this.openDrawer
       this.docked = !flag
+      console.log(this.parseTime('2017-04-25T00:00:00.1493049600Z'))
     },
     // 重新加载列表数据
     search () {
