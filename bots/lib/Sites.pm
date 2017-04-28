@@ -19,6 +19,7 @@ sub output {
         Authorization  => 'Basic dXNlcjE6NDVhYTczNmYxZjY2ZTUxMWEyOWIwYzJi',
     };
 
+    #die Dumper $item;
     my $json = $self->ua->post( $url => $headers => json => $item )->res->dom;
 
     if ( $json->{errmsg} ) {

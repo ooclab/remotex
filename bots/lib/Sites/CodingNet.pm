@@ -2,7 +2,8 @@ package Sites::CodingNet;
 use utf8;
 use Mojo::Base 'Sites';
 use Agent;
-use Common qw/clean_text Dumper/;
+use Common qw/clean_text Dumper to_json/;
+use Time::Piece;
 
 has max_page_number   => 99;
 has uniq_prefix       => 'coding_net';
@@ -35,6 +36,7 @@ sub go {
         foreach my $e ( @{ $dom->{data}->{list} } ) {
 
             my $item = {};
+            $item->{platform} = '码市';
 
             $item->{title} = $e->{title};
             $item->{url} = sprintf "https://mart.coding.net/project/%s", $e->{id};
@@ -43,12 +45,15 @@ sub go {
             $item->{price}    = $e->{formatPriceNoCurrency};
             $item->{price} =~ s/,//g if $item->{price};
 
-            $item->{release_date}     = $e->{roleTypes}->[0] ? $e->{roleTypes}->[0]->{created_at} : undef;
-            
+            $item->{release_date} = $e->{roleTypes}->[0] ? $e->{roleTypes}->[0]->{created_at} : undef;
+            if ( $item->{release_date} ) {
+                $item->{release_date} = parse_date( $item->{release_date} );
+            }
+
             $item->{view_count} = $e->{applyCount};
 
             if ( $e->{roleTypes} ) {
-                map { push @{$item->{role}}, $_->{name} || $_->{description} } @{$e->{roleTypes}};
+                map { push @{ $item->{role} }, $_->{name} || $_->{description} } @{ $e->{roleTypes} };
             }
             push @{ $item->{categories} }, 'Web网站' if $e->{type} == 0;
             push @{ $item->{categories} }, '其它'    if $e->{type} == 4;
@@ -63,6 +68,13 @@ sub go {
     }
 
     return \@items;
+}
+
+sub parse_date {
+    my $date = shift;
+    return unless $date;
+    my $t = Time::Piece->strptime( $date, "%b %d, %Y %H:%M:%S %p" );
+    return $t->strftime("%Y-%m-%dT%H:%M:%SZ");
 }
 
 sub parse_content {
@@ -80,8 +92,8 @@ sub parse_content {
         }
     );
 
-    $item->{body} = clean_text( $item->{body} );
-    $item->{status} = clean_text( $content_dom->find( 'span[class^="status"]')->first->all_text );
+    $item->{body}   = clean_text( $item->{body} );
+    $item->{status} = clean_text( $content_dom->find('span[class^="status"]')->first->all_text );
 
     return $item;
 }

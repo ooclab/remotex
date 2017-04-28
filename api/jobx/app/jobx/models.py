@@ -244,7 +244,6 @@ class JobxJob(ORMBase):
             'platform': self.platform.isimple,
             'title': self.title,
             'url': self.url,
-            'checksum': self.checksum,
             'price': self.price,
             'city': self.city,
             'categories': [x.isimple for x in self.categories],
@@ -269,7 +268,6 @@ class JobxJob(ORMBase):
             'body': self.body,
             'body_markup': self.body_markup,
             'url': self.url,
-            'checksum': self.checksum,
             'price': self.price,
             'city': self.city,
             'categories': [x.isimple for x in self.categories],
@@ -284,3 +282,7 @@ class JobxJob(ORMBase):
             'created': rfc3339_string(self.created),
             'updated': rfc3339_string(self.updated),
         }
+
+    @property
+    def iview_spider(self):
+        return self.iview_public

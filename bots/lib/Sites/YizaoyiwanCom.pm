@@ -3,6 +3,7 @@ use utf8;
 use Mojo::Base 'Sites';
 use Agent;
 use Common qw/clean_text str2date Dumper is_utf8 encode decode/;
+use Time::Piece;
 
 has max_page_number   => 99;
 has uniq_prefix       => 'yizaoyiwan_com';
@@ -28,6 +29,7 @@ sub go {
             sub {
                 my $e    = shift;
                 my $item = {};
+                $item->{platform} = '一早一晚';
 
                 my $title = $e->find('div[class="media-heading"] > a')->first;
                 if ($title) {
@@ -41,11 +43,12 @@ sub go {
                     }
                 }
 
-                $item->{date}     = $e->find('time[class="timeago"]')->first->attr('datetime');
-                $item->{date_str} = $item->{date};
+                $item->{release_date} = parse_date( $e->find('time[class="timeago"]')->first->attr('datetime') );
 
-                ( $item->{uniq_id} ) = $item->{url} =~ /(\d+)$/;
-                $item->{uniq_id} = sprintf '%s_%s', $self->uniq_prefix, $item->{uniq_id};
+                $item->{date_str} = $item->{release_date};
+
+                ( $item->{checksum} ) = $item->{url} =~ /(\d+)$/;
+                $item->{checksum} = sprintf '%s_%s', $self->uniq_prefix, $item->{checksum};
 
                 $item = $self->parse_content($item);
 
@@ -60,6 +63,13 @@ sub go {
     return \@items;
 }
 
+sub parse_date {
+    my $str = shift;
+    return unless $str;
+    my $t = Time::Piece->strptime( $str, "%Y-%m-%d %H:%M:%S" );
+    return $t->strftime("%Y-%m-%dT%H:%M:%SZ");
+}
+
 sub parse_content {
     my $self = shift;
     my $item = shift;
@@ -68,10 +78,10 @@ sub parse_content {
 
     my $content_dom = $self->ua->get_cache_url( $item->{url} );
 
-    $item->{content} = clean_text( $content_dom->find('div[class="post-content"]')->first->all_text );
-    $item->{reads}   = clean_text( $content_dom->find('div[class="media-meta text-muted"]')->first->all_text );
+    $item->{body}       = clean_text( $content_dom->find('div[class="post-content"]')->first->all_text );
+    $item->{view_count} = clean_text( $content_dom->find('div[class="media-meta text-muted"]')->first->all_text );
 
-    ( $item->{reads} ) = $item->{reads} =~ /(\d+)\s*次阅读/;
+    ( $item->{view_count} ) = $item->{view_count} =~ /(\d+)\s*次阅读/;
 
     return $item;
 }
