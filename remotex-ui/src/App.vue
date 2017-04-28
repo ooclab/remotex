@@ -72,9 +72,9 @@
 
       <!-- part 3 类目栏 -->
       <div>
-        <mu-raised-button style="width:40%; margin: 5px 5px 5px 0;" @click="openBottomSheet1" :label="platformTitle" icon="assignment_turned_in"/>
-
         <!-- 平台 -->
+        <!--
+        <mu-raised-button style="width:40%; margin: 5px 5px 5px 0;" @click="openBottomSheet1" :label="platformTitle" icon="assignment_turned_in"/>
         <mu-bottom-sheet :open="bottomSheet1" @close="closeBottomSheet1">
           <mu-list @itemClick="closeBottomSheet1()" style="height:200px">
             <mu-sub-header>
@@ -85,8 +85,10 @@
             <mu-list-item title="远程工作" @click="categoryItemClick('platform', '实现网', '远程工作')"/>
           </mu-list>
         </mu-bottom-sheet>
+        -->
 
         <!-- 角色 -->
+        <!--
         <mu-raised-button style="width:40%; margin: 5px 0 5px 5px;" @click="openBottomSheet2" :label="roleTitle" icon="build"/>
         <mu-bottom-sheet :open="bottomSheet2" @close="closeBottomSheet2">
           <mu-list @itemClick="closeBottomSheet2" style="height:240px">
@@ -104,8 +106,10 @@
             <mu-list-item title="运营" @click="categoryItemClick('role', '8', '运营')"/>
           </mu-list>
         </mu-bottom-sheet>
+        -->
 
         <!-- 工作 -->
+        <!--
         <mu-raised-button style="width:40%; margin: 5px 5px 5px 0;" @click="openBottomSheet3" :label="workTitle" icon="devices"/>
         <mu-bottom-sheet :open="bottomSheet3" @close="closeBottomSheet3">
           <mu-list @itemClick="closeBottomSheet3" style="height:240px">
@@ -119,8 +123,10 @@
             <mu-list-item title="咨询" @click="categoryItemClick('work', '4', '咨询')"/>
           </mu-list>
         </mu-bottom-sheet>
+        -->
 
         <!-- 城市 -->
+        <!--
         <mu-raised-button style="width:40%; margin: 5px 0 5px 5px;" @click="openBottomSheet4" :label="cityTitle" icon="location_city"/>
         <mu-bottom-sheet :open="bottomSheet4" @close="closeBottomSheet4">
           <mu-list @itemClick="closeBottomSheet4" style="height:240px">
@@ -141,7 +147,9 @@
             <mu-list-item title="其他" @click="categoryItemClick('city', '11', '其他')"/>
           </mu-list>
         </mu-bottom-sheet>
+        -->
       </div>
+
 
       <!-- part 4 排序栏 -->
       <div>
@@ -187,12 +195,12 @@
               <!-- 价格 -->
               <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank">
                 <mu-card-actions style="display: flex;">
-                  <p>报酬&nbsp;<b>{{ item.price }}</b>&nbsp;元</p>
+                  <p>报酬&nbsp;<b>{{ item.price }}</b></p>
                 </mu-card-actions>
               </a>
 
               <!-- 其他 -->
-              <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank">
+              <a @click="openDetailPopup(item.id)" :href="item.url" target="_blank" style="font-size: 12px; color: #BDBDBD;">
                 <mu-card-actions style="display: flex;">
 
                 <!-- 暂无用户注册及评论功能
@@ -282,7 +290,7 @@ export default {
             response.data.data[i].chips.push(response.data.data[i].skills[j])
           }
         }
-        if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+        if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '' && response.data.data[i].city != null) { 
             response.data.data[i].chips.push({name: response.data.data[i].city})
         }
         if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
@@ -290,6 +298,8 @@ export default {
         }
         if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
             response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
+        } else {
+            response.data.data[i].price = '未报价'
         }
       }
       this.list = response.data.data
@@ -319,6 +329,9 @@ export default {
   },
   methods: {
     parseTime(date) {
+      if (typeof(date) == "undefined" || date == null) {
+        return '180天'
+      }
       var now = Date.now()
       var duration = Math.abs(new Date(date) - now)
       var nD = Math.floor(duration/(1000 * 60 * 60 * 24))
@@ -343,6 +356,10 @@ export default {
       }
     },
     outputdollars(number) {
+      console.log(number)
+      if (number == '0' || number == 0) {
+        return '无报价'
+      }
       if (number.length <= 3)
           return (number == '' ? '0' : number);
       else {
@@ -354,7 +371,7 @@ export default {
               else
                   output += ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
           }
-          return (output);
+          return (output + ' 元');
       }
     },
     closeBottomSheet1 () {
@@ -410,7 +427,7 @@ export default {
                     response.data.data[i].chips.push(response.data.data[i].skills[j])
                   }
                 }
-                if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+                if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '' && response.data.data[i].city != null) { 
                     response.data.data[i].chips.push({name: response.data.data[i].city})
                 }
                 if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
@@ -418,6 +435,8 @@ export default {
                 }
                 if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
                     response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
+                } else {
+                    response.data.data[i].price = '未报价'
                 }
                 this.list.push(response.data.data[i])
               }
@@ -466,7 +485,7 @@ export default {
               response.data.data[i].chips.push(response.data.data[i].skills[j])
             }
           }
-          if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '') { 
+          if (typeof(response.data.data[i].city) != "undefined" && response.data.data[i].city != '' && response.data.data[i].city != null) { 
               response.data.data[i].chips.push({name: response.data.data[i].city})
           }
           if (typeof(response.data.data[i].abstract) != "undefined" && response.data.data[i].abstract != '') { 
@@ -474,6 +493,8 @@ export default {
           }
           if (typeof(response.data.data[i].price) != "undefined" && response.data.data[i].price != '') { 
               response.data.data[i].price = this.outputdollars(response.data.data[i].price + '')
+          } else {
+              response.data.data[i].price = '未报价'
           }
         }
         this.list = response.data.data
