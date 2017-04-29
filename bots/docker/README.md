@@ -1,5 +1,7 @@
 ## 概述
-docker 目录下的文件用于构建 spider-perl Docker 容器(不确定概念是否正确, 请指正.  :-) ). 用于布署 remotex perl 编写的 spider.
+docker 目录下的文件用于构建 Docker Image.  将 spider docker 化, 以方便大批量快速布署.
+
+注意: 此 image 只用于 perl 编写的 spider, 基于python的 scrapy docker, 请参考 [Remotex PyBots](https://github.com/p9s/remotex/tree/master/PyBots/docker )
 
 
 ## 文件说明
