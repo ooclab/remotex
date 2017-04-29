@@ -23,6 +23,7 @@ remotex 项目数据爬虫,  使用perl( 5.24.0 ).
 - [YAML::Syck](https://metacpan.org/pod/YAML::Syck)
 - [Path::Tiny](https://metacpan.org/pod/Path::Tiny)
 - [JSON](https://metacpan.org/pod/JSON)
+- [Time::Piece](https://metacpan.org/pod/Time::Piece)
 
 ## 执行方法
 默认, 每个网站写一个 test 存放在 t 目录下, 

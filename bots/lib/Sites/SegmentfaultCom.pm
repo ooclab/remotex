@@ -5,7 +5,7 @@ use Agent;
 use Common qw/clean_text Dumper to_json/;
 use Time::Piece;
 
-has max_page_number   => 99;
+has max_page_number   => 1;
 has uniq_prefix       => 'segmentfault_com';
 has start_page_number => 1;
 has ua                => sub { Agent->new };
@@ -81,7 +81,8 @@ sub go {
                 $date =~ s/日//;
 
                 my $t = Time::Piece->strptime( $date, "%Y-%m-%d %H:%M:%S" );
-                $item->{release_date} = $t->strftime("%Y-%m-%dT%H:%M:%SZ");
+                $item->{release_date} = $t->strftime("%Y-%m-%dT%H:%M:%S.%sZ");
+                $item->{release_date} =~ s/\d\d\d\dZ$/Z/;
             }
 
             $item->{city} = $e->find('span[class="text-muted"]')->first->all_text;

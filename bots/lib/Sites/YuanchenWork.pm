@@ -5,7 +5,7 @@ use Agent;
 use Common qw/clean_text str2date Dumper is_utf8 encode decode/;
 use Time::Piece;
 
-has max_page_number   => 99;
+has max_page_number   => 1;
 has uniq_prefix       => 'yuanchen_work';
 has start_page_number => 1;
 has ua                => sub { Agent->new };
@@ -61,7 +61,10 @@ sub parse_date {
     my $str = shift;
     return unless $str;
     my $t = Time::Piece->strptime( $str, "%Y-%m-%d" );
-    return $t->strftime("%Y-%m-%dT%H:%M:%SZ");
+    my $t_s =$t->strftime("%Y-%m-%dT%H:%M:%S.%sZ");
+
+    $t_s =~ s/\d\d\d\dZ$/Z/;
+    return $t_s;
 }
 
 sub parse_content {
