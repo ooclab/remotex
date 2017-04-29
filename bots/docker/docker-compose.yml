@@ -1,0 +1,8 @@
+version: "3"
+services:
+    spider-perl:
+        image: remotex/spider-perl
+        tty: true
+        #volumes:
+        #    - ".:/work"
+        entrypoint: bash
