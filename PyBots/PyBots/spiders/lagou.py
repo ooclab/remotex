@@ -47,3 +47,4 @@ class Tech2ipoSpider(scrapy.Spider):
         for c in body:
             item['body'] += c.encode("utf-8")
         item['release_date'] = response.xpath('//div[@id="project_detail"]/div[1]/ul[2]/li[1]/span[2]/text()').extract()[0].encode("utf-8")
+        return item
