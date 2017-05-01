@@ -1,0 +1,15 @@
+$color-header-title-bg: #474a4f;
+$color-border: #ddd;
+$color-white: #fff;
+$color-font: #333;
+$color-bg: #f2f2f2;
+$color-link: #629ee2;
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    background: $color-bg;
+}
