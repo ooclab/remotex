@@ -12,14 +12,22 @@ import tornado.options
 import tornado.web
 import tornado.netutil
 
+from elasticsearch import Elasticsearch
+
 from eva.orm import get_db_session
 from eva.utils.findapps import get_site_handlers
+from eva.conf import settings
 
 
 class Application(tornado.web.Application):
 
     def __init__(self):
         self.db_session = get_db_session()
+        self.es = Elasticsearch([{
+            'host': settings.ELATICSEARCH_HOST,
+            'port': settings.ELATICSEARCH_PORT
+        }])
+
 
         site_handlers = get_site_handlers()
 

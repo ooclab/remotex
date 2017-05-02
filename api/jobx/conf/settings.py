@@ -16,3 +16,7 @@ INSTALLED_APPS = (
     'eva.contrib.app.auth',
     'app.jobx',
 )
+
+ELATICSEARCH_HOST = "es"
+ELATICSEARCH_PORT = 9200
+
