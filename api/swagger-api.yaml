@@ -27,6 +27,15 @@ paths:
         - jobx-public-api
       summary: 获取job列表
       description: 返回job列表
+      parameters:
+        - $ref: '#/parameters/qSortBy'
+        - $ref: '#/parameters/qSortDirection'
+        - $ref: '#/parameters/qLikeKey'
+        - $ref: '#/parameters/qLikeValue'
+        - $ref: '#/parameters/qAfter'
+        - $ref: '#/parameters/qBefore'
+        - $ref: '#/parameters/qPageSize'
+        - $ref: '#/parameters/qCurrentPage'
       responses:
         200:
           description: 正确, 返回Job列表数据
@@ -59,25 +68,96 @@ paths:
         default:
           $ref: '#/responses/DefaultErrorResponse'
 
+
   /spider/jobx/job:
     post:
       tags:
         - jobx-spider-api
       summary: 上传Job数据
-      description: spider 调用该接口上传一个Job数据
+      description: |
+        spider 调用该接口上传一个Job数据.如果指定的 checksum 存在, 则更新该Job
+        `TODO` : 讨论是否需要混合创建和更新接口
       parameters:
         - $ref: '#/parameters/Authorization'
         - $ref: '#/parameters/spiderJobCreateBody'
+      responses:
+        200:
+          description: 正确, 返回Job详情
+          schema:
+            $ref: '#/definitions/JobViewPublic'
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+
+  /spider/jobx/job/{CHECKSUM}:
+    parameters:
+      - $ref: '#/parameters/CHECKSUM'
+      - $ref: '#/parameters/Authorization'
+    head:
+      tags:
+        - jobx-spider-api
+      summary: 检测指定Job是否存在
+      responses:
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+    get:
+      tags:
+        - jobx-spider-api
+      summary: 查看指定checksum的Job
+      description: spider 调用该接口查看指定checksum的Job
       responses:
         200:
           description: Success
           schema:
             type: object
             properties:
+              status:
+                type: string
+                enum:
+                  - created
+                  - updated
+                description: 创建成功(created) 或 更新成功(updated)
               id:
                 type: integer
                 format: int
                 description: 成功创建的 Job ID
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+    put:
+      tags:
+        - jobx-spider-api
+      summary: 指定checksum的Job更新
+      description: spider 调用该接口更新指定checksum的Job
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: 创建成功(created)
+              id:
+                type: integer
+                format: int
+                description: 成功创建的 Job ID
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+    delete:
+      tags:
+        - jobx-spider-api
+      summary: 删除指定checksum的Job
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: 删除成功
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
 
 definitions:
 
@@ -203,9 +283,6 @@ definitions:
         url:
           type: string
           description: 来源地址
-        checksum:
-          type: string
-          description: 校验值(前端无用,爬虫用来检查唯一性)
         city:
           type: string
           description: 城市
@@ -259,6 +336,16 @@ responses:
         error:
           type: string
           description: 错误字符串
+        data:
+          type: object
+          properties:
+            status_code:
+              type: integer
+              format: int
+              description: 错误码
+            exc_info:
+              type: string
+              description: 详细错误信息
 
 
 parameters:
@@ -270,11 +357,63 @@ parameters:
     description: basic-auth 验证
     required: true
 
+  qSortBy:
+    name: sb
+    in: query
+    type: string
+    default: id
+    description: 指定一个字段来排序
+  qSortDirection:
+    name: sd
+    in: query
+    type: string
+    enum: ["asc", "desc"]
+    default: desc
+    description: 指定排序为 asc 或 desc
+  qLikeKey:
+    name: lk
+    in: query
+    type: string
+    description: 与 lv 一同使用, 表示模糊匹配的字段名
+  qLikeValue:
+    name: lv
+    in: query
+    type: string
+    description: 与 lk 一同使用, 表示模糊匹配的值
+  qAfter:
+    name: after
+    in: query
+    type: string
+    description: 指定查询起始时间
+  qBefore:
+    name: before
+    in: query
+    type: string
+    description: 指定查询截止时间
+  qPageSize:
+    name: lm
+    in: query
+    type: string
+    description: 指定查询的列表/页的数目
+  qCurrentPage:
+    name: p
+    in: query
+    type: string
+    description: 指定查询的页数(当前页)
+
+
   ID:
     name: ID
     in: path
     type: string
     description: 该对象的ID
+    required: true
+
+  CHECKSUM:
+    name: CHECKSUM
+    in: path
+    type: string
+    description: 该对象的 checksum
     required: true
 
   spiderJobCreateBody:
@@ -293,6 +432,8 @@ parameters:
         platform:
           type: string
           description: 来源平台
+          minimum: 2
+          maximum: 128
         title:
           type: string
           description: 标题/主题
