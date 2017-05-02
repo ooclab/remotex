@@ -68,6 +68,20 @@ paths:
         default:
           $ref: '#/responses/DefaultErrorResponse'
 
+  /jobx/job/{ID}/url:
+
+    get:
+      tags:
+        - jobx-public-api
+      summary: 跳转到指定ID的Job来源地址
+      parameters:
+        - $ref: '#/parameters/ID'
+      responses:
+        302:
+          description: 正确, 跳转到来源地址
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
 
   /spider/jobx/job:
     post:
@@ -209,7 +223,6 @@ definitions:
     required:
       - title
       - platform
-      - url
       - checksum
     properties:
         platform:
@@ -221,9 +234,6 @@ definitions:
         body_markup:
           type: integer
           format: int
-        url:
-          type: string
-          description: 来源地址
         checksum:
           type: string
           description: 校验值(前端无用,爬虫用来检查唯一性)
@@ -273,16 +283,12 @@ definitions:
       required:
         - title
         - platform
-        - url
         - checksum
       properties:
         platform:
           $ref: '#/definitions/platformSimpleModel'
         title:
           type: string
-        url:
-          type: string
-          description: 来源地址
         city:
           type: string
           description: 城市
