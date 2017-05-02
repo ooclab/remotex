@@ -5,9 +5,14 @@ curl -i -X POST \
   --data 'name=jobx-public-api' \
   --data 'uris=/jobx' \
   --data 'upstream_url=http://127.0.0.1:3001/jobx'
-curl -X POST http://localhost:8001/apis/jobx-public-api/plugins \
+curl -X POST http://localhost:8001/apis/${api}/plugins \
   --data "name=file-log" \
   --data "config.path=/tmp/kong-jobx-public-api.log"
+# TODO: https://getkong.org/plugins/rate-limiting/
+curl -X POST http://localhost:8001/apis/${api}/plugins \
+    --data "name=rate-limiting" \
+    --data "config.second=5" \
+    --data "config.hour=10000"
 # cors
 curl -X POST http://localhost:8001/apis/${api}/plugins \
     --data "name=cors" \
