@@ -16,7 +16,7 @@ class Tech2ipoSpider(scrapy.Spider):
 
     
     def parse(self, response):
-        print('-----------------------')
+        # print('-----------------------')
         for sel in response.xpath('//div[@id="project_list"]/ul/li'):
             item = JobItem()
             item['platform'] = '大鲲网'
@@ -25,6 +25,7 @@ class Tech2ipoSpider(scrapy.Spider):
             item['url'] = url
             item['checksum'] = '{}_{}'.format( 'pro_lagou', item['url'].split('/')[-1].split('.')[0] )
             item['price'] = sel.xpath('a/div[2]/span/text()').extract()[0].encode("utf-8")
+            item['price'] = ''
             # 查看次数
             # item['view_count'] = sel.xpath('a/div[4]/div[3]/div[2]/strong/text()').extract()[0].encode("utf-8")
             
@@ -33,7 +34,8 @@ class Tech2ipoSpider(scrapy.Spider):
             for cats in sel.xpath('a/div[@class="category_list"]/span'):
                 categories.append(cats.xpath('text()').extract()[0].encode("utf-8"))
             item['categories'] = categories
-            
+            item['roles'] = ''
+            item['expire_date'] = ''
             request = scrapy.Request(url,callback=self.parse_contents)
             request.meta['item'] = item
             yield request
