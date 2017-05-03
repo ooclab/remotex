@@ -14,6 +14,7 @@ from sqlalchemy.orm import relationship
 
 from eva.orm import ORMBase
 from eva.utils.time_ import rfc3339_string
+from .settings import ABSTRACT_MAX
 
 
 jobx_job__categroy = Table(
@@ -243,6 +244,7 @@ class JobxJob(ORMBase):
             'id': self.id,
             'platform': self.platform.isimple,
             'title': self.title,
+            'abstract': self.abstract,
             'price': self.price,
             'city': self.city,
             'categories': [x.isimple for x in self.categories],
@@ -264,6 +266,7 @@ class JobxJob(ORMBase):
             'id': self.id,
             'platform': self.platform.isimple,
             'title': self.title,
+            'abstract': self.abstract,
             'body': self.body,
             'body_markup': self.body_markup,
             'price': self.price,
@@ -284,3 +287,7 @@ class JobxJob(ORMBase):
     @property
     def iview_spider(self):
         return self.iview_public
+
+    @property
+    def abstract(self):
+        return self.body[:ABSTRACT_MAX]
