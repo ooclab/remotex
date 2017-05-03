@@ -24,8 +24,8 @@ class Tech2ipoSpider(scrapy.Spider):
             url = sel.xpath('a/@href').extract()[0]
             item['url'] = url
             item['checksum'] = '{}_{}'.format( 'pro_lagou', item['url'].split('/')[-1].split('.')[0] )
-            item['price'] = sel.xpath('a/div[2]/span/text()').extract()[0].encode("utf-8")
-            item['price'] = ''
+            item['price'] = sel.xpath('a/div[2]/span/text()').extract()[0].encode("utf-8").split('元')[0].split('-')[0]
+            print item['url']
             # 查看次数
             # item['view_count'] = sel.xpath('a/div[4]/div[3]/div[2]/strong/text()').extract()[0].encode("utf-8")
             

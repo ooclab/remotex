@@ -16,9 +16,9 @@ class PybotsPipeline(object):
             'Content-Type':'application/json',
             'cache-contro':'no-cache',
         }
-        # self.url = 'https://remotex.ooclab.org/api/spider/jobx/job'
-        self.url = 'http://114.215.221.229/api/spider/jobx/job'
-    
+        self.url = 'https://remotex.ooclab.org/api/spider/jobx/job'
+        # self.url = 'http://114.215.221.229/api/spider/jobx/job' #test env
+
     def process_item(self, item, spider):
         print dict(item)
         res = requests.post(self.url, headers=self.headers, json=dict(item))
