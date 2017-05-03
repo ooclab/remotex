@@ -1,5 +1,9 @@
 import datetime
 
+from elasticsearch import Elasticsearch
+
+from eva.conf import settings
+
 
 def utc_rfc3339_string(dt):
     '''转化 datetime(UTC) 为 rfc3339 格式字符串'''
@@ -18,3 +22,11 @@ def utc_rfc3339_parse(s):
     if s[-1].upper() != 'Z':
         return
     return datetime.datetime.strptime(s.rstrip('Zz'), '%Y-%m-%dT%H:%M:%S.%f')
+
+
+def get_elasticsearch():
+    es = Elasticsearch([{
+        'host': settings.ELATICSEARCH_HOST,
+        'port': settings.ELATICSEARCH_PORT
+    }])
+    return es
