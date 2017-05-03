@@ -6,3 +6,5 @@ MARKUP_CHOICES = (
     (1, _("Markdown")),
     (2, _("rst")),
 )
+
+ABSTRACT_MAX = 128
