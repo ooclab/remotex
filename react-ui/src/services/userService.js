@@ -1,4 +1,4 @@
-import xhr from './xhr/'
+// import xhr from './xhr/'
 
 /**
  * 对应后端涉及到用户认证的 API
@@ -6,7 +6,7 @@ import xhr from './xhr/'
 class UserService {
 
   checkLogin () {
-    return xhr({ url: '/user' })
+    return {}
   }
 
   /**
@@ -14,15 +14,11 @@ class UserService {
    * @return {Promise}
    */
   login (userData) {
-    return xhr({
-      method: 'post',
-      url: '/login',
-      body: userData
-    })
+    return {}
   }
 
   logout () {
-    return xhr({ url: '/logout' })
+    return {}
   }
 
 }

@@ -1,35 +1,28 @@
+import { injectReducer } from 'REDUCER'
+import createContainer from 'UTIL/createContainer'
+
 export default {
   path: '/',
 
   component: require('COMPONENT/App').default,
   
   indexRoute: {
-    component: require('VIEW/index').default
+    getComponent (nextState, cb) {
+      require.ensure([], (require) => {
+        injectReducer('list', require('REDUCER/list').default)
+        const getPageContainer = createContainer(
+          ({ pages }) => ({ pages }),
+          require('ACTION/list').default,
+          require('COMPONENT/index/').default
+        )
+
+        cb(null, getPageContainer)
+      }, 'pages')
+    }
   },
   
   childRoutes: [
-    // 路由按模块组织分离，避免单文件代码量过大
-    /* require('./msg').default,
-     * require('./todo').default,*/
-    
-    // 强制“刷新”页面的 hack
     { path: 'redirect', component: require('COMPONENT/Redirect').default },
-    
-    // 无路由匹配的情况一定要放到最后，否则会拦截所有路由
     { path: '*', component: require('COMPONENT/404').default }
   ]
 }
-
-/*
-  当前路由树如下
-  ├ /
-  |
-  ├ /msg
-  ├ /msg/add
-  ├ /msg/detail/:msgId
-  ├ /msg/modify/:msgId
-  |
-  ├ /todo
-  |
-  ├ /redirect
-*/

@@ -14,7 +14,7 @@ export default class Navbar extends Component {
   componentWillMount () {
     console.info('[Navbar] 初始化：检查用户是否已经登录')
     console.info('[TIPS] 由于有Redux Logger，故之后就不手动打印动作了')
-    this.props.checkLogin()
+    // this.props.checkLogin()
   }
 
   render() {
