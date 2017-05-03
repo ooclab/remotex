@@ -14,7 +14,6 @@
   <div id="app"></div>
 
 <script src="/static/jquery.min.js"></script>
-<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
 <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
 {% } %}

@@ -9,7 +9,7 @@ export default function userAuth(nextState, replace, next) {
   let { userData } = store.getState()
   if (userData) return next()
 
-  alert('请先登录后再访问')
+  // alert('请先登录后再访问')
   history.goBack()
   // next(replace('/loginPage')) # 举例：跳转到登录页的写法
 }
