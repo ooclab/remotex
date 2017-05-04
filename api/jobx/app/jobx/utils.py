@@ -21,7 +21,10 @@ def utc_rfc3339_parse(s):
         return
     if s[-1].upper() != 'Z':
         return
-    return datetime.datetime.strptime(s.rstrip('Zz'), '%Y-%m-%dT%H:%M:%S.%f')
+    if '.' in s:
+        return datetime.datetime.strptime(s.rstrip('Zz'), '%Y-%m-%dT%H:%M:%S.%f')
+    else:
+        return datetime.datetime.strptime(s.rstrip('Zz'), '%Y-%m-%dT%H:%M:%S')
 
 
 def get_elasticsearch():
