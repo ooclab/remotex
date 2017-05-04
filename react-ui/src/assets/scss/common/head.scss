@@ -6,6 +6,7 @@
         height: 60px;
         padding-left: 20px;
         background: $bg;
+        overflow: hidden;
     }
     .r-header-title {
         @include r-header($color-header-title-bg);

@@ -29,7 +29,9 @@ module.exports = {
       'react-router',
       'react-router-redux',
       'redux',
-      'redux-thunk'
+      'redux-thunk',
+      'moment',
+      'numeral'
     ]
   },
   output: {

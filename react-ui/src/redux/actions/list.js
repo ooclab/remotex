@@ -7,8 +7,8 @@ const getList = (obj) => ({
   payload: obj
 })
 
-const getAll = () => dispatch => {
-    jobService.fetch().then(
+const getAll = (lm = 10, p = 1) => dispatch => {
+    jobService.fetch(lm, p).then(
       re => dispatch(getList(re))
     )
   }
