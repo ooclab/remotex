@@ -2,8 +2,8 @@ import xhr from './xhr/'
 
 class JobService {
 
-  fetch () {
-    const url = `/api/jobx/job`
+  fetch (lm, p) {
+    const url = `/api/jobx/job?lm=${lm}&p=${p}`
     return xhr({ url })
   }
 

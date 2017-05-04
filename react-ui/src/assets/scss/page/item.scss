@@ -1,3 +1,9 @@
+.r-panel-title {
+    font-size: 18px;
+    line-height: 30px;
+    margin: 0px;
+
+}
 .r-item-panel {
     display: block;
     height: 180px;
@@ -15,6 +21,7 @@
             margin: 0px;
             float: left;
             line-height: 24px;
+            font-weight: normal;
         }
         .r-item-price {
             font-size: 14px;

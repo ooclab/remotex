@@ -12,4 +12,12 @@ $color-link: #4990e2;
 }
 body {
     background: $color-bg;
+    font-family: -apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+}
+a {
+    text-decoration: none;
+    color: initial;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: normal;
 }

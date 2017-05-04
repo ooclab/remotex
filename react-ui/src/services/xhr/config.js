@@ -1,10 +1,10 @@
 let url = ''
-/* if (__DEV__) {
- *   url = 'http://114.215.221.229/'
- * }
- * if (__PROD__) {*/
+if (__DEV__) {
+  url = 'http://114.215.221.229/'
+}
+if (__PROD__) {
   url = 'https://remotex.ooclab.org/'
-/* }*/
+}
 
 export const rootPath = url
 

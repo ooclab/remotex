@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import numeral from 'numeral'
+import moment from 'moment'
+require('moment/locale/zh-cn')
+
 
 
 export default class Item extends Component {
@@ -8,19 +12,24 @@ export default class Item extends Component {
         data: {
           title,
           price,
-          categories
+          categories,
+          abstract,
+          release_date,
+          view_count,
+          url
         }
       }
     } = this
 
     return (
+      <a href={url} target="_blank">
       <div className="r-item-panel">
         <div className="r-item-head">
           <h3 className="r-item-title">
             {title}
           </h3>
           <span className="r-item-price">
-            &yen;&nbsp;{price}
+            &yen;&nbsp;{numeral(price).format('0,0')}
           </span>
         </div>
         <div className="r-item-body">
@@ -34,20 +43,21 @@ export default class Item extends Component {
             }
           </ul>
           <p className="r-item-detail">
-            本人曾在美投行和全球 top3 对冲基金做量化分析，刚辞了职要自己 (在伦敦) 单干。现在在做一个实时的分析和交易系统，但如果我自己一个人做太累 (我还要陪女儿玩去 ;p), 所以想找大牛 boost 一下进度, 帮忙实现某些部分。
-            <a className="r-item-link" href="javascript:;" target="_blank">
-              查看更多
+            {abstract}...
+            <a className="r-item-link" href={url} target="_blank">
+              &nbsp;查看更多
             </a>
           </p>
 
         </div>
         <div className="r-item-foot">
           <ul className="r-item-more">
-            <li>1天前发布</li>
-            <li>{this.props.data['view_count']}次浏览</li>
+            <li>{moment(release_date).startOf('day').fromNow()}发布</li>
+            <li>{view_count}次浏览</li>
           </ul>
         </div>
-      </div>
+        </div>
+        </a>
     )
   }
 

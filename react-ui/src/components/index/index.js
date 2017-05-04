@@ -19,12 +19,15 @@ export default class Index extends Component {
   render() {
     const {
       list: {
-        data = []
+        data = [],
+        total,
+        filter = []
       }
     } = this.props
 
     return (
       <div className="r-container">
+      <h3 className="r-panel-title">工作机会</h3>
       {
         data.map((item, k) => {
           return (
@@ -32,7 +35,7 @@ export default class Index extends Component {
           )
         })
       }
-      <Pagination />
+      <Pagination filter={filter} total={total} {...this.props}/>
       </div>
     )
   }
