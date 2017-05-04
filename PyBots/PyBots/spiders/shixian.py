@@ -63,7 +63,7 @@ class ShixianSpider(scrapy.Spider):
         item['release_date'] = self.str2date(release_date)
         expire_date = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[3].extract().strip()
         item['expire_date'] = self.str2date(expire_date)
-        item['view_count'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
+        #item['view_count'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
         item['categories'] = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[0].extract().strip().split('/')
         item['roles'] = [response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()')[1].extract().strip()]
         item['skills'] = response.xpath('//section[@class="skill-tags clearfix"]/dl/dd/text()').extract()
