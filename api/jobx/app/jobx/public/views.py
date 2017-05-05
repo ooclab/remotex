@@ -80,4 +80,7 @@ class JobURLHandler(_BaseSingleJobHandler):
         else:
             logging.warn("Elasticsearch is not ready!")
 
+        job.view_count += 1
+        self.db.commit()
+
         self.redirect(self.job.url)
