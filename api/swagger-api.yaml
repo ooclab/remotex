@@ -217,17 +217,23 @@ definitions:
       home_url:
         type: string
         description: 平台首页
+      last_sync:
+        type: string
+        description: 最后同步时间
 
   JobViewPublic:
     type: object
     required:
       - title
+      - abstract
       - platform
       - checksum
     properties:
         platform:
           $ref: '#/definitions/platformSimpleModel'
         title:
+          type: string
+        abstract:
           type: string
         body:
           type: string
@@ -282,12 +288,15 @@ definitions:
     items:
       required:
         - title
+        - abstract
         - platform
         - checksum
       properties:
         platform:
           $ref: '#/definitions/platformSimpleModel'
         title:
+          type: string
+        abstract:
           type: string
         city:
           type: string

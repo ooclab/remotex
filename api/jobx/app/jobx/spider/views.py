@@ -92,8 +92,14 @@ class JobHandler(APIRequestHandler):
         if not form.expire_date.is_missing:
             job.expire_date = utc_rfc3339_parse(form.release_date.data)
 
+        # 最后更新
+        platform.last_sync = datetime.datetime.utcnow()
+
         if newJob:
             self.db.add(job)
+        else:
+            job.updated = datetime.datetime.utcnow()
+
         self.db.commit()
 
         if newJob:
