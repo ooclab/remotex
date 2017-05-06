@@ -13,7 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from eva.orm import ORMBase
-from eva.utils.time_ import rfc3339_string
+from eva.utils.time_ import utc_rfc3339_string
 from .settings import ABSTRACT_MAX
 
 
@@ -72,7 +72,7 @@ class JobxPlatform(ORMBase):
             "name": self.name,
             "home_url": self.home_url,
             "summary": self.summary,
-            "last_sync": rfc3339_string(self.last_sync)
+            "last_sync": utc_rfc3339_string(self.last_sync)
         }
 
     @property
@@ -84,9 +84,9 @@ class JobxPlatform(ORMBase):
             "summary": self.summary,
             "body": self.body,
             "body_markup": self.body_markup,
-            "last_sync": rfc3339_string(self.last_sync),
-            'created': rfc3339_string(self.created),
-            'updated': rfc3339_string(self.updated),
+            "last_sync": utc_rfc3339_string(self.last_sync),
+            'created': utc_rfc3339_string(self.created),
+            'updated': utc_rfc3339_string(self.updated),
         }
 
     @property
@@ -130,8 +130,8 @@ class _Base(object):
             "summary": self.summary,
             "body": self.body,
             "body_markup": self.body_markup,
-            'created': rfc3339_string(self.created),
-            'updated': rfc3339_string(self.updated),
+            'created': utc_rfc3339_string(self.created),
+            'updated': utc_rfc3339_string(self.updated),
         }
 
     @property
@@ -259,10 +259,10 @@ class JobxJob(ORMBase):
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
-            'release_date': rfc3339_string(self.release_date),
-            'expire_date': rfc3339_string(self.expire_date),
-            'created': rfc3339_string(self.created),
-            'updated': rfc3339_string(self.updated),
+            'release_date': utc_rfc3339_string(self.release_date),
+            'expire_date': utc_rfc3339_string(self.expire_date),
+            'created': utc_rfc3339_string(self.created),
+            'updated': utc_rfc3339_string(self.updated),
         }
 
     @property
@@ -283,10 +283,10 @@ class JobxJob(ORMBase):
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
-            'release_date': rfc3339_string(self.release_date),
-            'expire_date': rfc3339_string(self.expire_date),
-            'created': rfc3339_string(self.created),
-            'updated': rfc3339_string(self.updated),
+            'release_date': utc_rfc3339_string(self.release_date),
+            'expire_date': utc_rfc3339_string(self.expire_date),
+            'created': utc_rfc3339_string(self.created),
+            'updated': utc_rfc3339_string(self.updated),
         }
 
     @property

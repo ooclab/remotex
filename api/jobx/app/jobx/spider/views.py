@@ -8,6 +8,9 @@ from sqlalchemy.orm.exc import (
 
 from eva.web import APIRequestHandler
 from eva.exceptions import EvaError
+from eva.utils.time_ import (
+    utc_rfc3339_parse
+)
 
 from app.jobx.models import (
     JobxPlatform,
@@ -17,10 +20,6 @@ from app.jobx.models import (
     JobxJob
 )
 from .forms import JobNewForm, JobEditForm
-# FIXME! merge to eva
-from app.jobx.utils import (
-    utc_rfc3339_parse
-)
 
 
 class JobHandler(APIRequestHandler):
