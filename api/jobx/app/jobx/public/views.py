@@ -34,7 +34,10 @@ class JobHandler(APIRequestHandler):
         days = self.get_argument('days', 90)
 
         q = self.db.query(JobxJob).filter(
-            JobxJob.release_date > datetime.datetime.utcnow() - datetime.timedelta(days=days)
+            and_(
+                JobxJob.release_date > datetime.datetime.utcnow() - datetime.timedelta(days=days),
+                JobxJob.status == 0
+            )
         )
         d = public_list_objects(self, JobxJob, q)
         self.success(**d)
