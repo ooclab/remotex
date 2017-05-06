@@ -24,3 +24,11 @@
 - SQLAlchemy
 
 参考: https://github.com/ooclab/eva
+
+## 数据分析
+
+### kibana
+
+```
+docker run --name some-kibana --link api_es_1:elasticsearch --network api_default -p 5601:5601 -d kibana:5.3.0
+```
