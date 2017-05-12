@@ -53,6 +53,10 @@ class JobHandler(APIRequestHandler):
             )
             job.checksum = form.checksum.data
 
+        if not form.body.is_missing:
+            job.body = form.body.data
+        if not form.body_markup.is_missing:
+            job.body_markup = form.body_markup.data
         if not form.url.is_missing:
             job.url = form.url.data
         if not form.price.is_missing:
