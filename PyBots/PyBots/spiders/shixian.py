@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
+import re
+
 import scrapy
 from PyBots.items import JobItem
-import re
-from datetime import datetime, timedelta
+
 
 class ShixianSpider(scrapy.Spider):
     name = "shixian"
@@ -17,32 +19,21 @@ class ShixianSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        cities = ['beijing','shanghai','shenzhen','hangzhou','guangzhou','chengdu','nanjing','xian','hubei','xiamen','shandong','suzhou','zhengzhou','fuzhou','changsha','chongqing','tianjin','ningbo','remote','qita']
-        jobs = ['ios','android','ui','frontend','backend','pm','operator','tester','full_stack','others']
-        cities = ['beijing']
-        jobs = ['frontend']
-        for city in cities:
-            for job in jobs:
-                url = 'https://shixian.com/job/%s?filter=last&territory=%s'%(city,job)
-                yield scrapy.Request(url=url, callback=self.parse, headers=self.headers)
+        urls = ['https://shixian.com/jobs']
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        if 'jobs'in response.url:
-            item = self.parse_detail(response)
-            yield item
-        else:
-            urls = self.parse_index(response)
-            for url in urls:
-                yield scrapy.Request(url=url, callback=self.parse, headers=self.headers)
+        urls = self.parse_index(response)
+        for url in urls:
+            yield scrapy.Request(
+                url=url,
+                callback=self.parse_detail,
+                headers=self.headers
+            )
 
     def parse_index(self, response):
         urls = []
-        # next page 后期可以去掉，每天只抓第一页
-        next_url = response.xpath('//ul[@class="pagination"]/li/a[@rel="next"]/@href')
-        if len(next_url) > 0:
-            url = 'https://shixian.com%s'%next_url.extract_first()
-            urls.append(url)
-        # jons
         job_list = response.xpath('//div[@class="job-list"]/div/div/a')
         for job in job_list:
             url =  'https://shixian.com%s'%job.xpath('./@href').extract_first()
@@ -51,11 +42,12 @@ class ShixianSpider(scrapy.Spider):
 
     def parse_detail(self, response):
         item = JobItem()
-        #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布 
+        #大约 19 小时前发布 1 天前发布 大约 1 个月前发布 大约 1 年前发布
         item['platform'] = u'实现网'
         item['title'] = response.xpath('//article[@class="job-show"]/h1[@class="title"]/text()').extract_first().strip()
+        # print('title ==>', title)
         item['url'] = response.url
-        item['body'] = ''.join(response.xpath('//div[@class="content"]/p/text()').extract()).strip()
+        item['body'] = ''.join(response.xpath('//div[@class="content"]/p//text()').extract()).strip()
         item['checksum'] = '{}_{}'.format( 'shixian_com', response.url.split('/')[-1] )
         item['city'] = response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()').extract_first().strip()
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])
@@ -67,7 +59,7 @@ class ShixianSpider(scrapy.Spider):
         item['categories'] = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[0].extract().strip().split('/')
         item['roles'] = [response.xpath('//ol[@class="breadcrumb jobs md-no-padding"]/li/a/text()')[1].extract().strip()]
         item['skills'] = response.xpath('//section[@class="skill-tags clearfix"]/dl/dd/text()').extract()
-        return item
+        yield item
 
     def str2date(self, date_str):
         if re.search('\d{4}-\d{2}-\d{2}',date_str):
@@ -90,5 +82,5 @@ class ShixianSpider(scrapy.Spider):
             dt = now - timedelta(days=num*365)
         else:
             dt = now
-       
+
         return dt.isoformat('T') + 'Z'
