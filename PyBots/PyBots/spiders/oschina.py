@@ -7,7 +7,7 @@ from PyBots.items import JobItem
 
 
 class OSchinaSpider(scrapy.Spider):
-    name = 'oschina'
+    name = '开源中国'
     domain = ['zb.oschina.net']
 
     def start_requests(self):
@@ -74,7 +74,6 @@ class OSchinaSpider(scrapy.Spider):
         item['categories'] = categories_part_1 + categories_part_2
         item['roles'] = []
         item['skills'] = [skills]
-        print("release_date ==>", release_date)
         item['release_date'] = self.utc_rfc3339_string(
             release_date, format='%Y-%m-%d')
         item['expire_date'] = ''
