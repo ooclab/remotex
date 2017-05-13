@@ -7,7 +7,7 @@ from PyBots.items import JobItem
 
 
 class OSchinaSpider(scrapy.Spider):
-    name = '开源中国'
+    name = 'oschina'
     domain = ['zb.oschina.net']
 
     def start_requests(self):
@@ -49,7 +49,7 @@ class OSchinaSpider(scrapy.Spider):
             '//span[@class="publish-date text-gray"]/text()'
         ).extract()[1].split(":")[1].strip()
 
-        item['platform'] = u'OSChina'
+        item['platform'] = u'开源中国'
         item['title'] = response.xpath(
             '//h2[@class="wrap"]/text()'
         ).extract_first().strip()
