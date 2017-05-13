@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+import datetime
 import re
 
 import scrapy
@@ -12,6 +12,7 @@ class OSchinaSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = ['https://zb.oschina.net/?sort=4']
+        # urls = ['https://zb.oschina.net']
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
@@ -48,7 +49,7 @@ class OSchinaSpider(scrapy.Spider):
             '//span[@class="publish-date text-gray"]/text()'
         ).extract()[1].split(":")[1].strip()
 
-        item['platform'] = u'OSChina'
+        item['platform'] = u'开源中国'
         item['title'] = response.xpath(
             '//h2[@class="wrap"]/text()'
         ).extract_first().strip()
@@ -73,31 +74,13 @@ class OSchinaSpider(scrapy.Spider):
         item['categories'] = categories_part_1 + categories_part_2
         item['roles'] = []
         item['skills'] = [skills]
-        item['release_date'] = self.str2date(release_date)
+        item['release_date'] = self.utc_rfc3339_string(
+            release_date, format='%Y-%m-%d')
         item['expire_date'] = ''
 
         yield item
 
-    def str2date(self, date_str):
-        if re.search('\d{4}-\d{2}-\d{2}', date_str):
-            _d = re.search('\d{4}-\d{2}-\d{2}', date_str).group()
-            dt = datetime.strptime(_d, '%Y-%m-%d')
-            return dt.isoformat('T') + 'Z'
-
-        if re.search('\d+', date_str):
-            num = int(re.search('\d+', date_str).group())
-        now = datetime.now()
-        if u'分钟' in date_str:
-            dt = now - timedelta(minutes=num)
-        elif u'小时' in date_str:
-            dt = now - timedelta(hours=num)
-        elif u'天' in date_str:
-            dt = now - timedelta(days=num)
-        elif u'月' in date_str:
-            dt = now - timedelta(days=num*30)
-        elif u'年' in date_str:
-            dt = now - timedelta(days=num*365)
-        else:
-            dt = now
-
+    def utc_rfc3339_string(self, str_date, format='%Y-%m-%d %H:%M:%S'):
+        '''转化 datetime(UTC) 为 rfc3339 格式字符串'''
+        dt = datetime.datetime.strptime(str_date, format)
         return dt.isoformat('T') + 'Z'
