@@ -53,7 +53,7 @@ class ShixianSpider(scrapy.Spider):
         item['price'] = int(response.xpath('//strong[@class="price"]/text()').re('\d+')[0])
         release_date = response.xpath('//small[@class="time"]/text()').extract_first().strip()
         item['release_date'] = self.str2date(release_date)
-        expire_date = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[3].extract().strip()
+        expire_date = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[-1].extract().strip()
         item['expire_date'] = self.str2date(expire_date)
         #item['view_count'] = int(response.xpath('//div[@class="pull-right text-muted"]/text()').re('\d+')[0])
         item['categories'] = response.xpath('//section[@class="info clearfix"]/dl/dd/span/text()')[0].extract().strip().split('/')
