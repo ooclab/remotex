@@ -1,0 +1,169 @@
+swagger: '2.0'
+info:
+  version: '2'
+  title: 'RemoteX Spider API'
+  description: |
+    这是 RemoteX 的 Spider API 文档。
+
+    调用 URL 规则为 `https://remotex.ooclab.org/api/v2/{微服务名}{路径}`
+
+    比如：
+
+    - `微服务名` 为 `jobx`
+    - `路径` 为 `/spider/job`
+
+    则调用 URL 为 `https://remotex.ooclab.org/api/v2/jobx/spider/job`
+
+    ## 说明
+
+    - 认证需要 `Authorization` 字符串，请联系管理员获得
+
+    ## 约定
+
+    - 命名中英文无论单复数尽量统一用单数形式
+
+  contact:
+    name: 好风
+    email: lijian.gnu@gmail.com
+host: virtserver.swaggerhub.com
+schemes:
+ - https
+
+tags:
+  - name: jobx
+    description: 微服务 Jobx 的接口文档
+
+paths:
+
+  "/spider/job":
+    post:
+      tags:
+        - jobx
+      summary: 上传 Job 信息
+      description: |
+        spider 调用该接口上传一个 Job 信息。如果指定的 sid 存在, 则更新该 Job
+      parameters:
+        - $ref: '#/parameters/Authorization'
+        - $ref: '#/parameters/JobCreateBody'
+      responses:
+        200:
+          description: 创建/更新 Job 成功
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                  - created
+                  - updated
+                description: 创建成功(created) 或 更新成功(updated)
+              id:
+                type: integer
+                format: int
+                description: 成功创建的 Job ID
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+
+responses:
+
+  DefaultErrorResponse:
+    description: 返回错误信息
+    schema:
+      type: "object"
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: 错误字符串
+        data:
+          type: object
+          properties:
+            status_code:
+              type: integer
+              format: int
+              description: 错误码
+            exc_info:
+              type: string
+              description: 详细错误信息
+
+
+parameters:
+
+  Authorization:
+    name: Authorization
+    in: header
+    type: string
+    description: basic-auth 验证
+    required: true
+
+  JobCreateBody:
+    name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - title
+        - body
+        - url
+        - sid
+        - platform
+      properties:
+        platform:
+          type: string
+          description: 来源平台
+          minimum: 2
+          maximum: 64
+        title:
+          type: string
+          description: 标题/主题
+        body:
+          type: string
+          description: 详细描述
+        body_markup:
+          type: integer
+          description: body 的标记语言。默认(0或空)表示 txt，1表示HTML。
+          enum: [0, 1]
+        url:
+          type: string
+          description: 来源网址
+        sid:
+          type: string
+          description: source id, 唯一校验值(spider提供，通常可以用 "url中的ID信息" + "来源平台" 表示,用来唯一表示一个Job对象)
+        price:
+          type: integer
+          format: int
+          description: 价格(RMB)
+        city:
+          type: array
+          items:
+            type: string
+            description: 城市
+        category:
+          type: array
+          items:
+            type: string
+            description: 类别
+        role:
+          type: array
+          items:
+            type: string
+            description: 角色
+        skill:
+          type: array
+          items:
+            type: string
+            description: 技能
+        release_date:
+          type: string
+          description: 发布日期(RFC3339 UTC字符串)
+        expire_date:
+          type: string
+          description: 失效日期(RFC3339 UTC字符串)
+        ext_data:
+          type: object
+          description: 扩展属性数据（不同平台有各自特有的属性）
+# Added by API Auto Mocking Plugin
+basePath: /ooclab/remotex-spider/2

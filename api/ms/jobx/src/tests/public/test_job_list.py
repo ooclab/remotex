@@ -30,10 +30,10 @@ class JobTestCase(AsyncHTTPTestCase):
         self.db.commit()
 
     def test_list(self):
-        '''/jobx/job
+        '''/job - 列表
         '''
         db_job = self.create_job()
-        response = self.http_get('/jobx/job')
+        response = self.http_get('/job')
         body = self.get_named_body(response)
         job = body.data[0]
         self.assertEqual(db_job.id, job.id)
@@ -42,10 +42,10 @@ class JobTestCase(AsyncHTTPTestCase):
         self.delete_job(db_job)
 
     def test_page(self):
-        '''/jobx/job
+        '''/job - 分页
         '''
         db_job = self.create_job()
-        response = self.http_get('/jobx/job?p=2')
+        response = self.http_get('/job?p=2')
         body = self.get_named_body(response)
         self.assertEqual(body.total, 0)
         self.delete_job(db_job)

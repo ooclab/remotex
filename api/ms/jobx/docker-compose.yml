@@ -1,7 +1,8 @@
 version: '3'
 services:
     ms:
-        image: ooclab/eva
+        #image: ooclab/eva
+        build: .
         tty: true
         environment:
             PYTHONIOENCODING: utf-8
@@ -9,11 +10,11 @@ services:
             NOSE_NOCAPTURE: 1
         #dns: 223.5.5.5
         ports:
-            - "127.0.0.1:3001:3000"
+            - "3000:3000"
         links:
             - db
         volumes:
-            - ".:/work"
+            - "./src:/work"
         #entrypoint: python /work/server.py
 
     db:
