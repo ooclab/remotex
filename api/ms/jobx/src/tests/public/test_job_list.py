@@ -19,7 +19,7 @@ class JobTestCase(AsyncHTTPTestCase):
         )
         job.url = "https://remotex.ooclab.org/project/30214"
         job.release_date = datetime.datetime.utcnow()
-        job.checksum = '30124'
+        job.sid = '30124'
         self.db.add(job)
         self.db.commit()
         return job

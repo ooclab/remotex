@@ -10,12 +10,20 @@ from sqlalchemy import (
     ForeignKey,
     Table
 )
+from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
-from eva.orm import ORMBase
+from eva.sqlalchemy.orm import ORMBase, get_db
 from eva.utils.time_ import utc_rfc3339_string
 
 ABSTRACT_MAX = 100
+
+
+jobx_job__city = Table(
+    'jobx_job__city', ORMBase.metadata,
+    Column('job_id', Integer, ForeignKey('jobx_job.id')),
+    Column('city_id', Integer, ForeignKey('jobx_city.id'))
+)
 
 
 jobx_job__categroy = Table(
@@ -53,9 +61,6 @@ class JobxPlatform(ORMBase):
     body = Column(Text)
     body_markup = Column(Integer, default=1)
 
-    # 最后同步时间
-    last_sync = Column(DateTime, default=datetime.datetime.utcnow)
-
     created = Column(DateTime, default=datetime.datetime.utcnow)
     updated = Column(DateTime, default=datetime.datetime.utcnow)
 
@@ -65,6 +70,15 @@ class JobxPlatform(ORMBase):
         self.summary = summary
         self.body = body
         self.body_markup = body_markup
+
+    @property
+    def last_sync(self):
+        '''最后同步时间'''
+        db = get_db()
+        job = db.query(JobxJob.updated).filter_by(
+            platform_id=self.id).order_by(
+                desc(JobxJob.updated)).first()
+        return job.updated
 
     @property
     def isimple(self):
@@ -144,6 +158,14 @@ class _Base(object):
         return self.ibase
 
 
+class JobxCity(_Base, ORMBase):
+    '''城市'''
+
+    __tablename__ = 'jobx_city'
+
+    id = Column(Integer, Sequence('jobx_city_id_seq'), primary_key=True)
+
+
 class JobxCategory(_Base, ORMBase):
     '''工作类别
 
@@ -200,24 +222,27 @@ class JobxJob(ORMBase):
 
     # 来源网址
     url = Column(String(1024), nullable=False)
-    # 唯一性校验值
-    checksum = Column(String(128), nullable=False)
+    # Source ID, 唯一性校验值
+    sid = Column(String(128), nullable=False)
 
     # TODO: 不用的币制
     price = Column(Integer, default=0)
-    city = Column(String(64))
 
-    categories = relationship(
+    city = relationship(
+        'JobxCity',
+        secondary=jobx_job__city, backref='job'
+    )
+    category = relationship(
         'JobxCategory',
-        secondary=jobx_job__categroy, backref='jobs'
+        secondary=jobx_job__categroy, backref='job'
     )
-    roles = relationship(
+    role = relationship(
         'JobxRole',
-        secondary=jobx_job__role, backref='jobs'
+        secondary=jobx_job__role, backref='job'
     )
-    skills = relationship(
+    skill = relationship(
         'JobxSkill',
-        secondary=jobx_job__skill, backref='jobs'
+        secondary=jobx_job__skill, backref='job'
     )
 
     status = Column(Integer, default=0)
@@ -226,7 +251,7 @@ class JobxJob(ORMBase):
     vote_up = Column(Integer, default=0)
     vote_down = Column(Integer, default=0)
 
-    release_date = Column(DateTime)
+    release_date = Column(DateTime, nullable=False)
     expire_date = Column(DateTime)
 
     created = Column(DateTime, default=datetime.datetime.utcnow)
@@ -252,10 +277,10 @@ class JobxJob(ORMBase):
             'title': self.title,
             'abstract': self.abstract,
             'price': self.price,
-            'city': self.city,
-            'categories': [x.isimple for x in self.categories],
-            'roles': [x.isimple for x in self.roles],
-            'skills': [x.isimple for x in self.skills],
+            'city': [x.isimple for x in self.city],
+            'category': [x.isimple for x in self.category],
+            'role': [x.isimple for x in self.role],
+            'skill': [x.isimple for x in self.skill],
             'status': self.status,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
@@ -276,10 +301,10 @@ class JobxJob(ORMBase):
             'body': self.body,
             'body_markup': self.body_markup,
             'price': self.price,
-            'city': self.city,
-            'categories': [x.isimple for x in self.categories],
-            'roles': [x.isimple for x in self.roles],
-            'skills': [x.isimple for x in self.skills],
+            'city': [x.isimple for x in self.city],
+            'category': [x.isimple for x in self.category],
+            'role': [x.isimple for x in self.role],
+            'skill': [x.isimple for x in self.skill],
             'status': self.status,
             'view_count': self.view_count,
             'vote_up': self.vote_up,

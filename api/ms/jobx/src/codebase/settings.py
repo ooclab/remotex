@@ -13,14 +13,17 @@ PROJECT_ROOT = os.path.abspath(
     )
 )
 
-INSTALLED_APPS = (
-    'eva.contrib.app.auth',
-    'app.jobx',
-)
+DB = {
+    'engine': 'postgresql+psycopg2',
+    'host': 'postgres',
+    'path': '',
+    'database': 'remotex',
+    'username': 'remotex',
+    'password': 'remotex',
+}
 
-ELATICSEARCH_HOST = "es"
+ELATICSEARCH_HOST = "elasticsearch"
 ELATICSEARCH_PORT = 9200
-
 
 MARKUP_CHOICES = (
     (0, _("Txt")),

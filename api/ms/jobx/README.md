@@ -14,3 +14,9 @@ python3 server.py
 cd src/
 nosetests3 -v tests/
 ```
+
+NOCAPTURE:
+
+```
+NOSE_NOCAPTURE=1 nosetests3 -v tests/
+```

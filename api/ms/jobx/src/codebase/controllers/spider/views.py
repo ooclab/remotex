@@ -14,6 +14,7 @@ from eva.utils.time_ import (
 
 from codebase.models import (
     JobxPlatform,
+    JobxCity,
     JobxCategory,
     JobxRole,
     JobxSkill,
@@ -41,7 +42,7 @@ class JobHandler(APIRequestHandler):
         # TODO: checksum 和 url 只需要留一个即可?
         newJob = False  # TODO: drop this
         job = self.db.query(JobxJob).filter_by(
-            checksum=form.checksum.data).first()
+            sid=form.sid.data).first()
         if not job:
             newJob = True
             # TODO: 新建Job与更新不一定,需要单独的 Form 验证
@@ -51,7 +52,7 @@ class JobHandler(APIRequestHandler):
                 body=form.body.data,
                 body_markup=form.body_markup.data
             )
-            job.checksum = form.checksum.data
+            job.sid = form.sid.data
 
         if not form.body.is_missing:
             job.body = form.body.data
@@ -61,44 +62,16 @@ class JobHandler(APIRequestHandler):
             job.url = form.url.data
         if not form.price.is_missing:
             job.price = form.price.data
-        if not form.city.is_missing:
-            job.city = form.city.data
-
-        # TODO: many-to-many 关系更新是否一定删除了旧关系?
-        if not form.categories.is_missing:
-            categories = []
-            for n in form.categories.data:
-                item = self.db.query(JobxCategory).filter_by(name=n).first()
-                if not item:
-                    item = JobxCategory(name=n)
-                categories.append(item)
-            job.categories = categories
-
-        if not form.roles.is_missing:
-            roles = []
-            for n in form.roles.data:
-                item = self.db.query(JobxRole).filter_by(name=n).first()
-                if not item:
-                    item = JobxRole(name=n)
-                categories.append(item)
-            job.roles = roles
-
-        if not form.skills.is_missing:
-            skills = []
-            for n in form.skills.data:
-                item = self.db.query(JobxSkill).filter_by(name=n).first()
-                if not item:
-                    item = JobxSkill(name=n)
-                categories.append(item)
-            job.skills = skills
 
         if not form.release_date.is_missing:
             job.release_date = utc_rfc3339_parse(form.release_date.data)
         if not form.expire_date.is_missing:
             job.expire_date = utc_rfc3339_parse(form.release_date.data)
 
-        # 最后更新
-        platform.last_sync = datetime.datetime.utcnow()
+        job.city = self.get_many(form.city, JobxCity)
+        job.category = self.get_many(form.category, JobxCategory)
+        job.role = self.get_many(form.role, JobxRole)
+        job.skill = self.get_many(form.skill, JobxSkill)
 
         if newJob:
             self.db.add(job)
@@ -112,6 +85,16 @@ class JobHandler(APIRequestHandler):
         else:
             d = {"status": "updated", "job_id": job.id}
         self.success(**d)
+
+    def get_many(self, form_column, cls):
+        L = []
+        if not form_column.is_missing:
+            for n in form_column.data:
+                item = self.db.query(cls).filter_by(name=n).first()
+                if not item:
+                    item = cls(name=n)
+                L.append(item)
+        return L
 
 
 class _BaseSingleJobHandler(APIRequestHandler):

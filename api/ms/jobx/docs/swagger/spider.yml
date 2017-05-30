@@ -21,6 +21,7 @@ info:
     ## 约定
 
     - 命名中英文无论单复数尽量统一用单数形式
+    - RFC3339 UTC 示例： `2017-05-30T01:45:39.871980Z`
 
   contact:
     name: 好风
@@ -110,6 +111,7 @@ parameters:
         - url
         - sid
         - platform
+        - release_date
       properties:
         platform:
           type: string
