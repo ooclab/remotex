@@ -7,7 +7,7 @@ from ..base import AsyncHTTPTestCase
 class UploadJobTestCase(AsyncHTTPTestCase):
 
     def test_update_new_job(self):
-        '''/spider/jobx/job
+        '''/spider/job - 上传
         '''
 
         d = {
@@ -17,7 +17,7 @@ class UploadJobTestCase(AsyncHTTPTestCase):
             "platform": "码市",
             "checksum": "30214"
         }
-        response = self.http_post('/spider/jobx/job', body=d)
+        response = self.http_post('/spider/job', body=d)
         body = self.get_named_body(response)
         self.assertEqual(body.status, "created")
 

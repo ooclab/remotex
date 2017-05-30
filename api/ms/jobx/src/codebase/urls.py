@@ -5,11 +5,11 @@ from .controllers.spider import views as spider_views
 
 handlers = [
     # public api
-    url(r'/jobx/job', public_views.JobHandler),
-    url(r'/jobx/job/([0-9]+)', public_views.SingleJobHandler),
-    url(r'/jobx/job/([0-9]+)/url', public_views.JobURLHandler),
+    url(r'/job', public_views.JobHandler),
+    url(r'/job/([0-9]+)', public_views.SingleJobHandler),
+    url(r'/job/([0-9]+)/url', public_views.JobURLHandler),
 
     # spider api
-    url(r'/spider/jobx/job', spider_views.JobHandler),
-    url(r'/spider/jobx/job/([0-9a-zA-Z_\-]+)', spider_views.SingleJobHandler),
+    url(r'/spider/job', spider_views.JobHandler),
+    url(r'/spider/job/([0-9a-zA-Z_\-]+)', spider_views.SingleJobHandler),
 ]
