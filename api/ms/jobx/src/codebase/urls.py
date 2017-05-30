@@ -11,5 +11,4 @@ handlers = [
 
     # spider api
     url(r'/spider/job', spider_views.JobHandler),
-    url(r'/spider/job/([0-9a-zA-Z_\-]+)', spider_views.SingleJobHandler),
 ]

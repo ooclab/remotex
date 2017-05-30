@@ -22,6 +22,10 @@ class UploadJobTestCase(AsyncHTTPTestCase):
         body = self.get_named_body(response)
         self.assertEqual(body.status, "created")
 
-        job = self.db.query(JobxJob).filter_by(sid=d["sid"]).first()
+        # FIXME! self.db 会死锁
+        from eva.sqlalchemy.orm import get_db
+        db = get_db()
+
+        job = db.query(JobxJob).filter_by(sid=d["sid"]).first()
         self.assertEqual(job.title, d["title"])
         self.assertEqual(job.platform.name, d["platform"])
