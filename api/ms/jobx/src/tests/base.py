@@ -1,5 +1,5 @@
 import eva.testing
-from eva.orm import create_all, drop_all
+from eva.sqlalchemy.orm import create_all, drop_all
 
 from codebase.app import make_app
 

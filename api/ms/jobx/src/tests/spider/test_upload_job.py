@@ -11,16 +11,17 @@ class UploadJobTestCase(AsyncHTTPTestCase):
         '''
 
         d = {
-            "title": "Project 1",
-            "url": "https://remotex.ooclab.org/project/30214",
-            "release_date": rfc3339_string_utcnow(),
             "platform": "码市",
-            "checksum": "30214"
+            "title": "项目1",
+            "url": "https://path/to/job/1222",
+            "body": "abc",
+            "sid": "12345",
+            "release_date": rfc3339_string_utcnow()
         }
         response = self.http_post('/spider/job', body=d)
         body = self.get_named_body(response)
         self.assertEqual(body.status, "created")
 
-        job = self.db.query(JobxJob).filter_by(checksum=d["checksum"]).first()
+        job = self.db.query(JobxJob).filter_by(sid=d["sid"]).first()
         self.assertEqual(job.title, d["title"])
         self.assertEqual(job.platform.name, d["platform"])

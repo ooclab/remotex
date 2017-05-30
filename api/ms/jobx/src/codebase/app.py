@@ -8,7 +8,7 @@ import tornado.netutil
 
 from elasticsearch import Elasticsearch
 
-from eva.orm import get_db_session
+from eva.sqlalchemy.orm import get_db_session
 from eva.conf import settings
 from codebase.urls import handlers
 

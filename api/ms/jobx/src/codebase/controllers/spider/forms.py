@@ -14,10 +14,10 @@ from codebase.settings import MARKUP_CHOICES
 
 class JobNewForm(Form):
 
-    platform = StringField("Platform", [validators.Length(min=2, max=128)])
+    platform = StringField("Platform", [validators.Length(min=2, max=64)])
 
-    title = StringField("Title")
-    body = TextField("Body")
+    title = StringField("Title", [validators.Length(min=2, max=256)])
+    body = TextField("Body", [validators.Length(min=2)])
     body_markup = SelectField(
         "Body Markup",
         coerce=int,
@@ -26,27 +26,27 @@ class JobNewForm(Form):
         default=1
     )
 
-    url = StringField("URL")
-    checksum = StringField("Checksum")
+    url = StringField("URL", [validators.Length(min=6)])
+    sid = StringField("Source ID", [validators.Length(min=2, max=128)])
 
     price = IntegerField("Price")
-    city = StringField("City")
 
-    categories = FieldList(StringField(
+    city = FieldList(StringField("City List"))
+    category = FieldList(StringField(
         "Category List",
         [validators.Length(max=128)]
     ))
-    roles = FieldList(StringField(
+    role = FieldList(StringField(
         "Role List",
         [validators.Length(max=128)]
     ))
-    skills = FieldList(StringField(
+    skill = FieldList(StringField(
         "Skill List",
         [validators.Length(max=128)]
     ))
 
     # TODO: 校验 UTC string
-    release_date = StringField(_("Release Date"))
+    release_date = StringField(_("Release Date"), [validators.Required()])
     expire_date = StringField(_("Expire Date"))
 
 

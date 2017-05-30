@@ -11,13 +11,11 @@ services:
         #dns: 223.5.5.5
         ports:
             - "3000:3000"
-        links:
-            - db
         volumes:
             - "./src:/work"
         #entrypoint: python /work/server.py
 
-    db:
+    postgres:
         image: postgres
         environment:
             POSTGRES_DB: remotex
@@ -26,7 +24,7 @@ services:
         volumes:
             - "/data/product/remotex/db:/var/lib/postgresql/data"
 
-    es:
+    elasticsearch:
         image: elasticsearch:5.4.0
         ports:
             - "9200:9200"
