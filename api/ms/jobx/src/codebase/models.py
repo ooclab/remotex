@@ -16,7 +16,7 @@ from sqlalchemy.orm import relationship
 from eva.sqlalchemy.orm import ORMBase, get_db
 from eva.utils.time_ import utc_rfc3339_string
 
-ABSTRACT_MAX = 100
+from codebase.utils import get_abstract
 
 
 jobx_job__city = Table(
@@ -246,6 +246,7 @@ class JobxJob(ORMBase):
     )
 
     status = Column(Integer, default=0)
+    platform_status = Column(String(64))  # 来源平台内部状态
 
     view_count = Column(Integer, default=0)
     vote_up = Column(Integer, default=0)
@@ -277,11 +278,12 @@ class JobxJob(ORMBase):
             'title': self.title,
             'abstract': self.abstract,
             'price': self.price,
-            'city': [x.isimple for x in self.city],
-            'category': [x.isimple for x in self.category],
-            'role': [x.isimple for x in self.role],
-            'skill': [x.isimple for x in self.skill],
+            'city': [x.name for x in self.city],
+            'category': [x.name for x in self.category],
+            'role': [x.name for x in self.role],
+            'skill': [x.name for x in self.skill],
             'status': self.status,
+            'platform_status': self.platform_status,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
@@ -301,11 +303,12 @@ class JobxJob(ORMBase):
             'body': self.body,
             'body_markup': self.body_markup,
             'price': self.price,
-            'city': [x.isimple for x in self.city],
-            'category': [x.isimple for x in self.category],
-            'role': [x.isimple for x in self.role],
-            'skill': [x.isimple for x in self.skill],
+            'city': [x.name for x in self.city],
+            'category': [x.name for x in self.category],
+            'role': [x.name for x in self.role],
+            'skill': [x.name for x in self.skill],
             'status': self.status,
+            'platform_status': self.platform_status,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
@@ -321,4 +324,4 @@ class JobxJob(ORMBase):
 
     @property
     def abstract(self):
-        return self.body[:ABSTRACT_MAX]
+        return get_abstract(self.body, self.body_markup)

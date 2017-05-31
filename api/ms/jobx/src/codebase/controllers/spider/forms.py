@@ -9,7 +9,7 @@ from wtforms.fields import (
     IntegerField
 )
 
-from codebase.settings import MARKUP_CHOICES
+from codebase.common import MARKUP_CHOICES
 
 
 class JobNewForm(Form):
