@@ -1,11 +1,14 @@
-import tornado.testing
 import json
 
+import tornado.testing
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+import eva.utils.db
 from eva.utils.dict import convert
-from eva.sqlalchemy.orm import create_all, drop_all
+from eva.sqlalchemy.orm import ORMBase
 
 from codebase.app import make_app
-from eva.sqlalchemy.orm import get_db_session
 
 
 class AsyncHTTPTestCase(tornado.testing.AsyncHTTPTestCase):
@@ -13,21 +16,31 @@ class AsyncHTTPTestCase(tornado.testing.AsyncHTTPTestCase):
     def get_app(self):
         return make_app()
 
-    @classmethod
-    def setUpClass(cls):
-        drop_all()
-        create_all()
+    def setUp(self):
+        super().setUp()
 
-    @classmethod
-    def tearDownClass(cls):
-        drop_all()
+        DB_URI = eva.utils.db.get_db_uri()
+        self.dbengine = create_engine(DB_URI, echo=False)
+        session_factory = sessionmaker(bind=self.dbengine)
+        self.db_session = scoped_session(session_factory)
+
+        # !IMPORTANT! 没有这里的 drop_all 会引起 tearDown 里的 drop_all 死锁
+        ORMBase.metadata.drop_all(self.dbengine)
+
+        ORMBase.metadata.create_all(self.dbengine)
+
+    def tearDown(self):
+        super().tearDown()
+
+        # !IMPORTANT! 没有 session remove 会引起 drop_all 死锁
+        self.db_session.remove()
+
+        ORMBase.metadata.drop_all(self.dbengine)
+        self.dbengine.dispose()
 
     @property
     def db(self):
-        # FIXME! 有时候会死锁
-        if not hasattr(self, '_db_session'):
-            setattr(self, '_db_session', get_db_session())
-        return getattr(self, '_db_session')()
+        return self.db_session()
 
     def get_named_body(self, response, code=0,
                        status_code=200, msg=None, data=None):

@@ -1,13 +1,13 @@
 import datetime
 
 from codebase.models import JobxJob, JobxPlatform
-
 from ..base import AsyncHTTPTestCase
 
 
 class JobTestCase(AsyncHTTPTestCase):
 
     def create_job(self):
+
         platform = JobxPlatform(name="码市")
         self.db.add(platform)
         self.db.commit()
