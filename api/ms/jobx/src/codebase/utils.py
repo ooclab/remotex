@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from eva.conf import settings
+from .common import MARKUP_CHOICES_VALUE
 
 
 def get_abstract(body, body_markup, max_length=None):
@@ -32,3 +33,7 @@ def get_html_abstract(body, max_length=104):
     text = '\n'.join(chunk for chunk in chunks if chunk)
 
     return text[:max_length] if max_length < len(text) else text
+
+
+def get_markup_value(key):
+    return MARKUP_CHOICES_VALUE.get(key, 0)

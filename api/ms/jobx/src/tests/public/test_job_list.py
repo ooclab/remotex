@@ -17,9 +17,10 @@ class JobTestCase(AsyncHTTPTestCase):
             platform=platform,
             body="项目１"
         )
-        job.url = "https://remotex.ooclab.org/project/30214"
+        job.url = "https://shixian.com/jobs/8579"
         job.release_date = datetime.datetime.utcnow()
-        job.sid = '30124'
+        job.sid = 'sx_8579'
+        job.price = 12000
         self.db.add(job)
         self.db.commit()
         return job
@@ -38,7 +39,8 @@ class JobTestCase(AsyncHTTPTestCase):
         job = body.data[0]
         self.assertEqual(db_job.id, job.id)
         self.assertEqual(db_job.title, job.title)
-        self.assertEqual(db_job.platform.id, job.platform.id)
+        self.assertEqual(db_job.price, job.price)
+        self.assertEqual(db_job.platform.name, job.platform)
         self.delete_job(db_job)
 
     def test_page(self):

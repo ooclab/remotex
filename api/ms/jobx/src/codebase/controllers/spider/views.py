@@ -13,6 +13,7 @@ from codebase.models import (
     JobxSkill,
     JobxJob
 )
+from codebase.utils import get_markup_value
 from .forms import JobNewForm
 
 
@@ -21,7 +22,8 @@ class JobHandler(APIRequestHandler):
     def post(self):
         '''上传Job'''
 
-        form = JobNewForm.from_json(self.get_body_json())
+        body = self.get_body_json()
+        form = JobNewForm.from_json(body)
         if not form.validate():
             return self.fail(errors=form.errors)
 
@@ -31,6 +33,8 @@ class JobHandler(APIRequestHandler):
             platform = JobxPlatform(name=form.platform.data)
             self.db.add(platform)
             self.db.commit()
+
+        body_markup = get_markup_value(form.body_markup.data)
 
         # TODO: checksum 和 url 只需要留一个即可?
         newJob = False  # TODO: drop this
@@ -43,14 +47,14 @@ class JobHandler(APIRequestHandler):
                 platform=platform,
                 title=form.title.data,
                 body=form.body.data,
-                body_markup=form.body_markup.data
+                body_markup=body_markup
             )
             job.sid = form.sid.data
 
         if not form.body.is_missing:
             job.body = form.body.data
         if not form.body_markup.is_missing:
-            job.body_markup = form.body_markup.data
+            job.body_markup = body_markup
         if not form.url.is_missing:
             job.url = form.url.data
         if not form.price.is_missing:
@@ -65,6 +69,10 @@ class JobHandler(APIRequestHandler):
         job.category = self.get_many(form.category, JobxCategory)
         job.role = self.get_many(form.role, JobxRole)
         job.skill = self.get_many(form.skill, JobxSkill)
+
+        # 扩展属性
+        if 'ext_data' in body:
+            job.ext_data = body['ext_data']
 
         if newJob:
             self.db.add(job)

@@ -2,7 +2,13 @@ from gettext import gettext as _
 
 
 MARKUP_CHOICES = (
-    (0, _("Txt")),
-    (1, _("HTML")),
-    (2, _("Markdown")),
+    ("text", _("Txt")),
+    ("html", _("HTML")),
+    ("markdown", _("Markdown")),
 )
+
+MARKUP_CHOICES_VALUE = {
+    "text": 0,
+    "html": 1,
+    "markdown": 2,
+}
