@@ -150,6 +150,9 @@ definitions:
         view_count:
           type: string
           description: 查看数
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
         release_date:
           type: string
           description: 发布时间
@@ -242,6 +245,9 @@ definitions:
           items:
             type: string
             description: 技能
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
 
 
 responses:
