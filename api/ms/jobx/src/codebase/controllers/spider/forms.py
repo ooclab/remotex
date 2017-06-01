@@ -29,6 +29,7 @@ class JobNewForm(Form):
     sid = StringField("Source ID", [validators.Length(min=2, max=128)])
 
     price = IntegerField("Price")
+    status = StringField("Status", [validators.Length(max=64)])
 
     city = FieldList(StringField("City List"))
     category = FieldList(StringField(

@@ -47,7 +47,8 @@ class JobTestCase(AsyncHTTPTestCase):
         '''/job - 分页
         '''
         db_job = self.create_job()
-        response = self.http_get('/job?p=2')
+        response = self.http_get('/job?current_page=2')
         body = self.get_named_body(response)
-        self.assertEqual(body.total, 0)
+        self.assertEqual(body.total, 1)
+        self.assertEqual(len(body.data), 0)
         self.delete_job(db_job)

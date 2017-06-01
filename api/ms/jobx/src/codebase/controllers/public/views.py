@@ -1,7 +1,7 @@
 import logging
 import datetime
 
-from sqlalchemy import and_
+from sqlalchemy import and_, desc, asc
 from sqlalchemy.orm.exc import (
     NoResultFound,
     MultipleResultsFound,
@@ -10,6 +10,8 @@ from sqlalchemy.orm.exc import (
 from eva.web import APIRequestHandler
 from eva.exceptions import EvaError
 from eva.sqlalchemy.list import get_limit_objects, get_filters
+from eva.conf import settings
+
 from codebase.models import JobxJob
 
 
@@ -18,29 +20,57 @@ def public_list_objects(handler, model, q):
     q = get_limit_objects(handler, model, q, filters)
     total = q.count()
 
-    return {
-        'data': [x.ilist_public for x in q.all()],
-        'total': total,
-        'filter': filters,
-    }
+    return
 
 
 class JobHandler(APIRequestHandler):
+
+    ALLOW_ORDER = [
+        'created', 'updated', 'release_date', 'expire_date',
+        'price', 'status', 'view_count']
 
     def get(self):
         '''查看 Job 列表'''
 
         # 查询指定天数内的Job
         days = self.get_argument('days', 90)
+        after_date = datetime.datetime.utcnow() - datetime.timedelta(days=days)
 
         q = self.db.query(JobxJob).filter(
             and_(
-                JobxJob.release_date > datetime.datetime.utcnow() - datetime.timedelta(days=days),
-                JobxJob.status == 0
+                JobxJob.release_date > after_date,
+                JobxJob.inner_status == 0
             )
         )
-        d = public_list_objects(self, JobxJob, q)
-        self.success(**d)
+
+        total = q.count()
+
+        # order
+        is_asc = self.get_argument('asc', False)
+        order = self.get_argument('order', 'created')
+        if order not in self.ALLOW_ORDER:
+            return self.fail('unknown-order')
+        q = q.order_by(asc(order) if is_asc else desc(order))
+
+        # 分页
+        current_page = int(self.get_argument('current_page', 1))
+        if current_page < 1:
+            return self.fail('no such page')
+        page_size = int(self.get_argument('page_size', settings.PAGE_SIZE))
+        start = (current_page - 1) * page_size
+        stop = current_page * page_size
+        q = q.slice(start, stop)
+
+        self.success(**{
+            'data': [x.ilist_public for x in q.all()],
+            'total': total,
+            'filter': {
+                'page_size': page_size,
+                'current_page': current_page,
+                'asc': str(is_asc).lower(),
+                'order': order,
+            },
+        })
 
 
 class _BaseSingleJobHandler(APIRequestHandler):
@@ -51,7 +81,7 @@ class _BaseSingleJobHandler(APIRequestHandler):
             self.job = self.db.query(JobxJob).filter(
                 and_(
                     JobxJob.id == ID,
-                    JobxJob.status == 0
+                    JobxJob.inner_status == 0
                 )).one()
         except NoResultFound:
             raise EvaError("can not find {0} with id {1}".format(

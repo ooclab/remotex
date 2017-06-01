@@ -59,6 +59,8 @@ class JobHandler(APIRequestHandler):
             job.url = form.url.data
         if not form.price.is_missing:
             job.price = form.price.data
+        if not form.status.is_missing:
+            job.status = form.status.data
 
         if not form.release_date.is_missing:
             job.release_date = utc_rfc3339_parse(form.release_date.data)

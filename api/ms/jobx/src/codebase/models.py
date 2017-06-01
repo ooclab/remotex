@@ -247,8 +247,8 @@ class JobxJob(ORMBase):
         secondary=jobx_job__skill, backref='job'
     )
 
-    status = Column(Integer, default=0)
-    platform_status = Column(String(64))  # 来源平台内部状态
+    inner_status = Column(Integer, default=0)
+    status = Column(String(64))  # 来源平台内部状态
 
     ext_data = Column(JSON)  # 扩展属性，平台相关
 
@@ -284,13 +284,14 @@ class JobxJob(ORMBase):
             'price': self.price,
             'city': [x.name for x in self.city],
             'status': self.status,
-            'platform_status': self.platform_status,
             'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
             'release_date': utc_rfc3339_string(self.release_date),
             'expire_date': utc_rfc3339_string(self.expire_date),
+            'updated': utc_rfc3339_string(self.updated),
+            'created': utc_rfc3339_string(self.created),
         }
 
     @property
@@ -308,7 +309,6 @@ class JobxJob(ORMBase):
             'role': [x.name for x in self.role],
             'skill': [x.name for x in self.skill],
             'status': self.status,
-            'platform_status': self.platform_status,
             'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
