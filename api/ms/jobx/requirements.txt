@@ -1,4 +1,7 @@
 tornado
-sqlalchemy
-wtforms
 pyeva
+wtforms
+sqlalchemy
+psycopg2
+elasticsearch
+beautifulsoup4

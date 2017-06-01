@@ -9,7 +9,7 @@ from wtforms.fields import (
     IntegerField
 )
 
-from codebase.settings import MARKUP_CHOICES
+from codebase.common import MARKUP_CHOICES
 
 
 class JobNewForm(Form):
@@ -20,10 +20,9 @@ class JobNewForm(Form):
     body = TextField("Body", [validators.Length(min=2)])
     body_markup = SelectField(
         "Body Markup",
-        coerce=int,
         choices=MARKUP_CHOICES,
         validators=[validators.optional()],
-        default=1
+        default="text"
     )
 
     url = StringField("URL", [validators.Length(min=6)])

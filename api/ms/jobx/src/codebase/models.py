@@ -8,7 +8,8 @@ from sqlalchemy import (
     Sequence,
     DateTime,
     ForeignKey,
-    Table
+    Table,
+    JSON
 )
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
@@ -16,7 +17,7 @@ from sqlalchemy.orm import relationship
 from eva.sqlalchemy.orm import ORMBase, get_db
 from eva.utils.time_ import utc_rfc3339_string
 
-ABSTRACT_MAX = 100
+from codebase.utils import get_abstract, get_markup_value
 
 
 jobx_job__city = Table(
@@ -64,12 +65,13 @@ class JobxPlatform(ORMBase):
     created = Column(DateTime, default=datetime.datetime.utcnow)
     updated = Column(DateTime, default=datetime.datetime.utcnow)
 
-    def __init__(self, name, home_url='', summary='', body='', body_markup=1):
+    def __init__(self, name, home_url='', summary='', body='',
+                 body_markup="text"):
         self.name = name
         self.home_url = home_url
         self.summary = summary
         self.body = body
-        self.body_markup = body_markup
+        self.body_markup = get_markup_value(body_markup)
 
     @property
     def last_sync(self):
@@ -246,6 +248,9 @@ class JobxJob(ORMBase):
     )
 
     status = Column(Integer, default=0)
+    platform_status = Column(String(64))  # 来源平台内部状态
+
+    ext_data = Column(JSON)  # 扩展属性，平台相关
 
     view_count = Column(Integer, default=0)
     vote_up = Column(Integer, default=0)
@@ -273,39 +278,38 @@ class JobxJob(ORMBase):
     def ilist_public(self):
         return {
             'id': self.id,
-            'platform': self.platform.isimple,
+            'platform': self.platform.name,
             'title': self.title,
             'abstract': self.abstract,
             'price': self.price,
-            'city': [x.isimple for x in self.city],
-            'category': [x.isimple for x in self.category],
-            'role': [x.isimple for x in self.role],
-            'skill': [x.isimple for x in self.skill],
+            'city': [x.name for x in self.city],
             'status': self.status,
+            'platform_status': self.platform_status,
+            'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
             'release_date': utc_rfc3339_string(self.release_date),
             'expire_date': utc_rfc3339_string(self.expire_date),
-            'created': utc_rfc3339_string(self.created),
-            'updated': utc_rfc3339_string(self.updated),
         }
 
     @property
     def iview_public(self):
         return {
             'id': self.id,
-            'platform': self.platform.isimple,
+            'platform': self.platform.name,
             'title': self.title,
             'abstract': self.abstract,
             'body': self.body,
             'body_markup': self.body_markup,
             'price': self.price,
-            'city': [x.isimple for x in self.city],
-            'category': [x.isimple for x in self.category],
-            'role': [x.isimple for x in self.role],
-            'skill': [x.isimple for x in self.skill],
+            'city': [x.name for x in self.city],
+            'category': [x.name for x in self.category],
+            'role': [x.name for x in self.role],
+            'skill': [x.name for x in self.skill],
             'status': self.status,
+            'platform_status': self.platform_status,
+            'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
@@ -321,4 +325,4 @@ class JobxJob(ORMBase):
 
     @property
     def abstract(self):
-        return self.body[:ABSTRACT_MAX]
+        return get_abstract(self.body, self.body_markup)

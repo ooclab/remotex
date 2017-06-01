@@ -29,7 +29,7 @@ class Application(tornado.web.Application):
             'xsrf_cookies': False,
             'gzip': True,
             'debug': settings.DEBUG,
-            'secret_key': 'RhXUowgi553yJYvM18xGNc',
+            'secret_key': settings.SECRET_KEY,
         }
 
         tornado.web.Application.__init__(
