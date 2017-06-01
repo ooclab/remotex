@@ -122,6 +122,10 @@ definitions:
   JobListItem:
     type: object
     properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
         platform:
           type: string
         title:
@@ -162,6 +166,10 @@ definitions:
   JobViewItem:
     type: object
     properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
         platform:
           type: object
           properties:
