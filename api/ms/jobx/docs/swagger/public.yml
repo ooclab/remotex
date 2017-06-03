@@ -40,7 +40,7 @@ paths:
       summary: 获取 Job 列表
       description: 返回 Job 列表
       parameters:
-        - name: order
+        - name: order_by
           in: query
           type: string
           enum: ["created", "updated", "release_date", "expire_date", "price", "status", "view_count"]
@@ -63,6 +63,7 @@ paths:
               total:
                 type: integer
                 format: int
+                description: 查询到的 Job 总数
               filter:
                 $ref: '#/definitions/Filter'
               data:
@@ -110,13 +111,16 @@ definitions:
     properties:
       current_page:
         type: integer
+        description: 当前页
       page_size:
         type: integer
-      order:
+        description: 分页大小
+      order_by:
         type: string
+        description: 排序字段
       asc:
         type: string
-        default: "false"
+        description: 是否为正序排列
         enum: ["true", "false"]
 
   JobListItem:

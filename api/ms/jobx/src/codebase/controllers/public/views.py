@@ -25,7 +25,7 @@ def public_list_objects(handler, model, q):
 
 class JobHandler(APIRequestHandler):
 
-    ALLOW_ORDER = [
+    ALLOW_ORDER_BY = [
         'created', 'updated', 'release_date', 'expire_date',
         'price', 'status', 'view_count']
 
@@ -47,10 +47,10 @@ class JobHandler(APIRequestHandler):
 
         # order
         is_asc = self.get_argument('asc', False)
-        order = self.get_argument('order', 'created')
-        if order not in self.ALLOW_ORDER:
+        order_by = self.get_argument('order_by', 'created')
+        if order_by not in self.ALLOW_ORDER_BY:
             return self.fail('unknown-order')
-        q = q.order_by(asc(order) if is_asc else desc(order))
+        q = q.order_by(asc(order_by) if is_asc else desc(order_by))
 
         # 分页
         current_page = int(self.get_argument('current_page', 1))
@@ -68,7 +68,7 @@ class JobHandler(APIRequestHandler):
                 'page_size': page_size,
                 'current_page': current_page,
                 'asc': str(is_asc).lower(),
-                'order': order,
+                'order_by': order_by,
             },
         })
 
