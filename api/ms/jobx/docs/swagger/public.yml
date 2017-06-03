@@ -193,12 +193,9 @@ definitions:
               type: integer
             name:
               type: string
-            home_url:
+            home:
               type: string
               description: 平台首页
-            last_sync:
-              type: string
-              description: 最近同步时间
         title:
           type: string
         abstract:
@@ -208,6 +205,9 @@ definitions:
         body_markup:
           type: string
           format: int
+        logo:
+          type: string
+          description: 可以表示 Job 主题的图片(数据分析得出) URL
         city:
           type: array
           items:

@@ -58,7 +58,7 @@ class JobxPlatform(ORMBase):
     id = Column(Integer, Sequence('jobx_platform_id_seq'), primary_key=True)
 
     name = Column(String(64), nullable=False, unique=True)
-    home_url = Column(String(64))  # 首页地址
+    home = Column(String(64))  # 首页地址
     summary = Column(String(1024))
     body = Column(Text)
     body_markup = Column(Integer, default=1)
@@ -88,9 +88,8 @@ class JobxPlatform(ORMBase):
         return {
             "id": self.id,
             "name": self.name,
-            "home_url": self.home_url,
-            "summary": self.summary,
-            "last_sync": utc_rfc3339_string(self.last_sync)
+            "home": self.home,
+            "summary": self.summary
         }
 
     @property
@@ -98,7 +97,7 @@ class JobxPlatform(ORMBase):
         return {
             "id": self.id,
             "name": self.name,
-            "home_url": self.home_url,
+            "home": self.home,
             "summary": self.summary,
             "body": self.body,
             "body_markup": self.body_markup,
@@ -302,11 +301,12 @@ class JobxJob(ORMBase):
     def iview_public(self):
         return {
             'id': self.id,
-            'platform': self.platform.name,
+            'platform': self.platform.isimple,
             'title': self.title,
             'abstract': self.abstract,
             'body': self.body,
             'body_markup': self.body_markup,
+            'logo': self.logo if self.logo else settings.DEFAULT_JOB_LOGO,
             'price': self.price,
             'city': [x.name for x in self.city],
             'category': [x.name for x in self.category],
