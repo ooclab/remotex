@@ -288,23 +288,19 @@ responses:
 
 parameters:
 
-  qOrder:
-    name: order
-    in: query
-    type: string
-    default: id
-    description: 指定一个字段来排序, 默认是 id 或 created
   qAsc:
     name: asc
     in: query
     type: string
     enum: ["1", "true"]
     description: 指定排序为 asc (升序)，默认按 desc (降序)
+
   qPageSize:
     name: page_size
     in: query
     type: integer
     description: 指定查询的列表/页的数目
+
   qCurrentPage:
     name: current_page
     in: query
