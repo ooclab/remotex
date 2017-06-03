@@ -21,7 +21,7 @@ info:
     ## 约定
 
     - 命名中英文无论单复数尽量统一用单数形式
-    - RFC3339 UTC 示例： `2017-05-30T01:45:39.871980Z`
+    - 表示时间的字符串如无特别说明，统一指 RFC3339 UTC 格式，示例： 2017-05-30T01:45:39.871980Z
 
   contact:
     name: 好风
@@ -160,10 +160,10 @@ parameters:
             description: 技能
         release_date:
           type: string
-          description: 发布日期(RFC3339 UTC字符串)
+          description: 发布日期
         expire_date:
           type: string
-          description: 失效日期(RFC3339 UTC字符串)
+          description: 失效日期
         ext_data:
           type: object
           description: 扩展属性数据（不同平台有各自特有的属性）

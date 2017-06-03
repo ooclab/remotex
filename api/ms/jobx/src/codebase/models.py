@@ -16,6 +16,7 @@ from sqlalchemy.orm import relationship
 
 from eva.sqlalchemy.orm import ORMBase, get_db
 from eva.utils.time_ import utc_rfc3339_string
+from eva.conf import settings
 
 from codebase.utils import get_abstract, get_markup_value
 
@@ -57,7 +58,7 @@ class JobxPlatform(ORMBase):
     id = Column(Integer, Sequence('jobx_platform_id_seq'), primary_key=True)
 
     name = Column(String(64), nullable=False, unique=True)
-    home_url = Column(String(64))  # 首页地址
+    home = Column(String(64))  # 首页地址
     summary = Column(String(1024))
     body = Column(Text)
     body_markup = Column(Integer, default=1)
@@ -87,9 +88,8 @@ class JobxPlatform(ORMBase):
         return {
             "id": self.id,
             "name": self.name,
-            "home_url": self.home_url,
-            "summary": self.summary,
-            "last_sync": utc_rfc3339_string(self.last_sync)
+            "home": self.home,
+            "summary": self.summary
         }
 
     @property
@@ -97,7 +97,7 @@ class JobxPlatform(ORMBase):
         return {
             "id": self.id,
             "name": self.name,
-            "home_url": self.home_url,
+            "home": self.home,
             "summary": self.summary,
             "body": self.body,
             "body_markup": self.body_markup,
@@ -226,6 +226,8 @@ class JobxJob(ORMBase):
     url = Column(String(1024), nullable=False)
     # Source ID, 唯一性校验值
     sid = Column(String(128), nullable=False)
+    # Logo 通过大数据分析，获取主题相关的 Logo
+    logo = Column(String(256))
 
     # TODO: 不用的币制
     price = Column(Integer, default=0)
@@ -247,8 +249,8 @@ class JobxJob(ORMBase):
         secondary=jobx_job__skill, backref='job'
     )
 
-    status = Column(Integer, default=0)
-    platform_status = Column(String(64))  # 来源平台内部状态
+    inner_status = Column(Integer, default=0)
+    status = Column(String(64))  # 来源平台内部状态
 
     ext_data = Column(JSON)  # 扩展属性，平台相关
 
@@ -280,35 +282,37 @@ class JobxJob(ORMBase):
             'id': self.id,
             'platform': self.platform.name,
             'title': self.title,
+            'logo': self.logo if self.logo else settings.DEFAULT_JOB_LOGO,
             'abstract': self.abstract,
             'price': self.price,
             'city': [x.name for x in self.city],
             'status': self.status,
-            'platform_status': self.platform_status,
             'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,
             'vote_down': self.vote_down,
             'release_date': utc_rfc3339_string(self.release_date),
             'expire_date': utc_rfc3339_string(self.expire_date),
+            'updated': utc_rfc3339_string(self.updated),
+            'created': utc_rfc3339_string(self.created),
         }
 
     @property
     def iview_public(self):
         return {
             'id': self.id,
-            'platform': self.platform.name,
+            'platform': self.platform.isimple,
             'title': self.title,
             'abstract': self.abstract,
             'body': self.body,
             'body_markup': self.body_markup,
+            'logo': self.logo if self.logo else settings.DEFAULT_JOB_LOGO,
             'price': self.price,
             'city': [x.name for x in self.city],
             'category': [x.name for x in self.category],
             'role': [x.name for x in self.role],
             'skill': [x.name for x in self.skill],
             'status': self.status,
-            'platform_status': self.platform_status,
             'ext_data': self.ext_data,
             'view_count': self.view_count,
             'vote_up': self.vote_up,

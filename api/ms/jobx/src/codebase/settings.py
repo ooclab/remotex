@@ -16,3 +16,8 @@ ELATICSEARCH_HOST = "elasticsearch"
 ELATICSEARCH_PORT = 9200
 
 ABSTRACT_MAX = 128
+
+# 分页
+PAGE_SIZE = 12
+
+DEFAULT_JOB_LOGO = "https://img.ooclab.com/remotex/cleancode.png"

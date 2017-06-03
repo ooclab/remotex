@@ -35,4 +35,3 @@ services:
         volumes:
             - "./elastic/plugins:/usr/share/elasticsearch/plugins"
             - "/data/product/remotex/elastic:/usr/share/elasticsearch/data"
-

@@ -40,7 +40,7 @@ paths:
       summary: 获取 Job 列表
       description: 返回 Job 列表
       parameters:
-        - name: order
+        - name: order_by
           in: query
           type: string
           enum: ["created", "updated", "release_date", "expire_date", "price", "status", "view_count"]
@@ -63,6 +63,7 @@ paths:
               total:
                 type: integer
                 format: int
+                description: 查询到的 Job 总数
               filter:
                 $ref: '#/definitions/Filter'
               data:
@@ -110,24 +111,34 @@ definitions:
     properties:
       current_page:
         type: integer
+        description: 当前页
       page_size:
         type: integer
-      order:
+        description: 分页大小
+      order_by:
         type: string
+        description: 排序字段
       asc:
         type: string
-        default: "false"
+        description: 是否为正序排列
         enum: ["true", "false"]
 
   JobListItem:
     type: object
     properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
         platform:
           type: string
+          description: Job 来源平台
         title:
           type: string
+          description: Job 标题
         abstract:
           type: string
+          description: Job 概述
         logo:
           type: string
           description: 可以表示 Job 主题的图片(数据分析得出) URL
@@ -146,6 +157,15 @@ definitions:
         view_count:
           type: string
           description: 查看数
+        vote_up:
+          type: string
+          description: 喜欢(暂时无)
+        vote_down:
+          type: string
+          description: 不喜欢(暂时无)
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
         release_date:
           type: string
           description: 发布时间
@@ -162,6 +182,10 @@ definitions:
   JobViewItem:
     type: object
     properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
         platform:
           type: object
           properties:
@@ -169,12 +193,9 @@ definitions:
               type: integer
             name:
               type: string
-            home_url:
+            home:
               type: string
               description: 平台首页
-            last_sync:
-              type: string
-              description: 最近同步时间
         title:
           type: string
         abstract:
@@ -184,6 +205,9 @@ definitions:
         body_markup:
           type: string
           format: int
+        logo:
+          type: string
+          description: 可以表示 Job 主题的图片(数据分析得出) URL
         city:
           type: array
           items:
@@ -234,6 +258,9 @@ definitions:
           items:
             type: string
             description: 技能
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
 
 
 responses:
@@ -261,23 +288,19 @@ responses:
 
 parameters:
 
-  qOrder:
-    name: order
-    in: query
-    type: string
-    default: id
-    description: 指定一个字段来排序, 默认是 id 或 created
   qAsc:
     name: asc
     in: query
     type: string
     enum: ["1", "true"]
     description: 指定排序为 asc (升序)，默认按 desc (降序)
+
   qPageSize:
     name: page_size
     in: query
     type: integer
     description: 指定查询的列表/页的数目
+
   qCurrentPage:
     name: current_page
     in: query
