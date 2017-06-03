@@ -132,10 +132,13 @@ definitions:
           description: Job ID
         platform:
           type: string
+          description: Job 来源平台
         title:
           type: string
+          description: Job 标题
         abstract:
           type: string
+          description: Job 概述
         logo:
           type: string
           description: 可以表示 Job 主题的图片(数据分析得出) URL
@@ -154,6 +157,12 @@ definitions:
         view_count:
           type: string
           description: 查看数
+        vote_up:
+          type: string
+          description: 喜欢(暂时无)
+        vote_down:
+          type: string
+          description: 不喜欢(暂时无)
         ext_data:
           type: object
           description: 平台相关的扩展属性

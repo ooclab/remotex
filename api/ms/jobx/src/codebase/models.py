@@ -16,6 +16,7 @@ from sqlalchemy.orm import relationship
 
 from eva.sqlalchemy.orm import ORMBase, get_db
 from eva.utils.time_ import utc_rfc3339_string
+from eva.conf import settings
 
 from codebase.utils import get_abstract, get_markup_value
 
@@ -226,6 +227,8 @@ class JobxJob(ORMBase):
     url = Column(String(1024), nullable=False)
     # Source ID, 唯一性校验值
     sid = Column(String(128), nullable=False)
+    # Logo 通过大数据分析，获取主题相关的 Logo
+    logo = Column(String(256))
 
     # TODO: 不用的币制
     price = Column(Integer, default=0)
@@ -280,6 +283,7 @@ class JobxJob(ORMBase):
             'id': self.id,
             'platform': self.platform.name,
             'title': self.title,
+            'logo': self.logo if self.logo else settings.DEFAULT_JOB_LOGO,
             'abstract': self.abstract,
             'price': self.price,
             'city': [x.name for x in self.city],

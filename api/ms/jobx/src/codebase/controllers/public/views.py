@@ -9,18 +9,9 @@ from sqlalchemy.orm.exc import (
 
 from eva.web import APIRequestHandler
 from eva.exceptions import EvaError
-from eva.sqlalchemy.list import get_limit_objects, get_filters
 from eva.conf import settings
 
 from codebase.models import JobxJob
-
-
-def public_list_objects(handler, model, q):
-    filters = get_filters(handler, sort_by="release_date")
-    q = get_limit_objects(handler, model, q, filters)
-    total = q.count()
-
-    return
 
 
 class JobHandler(APIRequestHandler):
