@@ -3,7 +3,7 @@
 
 ## 架构设计
 
-![](./design/remotex-arch.png)
+![](./design/remotex-arch-ms.png)
 
 
 ## API
