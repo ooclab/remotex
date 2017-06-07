@@ -1,0 +1,316 @@
+swagger: '2.0'
+info:
+  version: '2'
+  title: 'RemoteX Public API'
+  description: |
+    这是 RemoteX 的 Public API 文档。
+
+    调用 URL 规则为 `https://remotex.ooclab.org/api/v2/{微服务名}{路径}`
+
+    比如：
+
+    - `微服务名` 为 `jobx`
+    - `路径` 为 `/job`
+
+    则调用 URL 为 `https://remotex.ooclab.org/api/v2/jobx/job`
+
+    ## 约定
+
+    - 命名中英文无论单复数尽量统一用单数形式
+    - 表示时间的字符串如无特别说明，统一指 RFC3339 UTC 格式，示例： `2017-05-30T01:45:39.871980Z`
+
+  contact:
+    name: 好风
+    email: lijian.gnu@gmail.com
+host: virtserver.swaggerhub.com
+schemes:
+ - https
+
+tags:
+  - name: jobx
+    description: 微服务 Jobx 的接口文档
+
+paths:
+
+  "/job":
+
+    get:
+      tags:
+        - jobx
+      summary: 获取 Job 列表
+      description: 返回 Job 列表
+      parameters:
+        - name: sb
+          in: query
+          type: string
+          enum: ["created", "updated", "release_date", "expire_date", "price", "status", "view_count"]
+          default: created
+          description: Sort By, 指定一个字段来排序, 默认是 created , 支持 updated, release_date, expire_date, price, status, view_count
+        - $ref: '#/parameters/qSortDirection'
+        - $ref: '#/parameters/qPageSize'
+        - $ref: '#/parameters/qCurrentPage'
+        - name: days
+          in: query
+          type: integer
+          default: 90
+          description: 查询发布时间为最近多少天的 Job 信息(默认90天)
+      responses:
+        200:
+          description: 正确, 返回 Job 列表数据
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int
+                description: 查询到的 Job 总数
+              filter:
+                $ref: '#/definitions/Filter'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/JobListItem'
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+  "/job/{ID}":
+
+    get:
+      tags:
+        - jobx
+      summary: 获取指定Job的详情
+      parameters:
+        - $ref: '#/parameters/ID'
+      responses:
+        200:
+          description: 正确, 返回 Job 详情
+          schema:
+            $ref: '#/definitions/JobViewItem'
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+  "/job/{ID}/url":
+
+    get:
+      tags:
+        - jobx
+      summary: 跳转到指定ID的 Job 来源地址
+      parameters:
+        - $ref: '#/parameters/ID'
+      responses:
+        302:
+          description: 正确, 跳转到来源地址
+        default:
+          $ref: '#/responses/DefaultErrorResponse'
+
+
+definitions:
+
+  Filter:
+    type: object
+    properties:
+      current_page:
+        type: integer
+        description: 当前页
+      page_size:
+        type: integer
+        description: 分页大小
+      sb:
+        type: string
+        description: Sort By, 排序字段
+      sd:
+        type: string
+        description: Sort Direction, 顺序/降序排列
+        enum: ["asc", "desc"]
+
+  JobListItem:
+    type: object
+    properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
+        platform:
+          type: string
+          description: Job 来源平台
+        title:
+          type: string
+          description: Job 标题
+        abstract:
+          type: string
+          description: Job 概述
+        logo:
+          type: string
+          description: 可以表示 Job 主题的图片(数据分析得出) URL
+        city:
+          type: array
+          items:
+            type: string
+            description: 城市
+        price:
+          type: integer
+          format: int
+          description: 价格(单位RMB, 如果有)
+        status:
+          type: string
+          description: Job 状态
+        view_count:
+          type: string
+          description: 查看数
+        vote_up:
+          type: string
+          description: 喜欢(暂时无)
+        vote_down:
+          type: string
+          description: 不喜欢(暂时无)
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
+        release_date:
+          type: string
+          description: 发布时间
+        expire_date:
+          type: string
+          description: 过期时间
+        created:
+          type: string
+          description: 创建时间(即入库时间)
+        updated:
+          type: string
+          description: 更新时间
+
+  JobViewItem:
+    type: object
+    properties:
+        id:
+          type: integer
+          format: int
+          description: Job ID
+        platform:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            home:
+              type: string
+              description: 平台首页
+        title:
+          type: string
+        abstract:
+          type: string
+        body:
+          type: string
+        body_markup:
+          type: string
+          format: int
+        logo:
+          type: string
+          description: 可以表示 Job 主题的图片(数据分析得出) URL
+        city:
+          type: array
+          items:
+            type: string
+            description: 城市
+        price:
+          type: integer
+          format: int
+          description: 价格(单位RMB, 如果有)
+        status:
+          type: string
+          description: 状态
+        release_date:
+          type: string
+          description: 发布时间
+        expire_date:
+          type: string
+          description: 过期时间
+        created:
+          type: string
+          description: 创建时间,即入库时间
+        updated:
+          type: string
+          description: 更新时间
+        view_count:
+          type: string
+          description: 查看数
+        vote_up:
+          type: integer
+          format: int
+          description: 支持数
+        vote_down:
+          type: integer
+          format: int
+          description: 反对数
+        category:
+          type: array
+          items:
+            type: string
+            description: 分类
+        role:
+          type: array
+          items:
+            type: string
+            description: 角色
+        skill:
+          type: array
+          items:
+            type: string
+            description: 技能
+        ext_data:
+          type: object
+          description: 平台相关的扩展属性
+
+
+responses:
+
+  DefaultErrorResponse:
+    description: 返回错误信息
+    schema:
+      type: "object"
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: 错误字符串
+        data:
+          type: object
+          properties:
+            status_code:
+              type: integer
+              format: int
+              description: 错误码
+            exc_info:
+              type: string
+              description: 详细错误信息
+
+parameters:
+
+  qSortDirection:
+    name: sd
+    in: query
+    type: string
+    enum: ["asc", "desc"]
+    default: desc
+    description: Sort Direction, 指定排序为 asc (升序)，默认按 desc (降序)
+
+  qPageSize:
+    name: page_size
+    in: query
+    type: integer
+    description: 指定查询的列表/页的数目
+
+  qCurrentPage:
+    name: current_page
+    in: query
+    type: integer
+    description: 指定查询的页数(当前页)
+
+  ID:
+    name: ID
+    in: path
+    type: string
+    description: 该对象的ID
+    required: true
