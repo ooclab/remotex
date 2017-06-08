@@ -25,16 +25,11 @@
 
 ### Data Mining
 
-**注意** 此代码已经移动到 gitlab , 任何问题，请联系该项目负责人
-
 - [如何开始参与](https://gitlab.com/ooclab/remotex/spider/start)
 
 ### API
 
-**注意** 此代码已经移动到 gitlab , 任何问题，请联系该项目负责人
-
 微服务架构，不限制开发语言、框架。目前使用 Python3 Tornado 开发。
-联系我们参与。
 
 ## 参与我们
 
@@ -44,13 +39,7 @@
 
 - QQ: RemoteX 633498747
 - 微信: lijian_gnu (手动拉入微信群)
-- Slack: https://remotex.slack.com
-
-### 项目管理
-
-- basecamp (需邀请)
-- github (就是这里)
-- gitlab (需邀请)
+- Slack: https://remotex.slack.com 加入协作 [![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
 
 
 ## 联系我们
