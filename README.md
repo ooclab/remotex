@@ -1,12 +1,12 @@
 # RemoteX
 
-- [RemoteX 缘起](origin.md)
+- [RemoteX 缘起](OLD/origin.md)
 - [RemoteX 首页](https://remotex.ooclab.org)
 
 
 ## 文档
 
-- [RemoteX 文档](./docs)
+- [RemoteX 文档](docs)
 
 
 ## Team
