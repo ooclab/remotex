@@ -42,7 +42,7 @@
 自由讨论远程、兼职、外包、众包等话题，聚集地有：
 
 - QQ: RemoteX 633498747
-- 微信: lijian_gnu (手动拉入微信群)
+- 微信: lijian_gnu / Ec372643657 / yiping_luoyp (随意选择一位加为好友，手动拉入微信群)
 - Slack: https://remotex.slack.com 加入协作 [![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
 
 
