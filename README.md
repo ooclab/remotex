@@ -3,6 +3,12 @@
 - [RemoteX 缘起](OLD/origin.md)
 - [RemoteX 首页](https://remotex.ooclab.org)
 
+## RemoteX 需求包
+
+我们提供免费的代发需求包服务
+
+- [众包需求](jobs/zb.md)
+
 
 ## 文档
 
