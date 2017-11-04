@@ -7,8 +7,6 @@ RemoteX 缘起于 @gwind (好风) 在一早一晚上发表了 - [倡议：开发
 
 然后 remotex 就开始了
 
-加入协作 [![slack_logo](docs/imgs/slack_logo.png)](http://t.cn/RXxTqF0)
-
 - [RemoteX 快乐工作 认真生活](https://remotex.ooclab.org)
 - [在线项目/进度详情](https://wp.ooclab.org/projects/remotex)
 
