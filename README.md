@@ -68,4 +68,4 @@ RemoteX 633498747
 
 - admin@ooclab.org
 
-**备注** : ooclab.org 不一定及时收到邮件，建议联系各项目负责人，或 gwind ( lijian.gnu@gmail.com / lijian@ooclab.com )
+**备注** : ooclab.org 不一定及时收到邮件，建议联系各项目负责人，或 gwind ( lijian.gnu@gmail.com )
