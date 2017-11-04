@@ -46,7 +46,7 @@ RemoteX 缘起于 @gwind (好风) 在一早一晚上发表了 - [倡议：开发
 
 ### 联系
 
-( 隐去 ） 请移步 https://github.com/ooclab/remotex 
+（隐去） 请移步 https://github.com/ooclab/remotex 
 
 ## 参考资料
 
