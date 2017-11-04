@@ -5,10 +5,8 @@ RemoteX 缘起于 @gwind (好风) 在一早一晚上发表了 - [倡议：开发
 - v2mm - [项目招募志愿者，远程工作空间 remotex](https://v2mm.tech/topic/591/%E9%A1%B9%E7%9B%AE%E6%8B%9B%E5%8B%9F%E5%BF%97%E6%84%BF%E8%80%85-%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4-remotex)
 - v2ex - [倡议：开发远程/众包/外包信息聚合平台，非盈利组织运作](https://www.v2ex.com/t/355577)
 
-然后 remotex 就开始了
+然后 RemoteX 就开始了。
 
-- [RemoteX 快乐工作 认真生活](https://remotex.ooclab.org)
-- [在线项目/进度详情](https://wp.ooclab.org/projects/remotex)
 
 ------
 
