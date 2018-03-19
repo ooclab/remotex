@@ -1,50 +1,35 @@
 # RemoteX
 
-- [RemoteX 缘起](OLD/origin.md)
-- [RemoteX 首页](https://remotex.ooclab.org)
+[RemoteX 首页](https://remotex.ooclab.org) *_正在升级，敬请期待_*
 
+**网站升级期间** 请
 
-## RemoteX 需求包
+1. **沟通** 请到 RemoteX 微信群
+2. **发包** 请到 RemoteX 微信群或给我们提 pr
 
-我们提供免费的代发需求包服务
+## [众包](zb/index.md) (发包/接包，需求列表）
+## [计划](plan/index.md)
+## [故事](story/index.md)
 
-- [众包需求](jobs/zb.md)
+## 联系我们
 
+### 微信群
 
-## 相关项目
-
-| 项目 | 地址 |
-|-------|-----|
-| Web | https://github.com/ooclab/remotex-bff |
-| iOS | https://github.com/ooclab/remotex-iOS |
-| Android | https://github.com/ooclab/remotex-android |
-
-
-## 参与我们
-
-### RemoteX 社群
-
-自由讨论远程、兼职、外包、众包等话题，聚集地有：
-
-#### 微信群
-
-任选一位好友，请拉入群
+当前170+人，受微信群限制，必须加好友才能拉入群（以下任意）：
 
 | 昵称 | 微信号 |
 |-------|-----|
 | OOCLAB众包 | ooclabcs |
+| 好风 | lijian_gnu |
 | 在路上 | Ec372643657 |
 | Jack | yiping_luoyp |
 
-#### QQ群
+### QQ群
 
 RemoteX 633498747
 
-
-## 联系我们
-
 ### 邮件
 
-- admin@ooclab.org
-
-**备注** : ooclab.org 不一定及时收到邮件，建议联系各项目负责人，或 gwind ( lijian.gnu@gmail.com )
+| 昵称 | 邮件 |
+|-----|------|
+| 好风 | lijian.gnu@gmail.com |
