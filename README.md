@@ -2,14 +2,14 @@
 
 [RemoteX 首页](https://remotex.ooclab.org) *_正在升级，敬请期待_*
 
-**网站升级期间** 请
+## 网站升级期间
 
 1. **沟通** 请到 RemoteX 微信群
 2. **发包** 请到 RemoteX 微信群或给我们提 pr
 
-## [众包](zb/index.md) (发包/接包，需求列表）
-## [计划](plan/index.md)
-## [故事](story/index.md)
+### [众包](zb/index.md) (发包/接包，需求列表）
+### [计划](plan/index.md)
+### [故事](story/index.md)
 
 ## 联系我们
 
