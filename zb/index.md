@@ -8,8 +8,8 @@
 
 | ID | 名称 | 发包日期 | 状态 |
 |----|------|---------|-------|
-| 10005 | [【OOCLAB】远程Linux/云计算技术支持工程师](https://github.com/ooclab/docs/blob/master/jobs/linux-engineer.md) | 2018.4.4 | 进行中 |
-| 10005 | [【OOCLAB】众包项目经理](https://github.com/ooclab/docs/blob/master/jobs/102-02/project-manager.md) | 2018.3.28 | 已完成 |
+| 10007 | [【OOCLAB】远程Linux/云计算技术支持工程师](https://github.com/ooclab/docs/blob/master/jobs/linux-engineer.md) | 2018.4.4 | 基本完成 |
+| 10006 | [【OOCLAB】众包项目经理](https://github.com/ooclab/docs/blob/master/jobs/102-02/project-manager.md) | 2018.3.28 | 已完成 |
 | 10005 | [【OOCLAB】后端微服务开发](https://github.com/ooclab/docs/blob/master/jobs/102-02/backend-microservices.md) | 2018.3.23 | 已完成 |
 | 10004 | [【OOCLAB】MVC(SSR) 前端项目开发](https://github.com/ooclab/docs/blob/master/jobs/102-02/frontend-ssr.md) | 2018.3.19 | 基本完成 |
 | 10003 | [【小白健康】读后台代码](https://shimo.im/doc/9FDVsDfqyvIZH7S0?r=LJZED) | 2017.9.26 | 进行中 |
