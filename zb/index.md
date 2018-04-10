@@ -8,7 +8,8 @@
 
 | ID | 名称 | 发包日期 | 状态 |
 |----|------|---------|-------|
-| 10007 | [【OOCLAB】 Kubernetes 技术支持](https://github.com/ooclab/docs/blob/master/jobs/k8s-support.md) | 2018.4.9 | 进行中 |
+| 10007 | [【OOCLAB】Excel/PDF 导入导出微服务开发](https://github.com/ooclab/docs/blob/master/jobs/102-02/ms-excel-pdf.md) | 2018.4.10 | 进行中 |
+| 10007 | [【OOCLAB】Kubernetes 技术支持](https://github.com/ooclab/docs/blob/master/jobs/k8s-support.md) | 2018.4.9 | 进行中 |
 | 10007 | [【OOCLAB】远程Linux/云计算技术支持工程师](https://github.com/ooclab/docs/blob/master/jobs/linux-engineer.md) | 2018.4.4 | 基本完成 |
 | 10006 | [【OOCLAB】众包项目经理](https://github.com/ooclab/docs/blob/master/jobs/102-02/project-manager.md) | 2018.3.28 | 已完成 |
 | 10005 | [【OOCLAB】后端微服务开发](https://github.com/ooclab/docs/blob/master/jobs/102-02/backend-microservices.md) | 2018.3.23 | 已完成 |
