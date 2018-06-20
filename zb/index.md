@@ -8,10 +8,11 @@
 
 | ID | 名称 | 发包日期 | 状态 |
 |----|------|---------|-------|
-| 10015 | [游戏后端开发工程师【可远程】](https://github.com/ooclab/docs/blob/master/jobs/game-dev.md) | 2018.5.29 | 招募中 |
+| 10016 | [`C1` 前端 Bug 修复支持](https://github.com/ooclab/docs/blob/master/jobs/C1.md) | 2018.6.20 | 进行中 |
+| 10015 | [游戏后端开发工程师【可远程】](https://github.com/ooclab/docs/blob/master/jobs/game-dev.md) | 2018.5.29 | 进行中 |
 | 10014 | [【OOCLAB】基于leaflet的可视化前端开发](https://github.com/ooclab/docs/blob/master/jobs/047/leaflet-data-v.md) | 2018.5.10 | 已完成 |
-| 10013 | [【OOCLAB】前端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/frontend-qa.md) | 2018.5.9 | 进行中 |
-| 10012 | [【OOCLAB】后端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/backend-qa.md) | 2018.5.9 | 进行中 |
+| 10013 | [【OOCLAB】前端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/frontend-qa.md) | 2018.5.9 | 已完成 |
+| 10012 | [【OOCLAB】后端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/backend-qa.md) | 2018.5.9 | 已完成 |
 | 10011 | [REMOTEX 用户前端项目开发](https://github.com/ooclab/docs/blob/master/jobs/103/user-frontend-remotex.md) | 2018.5.6 | 已完成 |
 | 10010 | [REMOTEX 前端项目开发](https://github.com/ooclab/docs/blob/master/jobs/103/frontend-remotex.md) | 2018.4.16 | 已完成 |
 | 10009 | [【OOCLAB】Excel/PDF 导入导出微服务开发](https://github.com/ooclab/docs/blob/master/jobs/102-02/ms-excel-pdf.md) | 2018.4.10 | 已完成 |
