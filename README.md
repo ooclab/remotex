@@ -10,9 +10,15 @@ RemoteX 是一个聚焦远程协作的社区。
 4. **众包** : 实践新的需求解决方法论
 
 
-## 网站升级期间
+## 升级
 
-[RemoteX 首页](https://remotex.ooclab.org) *_正在升级，敬请期待_*
+RemoteX 项目开展以来，最大的成果有：
+1. RemoteX 微信群让大家可以自己沟通远程话题和机会
+2. 我们团队（OOCLAB）实践众包1年时间
+
+目前我们正在努力开发 CSWORK 项目，这也是 RemoteX 实践的升级。
+
+[CS.WORK 首页](https://cs.work) *_正在升级，敬请期待_*
 
 1. **沟通** 请到 RemoteX 微信群
 2. **发包** 请到 RemoteX 微信群或给我们提 pr
@@ -24,23 +30,24 @@ RemoteX 是一个聚焦远程协作的社区。
 
 ## 联系我们
 
+### 微信
+
+微信号： icswork
+
 ### 微信群
 
-当前170+人，受微信群限制，必须加好友才能拉入群（以下任意）：
+当前260+人，受微信群限制，必须加好友才能拉入群（以下任意）：
 
 | 昵称 | 微信号 |
 |-------|-----|
-| OOCLAB众包 | ooclabcs |
+| CSWORK | icswork |
 | 好风 | lijian_gnu |
 | 在路上 | Ec372643657 |
 | Jack | yiping_luoyp |
 
-### QQ群
-
-RemoteX 633498747
 
 ### 邮件
 
 | 昵称 | 邮件 |
 |-----|------|
-| 好风 | lijian.gnu@gmail.com |
+| 好风 | gwindfree@gmail.com |
