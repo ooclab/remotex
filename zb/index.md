@@ -8,8 +8,8 @@
 
 | ID | 名称 | 发包日期 | 状态 |
 |----|------|---------|-------|
-| 10016 | [`C1` 前端 Bug 修复支持](https://github.com/ooclab/docs/blob/master/jobs/C1.md) | 2018.6.20 | 进行中 |
-| 10015 | [游戏后端开发工程师【可远程】](https://github.com/ooclab/docs/blob/master/jobs/game-dev.md) | 2018.5.29 | 进行中 |
+| 10016 | [`C1` 前端 Bug 修复支持](https://github.com/ooclab/docs/blob/master/jobs/C1.md) | 2018.6.20 | 已完成 |
+| 10015 | [游戏后端开发工程师【可远程】](https://github.com/ooclab/docs/blob/master/jobs/game-dev.md) | 2018.5.29 | 已取消 |
 | 10014 | [【OOCLAB】基于leaflet的可视化前端开发](https://github.com/ooclab/docs/blob/master/jobs/047/leaflet-data-v.md) | 2018.5.10 | 已完成 |
 | 10013 | [【OOCLAB】前端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/frontend-qa.md) | 2018.5.9 | 已完成 |
 | 10012 | [【OOCLAB】后端测试工程师](https://github.com/ooclab/docs/blob/master/jobs/102-02/backend-qa.md) | 2018.5.9 | 已完成 |
